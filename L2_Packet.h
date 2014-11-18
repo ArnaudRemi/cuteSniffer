@@ -2,12 +2,17 @@
 #define __CUTE_L2_PACKET__
 
 #include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <netinet/in.h>
+
 #include "L3_Packet.h"
+#include "IP_Packet.h"
 
 typedef struct s_ethernet {
-    char  ether_dhost[6];    /* destination host address */
-    char  ether_shost[6];    /* source host address */
-    short ether_type;        /* IP? ARP? RARP? etc */
+    unsigned char  ether_dhost[6];    /* destination host address */
+    unsigned char  ether_shost[6];    /* source host address */
+    unsigned short ether_type;        /* IP? ARP? RARP? etc */
 } ethernet_header;
 
 class L2_Packet {

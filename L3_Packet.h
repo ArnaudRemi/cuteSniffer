@@ -1,8 +1,12 @@
 #ifndef __CUTE_L3_PACKET__
 #define __CUTE_L3_PACKET__
 
+#include <stdio.h>
+#include <string.h>
+
 // valeur hexa qui corespondent à l'enum L3_proto dans le header ethernet: voir ethertype http://en.wikipedia.org/wiki/EtherType
-#define L3_PROTO_VALUE {0x0800, 0x86DD, 0x0806, 0x8100, 0}
+#define L3_PROTO_VALUE1 {0x08, 0x86, 0x08, 0x81, 0}
+#define L3_PROTO_VALUE2 {0x00, 0xDD, 0x06, 0x00, 0}
 
 typedef enum {
     IPV4 = 0,
@@ -21,8 +25,7 @@ public:
     L3_Packet();
     virtual ~L3_Packet();
 
-    void parseData(char *data, int size);
-    void parseData();
+    bool parseData(char *data, int size);
 
 };
 

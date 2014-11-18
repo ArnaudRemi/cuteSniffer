@@ -6,6 +6,5 @@ L4_Packet::L4_Packet() {
 L4_Packet::~L4_Packet() {
 }
 
-void L4_Packet::parseData(){
-
+bool L4_Packet::parseData(char *, int) {
 }

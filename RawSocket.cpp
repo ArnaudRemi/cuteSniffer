@@ -45,6 +45,8 @@ int RawSocket::readNext(){
         return -1;
     }
 
+    std::cout << data_size << std::endl;
+
     this->readSize = data_size;
     return data_size;
 }
@@ -52,8 +54,8 @@ int RawSocket::readNext(){
 L2_Packet *RawSocket::getPacket(){
     L2_Packet *p = new L2_Packet();
 
-    p->setData(this->buffer);
-    p->setSize(this->readSize);
+    //p->setData(this->buffer);
+    //p->setSize(this->readSize);
 
-    p->parseData();
+    p->parseData(this->buffer, this->readSize);
 }

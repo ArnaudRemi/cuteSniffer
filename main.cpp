@@ -20,7 +20,7 @@ int main(int ac, char **av){
 
     RawSocket *rs = new RawSocket;
 
-    rs->goPromiscious("wlan0");
+    rs->goPromiscious("wlan3");
 
     rs->readNext();
 

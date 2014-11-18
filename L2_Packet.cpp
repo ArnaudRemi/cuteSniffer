@@ -4,50 +4,37 @@ L2_Packet::L2_Packet() {
     this->type = OTHER;
 
     this->head = new ethernet_header;
-    this->content = new L3_Packet;
+    this->content = NULL;
 }
 
 L2_Packet::~L2_Packet() {
     delete this->head;
-    delete this->content;
+    if (this->content)
+        delete this->content;
 }
 
 void L2_Packet::parseData(char *data, int size){
-    this->setData(data);
-    this->setSize(size);
-
-    this->parseData();
-}
-
-void L2_Packet::parseData(){
     int i = 0;
     int j;
-    char *tmp = (char *) this->head;
-    int proto_values[] = L3_PROTO_VALUE;
+    //char *tmp = (char *) this->head;
+    short proto_values1[] = L3_PROTO_VALUE1;
+    short proto_values2[] = L3_PROTO_VALUE2;
 
-    for (j=0;j<14;j++)
-        tmp[j] = this->data[j];
+    memcpy(this->head, data, sizeof(ethernet_header));
 
-    while (proto_values[i] != 0 && proto_values[i] != this->head->ether_type)
+    while (proto_values1[i] != 0 &&
+            proto_values1[i] != data[12] &&
+            proto_values2[i] != data[13])
         ++i;
     this->type = (L3_proto) i; // position L3_PROTO_VALUE == L3_proto
 
-
-    /*for (j=0;j<6;j++)
-        this->head->ether_dhost[j] = data[j];
-    for (j=6;j<12;j++)
-        this->head->ether_shost[j-6] = data[j];
-
-    this->head->ether_type =
-
-    if (data[12]==8 && data[13]==0)
-        p = IPV4;
-    else if (data[12]==134 && data[13]==221)
-        p = IPV6;
-    else if (data[12]==8 && data[13]==6)
-        p = ARP;*/
-
-    //en fonction du type creer un packet genre IPPACKET ou TCPPACKET ou ARPPACKET ou autre.
+    if (this->type == IPV4){
+        std::cout << "IPV4 is here!!!" << std::endl;
+        this->content = new IP_Packet();
+        ((IP_Packet *)this->content)->parseData(&(data[sizeof(ethernet_header)]), size - sizeof(ethernet_header));
+    }
+    else
+        std::cout << "not IPV4" << std::endl;
 }
 
 char *L2_Packet::getData(){

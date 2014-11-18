@@ -7,7 +7,7 @@ public:
     L4_Packet();
     virtual ~L4_Packet();
 
-    void parseData();
+    bool parseData(char *, int);
 
 };
 
