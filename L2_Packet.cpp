@@ -33,8 +33,14 @@ void L2_Packet::parseData(char *data, int size){
         this->content = new IP_Packet();
         ((IP_Packet *)this->content)->parseData(&(data[sizeof(ethernet_header)]), size - sizeof(ethernet_header));
     }
+    else if (this->type == ARP){
+        std::cout << "ARP yeah yeah" << std::endl;
+        this->content = new ARP_Packet();
+        ((ARP_Packet *)this->content)->parseData(&(data[sizeof(ethernet_header)]), size - sizeof(ethernet_header));
+
+    }
     else
-        std::cout << "not IPV4" << std::endl;
+        std::cout << "not IPV4 or ARP" << std::endl;
 }
 
 char *L2_Packet::getData(){
