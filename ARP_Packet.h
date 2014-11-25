@@ -20,13 +20,13 @@ typedef struct s_arp {
 
 class ARP_Packet : public L3_Packet{
 
-    arp_packet head;
+    arp_packet *head;
 
 public:
     ARP_Packet();
     ~ARP_Packet();
 
-    bool parse_data(char *data, int size);
+    bool parseData(char *data, int size);
 };
 
 #endif

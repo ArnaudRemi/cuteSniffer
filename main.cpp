@@ -20,10 +20,13 @@ int main(int ac, char **av){
 
     RawSocket *rs = new RawSocket;
 
+    //listen all packets, ignore MAC filtering
     rs->goPromiscious("wlan3");
 
+    //read on raw socket the next packet
     rs->readNext();
 
+    //parse data and build protocols Packets
     rs->getPacket();
 
 }
