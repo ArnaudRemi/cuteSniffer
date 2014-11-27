@@ -1,6 +1,9 @@
 #ifndef __CUTE_ICMP_PACKET__
 #define __CUTE_ICMP_PACKET__
 
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
 #include "IP_Packet.h"
 
 typedef struct s_icmp

@@ -1,6 +1,10 @@
 #ifndef __CUTE_UDP_PACKET__
 #define __CUTE_UDP_PACKET__
 
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+
 typedef struct s_udp {
     unsigned short udph_srcport;
     unsigned short udph_destport;

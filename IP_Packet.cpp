@@ -34,8 +34,19 @@ bool IP_Packet::parseData(char *data, int size) {
     std::cout << "parse IP OK!" << std::endl;
 
     if (this->head->ip_p == IPPROTO_TCP){
+        std::cout << "TCP packet" << std::endl;
         this->content = new TCP_Packet;
         ((TCP_Packet *)this->content)->parseData(&(data[finalsize]), size-finalsize);
+    }
+    if (this->head->ip_p == IPPROTO_UDP){
+        std::cout << "UDP packet" << std::endl;
+        this->content = new UDP_Packet;
+        ((UDP_Packet *)this->content)->parseData(&(data[finalsize]), size-finalsize);
+    }
+    if (this->head->ip_p == IPPROTO_ICMP){
+        std::cout << "ICMP packet" << std::endl;
+        this->content = new ICMP_Packet;
+        ((ICMP_Packet *)this->content)->parseData(&(data[finalsize]), size-finalsize);
     }
     //IPPROTO_UDP IPPROTO_ICMP IPPROTO_IP
 

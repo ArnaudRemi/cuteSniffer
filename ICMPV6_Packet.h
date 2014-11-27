@@ -1,6 +1,11 @@
 #ifndef __CUTE_ICMPV6_PACKET__
 #define __CUTE_ICMPV6_PACKET__
 
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+
+
 typedef struct s_icmpv6 {
     unsigned char type;
     unsigned char code;

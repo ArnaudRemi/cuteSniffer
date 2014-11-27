@@ -1,6 +1,9 @@
 #ifndef __CUTE_IPV6_PACKET__
 #define __CUTE_IPV6_PACKET__
 
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
 #include "L3_Packet.h"
 
 typedef struct s_ipv6 {

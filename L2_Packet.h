@@ -9,6 +9,7 @@
 #include "L3_Packet.h"
 #include "IP_Packet.h"
 #include "ARP_Packet.h"
+#include "IPV6_Packet.h"
 
 typedef struct s_ethernet {
     unsigned char  ether_dhost[6];    /* destination host address */
