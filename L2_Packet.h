@@ -5,7 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <netinet/in.h>
-
+//#include <net/ethernet.h>  //For ether_header
+#include <netinet/if_ether.h>
 #include "L3_Packet.h"
 #include "IP_Packet.h"
 #include "ARP_Packet.h"

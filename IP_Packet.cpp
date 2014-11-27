@@ -21,14 +21,14 @@ bool IP_Packet::parseData(char *data, int size) {
 
     memcpy(this->head, data, sizeof(ip_header));
 
-    finalsize = IP_HL(this->head)*4;
+    finalsize = IP_HL(this->head) * 4;
     if (finalsize < 20) {
         std::cout << "invalid IP header" << std::endl;
         return false;
     }
     else if (finalsize > 20){
         std::cout << "IP header with options" << std::endl;
-//        memcpy(this->head, data, finalsize);
+        memcpy(this->head, data, finalsize);
     }
 
     std::cout << "parse IP OK!" << std::endl;
@@ -38,16 +38,18 @@ bool IP_Packet::parseData(char *data, int size) {
         this->content = new TCP_Packet;
         ((TCP_Packet *)this->content)->parseData(&(data[finalsize]), size-finalsize);
     }
-    if (this->head->ip_p == IPPROTO_UDP){
+    else if (this->head->ip_p == IPPROTO_UDP){
         std::cout << "UDP packet" << std::endl;
         this->content = new UDP_Packet;
         ((UDP_Packet *)this->content)->parseData(&(data[finalsize]), size-finalsize);
     }
-    if (this->head->ip_p == IPPROTO_ICMP){
+    else if (this->head->ip_p == IPPROTO_ICMP){
         std::cout << "ICMP packet" << std::endl;
         this->content = new ICMP_Packet;
         ((ICMP_Packet *)this->content)->parseData(&(data[finalsize]), size-finalsize);
     }
+    else
+        std::cout << "other packet type" << std::endl;
     //IPPROTO_UDP IPPROTO_ICMP IPPROTO_IP
 
     return true;

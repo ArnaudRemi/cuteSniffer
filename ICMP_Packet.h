@@ -8,21 +8,21 @@
 
 typedef struct s_icmp
 {
-    u_int8_t type;		/* message type */
-    u_int8_t code;		/* type sub-code */
-    u_int16_t checksum;
+    unsigned char type;		/* message type */
+    unsigned char code;		/* type sub-code */
+    unsigned short checksum;
     union
     {
         struct
         {
-            u_int16_t	id;
-            u_int16_t	sequence;
+            unsigned short	id;
+            unsigned short	sequence;
         } echo;			/* echo datagram */
-        u_int32_t	gateway;	/* gateway address */
+        unsigned int	gateway;	/* gateway address */
         struct
         {
-            u_int16_t	__unused;
-            u_int16_t	mtu;
+            unsigned short	__unused;
+            unsigned short	mtu;
         } frag;			/* path mtu discovery */
     } un;
 } icmp_header;

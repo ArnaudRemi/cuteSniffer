@@ -5,8 +5,10 @@
 #include <string.h>
 
 // valeur hexa qui corespondent à l'enum L3_proto dans le header ethernet: voir ethertype http://en.wikipedia.org/wiki/EtherType
-#define L3_PROTO_VALUE1 {0x08, 0x86, 0x08, 0x81, 0}
-#define L3_PROTO_VALUE2 {0x00, 0xDD, 0x06, 0x00, 0}
+#define L3_PROTO_VALUE1 {8, 134, 8, 129, 0}
+#define L3_PROTO_VALUE2 {0, 221, 6, 0, 0}
+
+
 
 typedef enum {
     IPV4 = 0,
