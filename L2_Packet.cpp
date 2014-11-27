@@ -18,24 +18,12 @@ void L2_Packet::parseData(char *data, int size){
     int i = 0;
     int j;
 
-    char proto_values1[] = L3_PROTO_VALUE1;
-    char proto_values2[] = L3_PROTO_VALUE2;
+    //Ether type is reversed... dafuuu?!
+    char tmp12 = data[12];
+    data[12] = data[13];
+    data[13] = tmp12;
 
     memcpy(this->head, data, sizeof(ethernet_header));
-
-    std::cout <<static_cast<int>(data[12]) << " " << static_cast<int>(data[13]) << std::endl;
-
-/*    while (proto_values1[i] != 0 &&
-            static_cast<int>(proto_values1[i]) != static_cast<int>(data[12]) &&
-            static_cast<int>(proto_values2[i]) != static_cast<int>(data[13])) {
-        std::cout << static_cast<int>(proto_values1[i]) << " " << static_cast<int>(proto_values2[i]) << std::endl;
-        ++i;
-    }
-    std::cout << static_cast<int>(proto_values1[i]) << " " << static_cast<int>(proto_values2[i]) << std::endl;
-    this->type = (L3_proto) i; // position L3_PROTO_VALUE == L3_proto*/
-
-//    if (this->type == IPV4){
-    std::cout << static_cast<unsigned short>(this->head->ether_type) << " : " << ETH_P_IP << " " << ETH_P_ARP << " " << ETH_P_IPV6 << std::endl;
 
     if (this->head->ether_type == ETH_P_IP){
         std::cout << "IPV4 is here!!!" << std::endl;
