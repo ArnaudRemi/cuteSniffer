@@ -4,7 +4,7 @@ ICMP_Packet::ICMP_Packet(){
     this->head = new icmp_header;
 }
 
-~ICMP_Packet::ICMP_Packet(){
+ICMP_Packet::~ICMP_Packet(){
     delete this->head;
 }
 

@@ -23,7 +23,7 @@ typedef struct s_arp {
 
 class ARP_Packet : public L3_Packet{
 
-    arp_packet *head;
+    arp_header *head;
 
 public:
     ARP_Packet();

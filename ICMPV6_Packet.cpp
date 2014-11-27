@@ -1,10 +1,10 @@
-#include "ICMPV6_Packet.h3"
+#include "ICMPV6_Packet.h"
 
 ICMPV6_Packet::ICMPV6_Packet(){
     this->head = new icmpv6_header;
 }
 
-~ICMPV6_Packet::ICMPV6_Packet(){
+ICMPV6_Packet::~ICMPV6_Packet(){
     delete this->head;
 }
 

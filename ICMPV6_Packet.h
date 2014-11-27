@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
-
+#include "L4_Packet.h"
 
 typedef struct s_icmpv6 {
     unsigned char type;
@@ -12,7 +12,7 @@ typedef struct s_icmpv6 {
     unsigned short checksum;
 }icmpv6_header;
 
-class ICMPV6 : public L4_Packet {
+class ICMPV6_Packet : public L4_Packet {
 
     icmpv6_header *head;
 

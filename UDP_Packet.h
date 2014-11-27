@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include "L4_Packet.h"
+
 
 typedef struct s_udp {
     unsigned short udph_srcport;
@@ -12,7 +14,7 @@ typedef struct s_udp {
     unsigned short udph_chksum;
 } udp_header;
 
-class UDP_Packet {
+class UDP_Packet : public L4_Packet {
 
     udp_header *head;
     char *content;
