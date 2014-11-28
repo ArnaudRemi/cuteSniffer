@@ -21,5 +21,7 @@ bool UDP_Packet::parseData(char * data, int size){
 
     this->content = &(data[sizeof(udp_header)]);
 
+    std::cout << "payload == " << this->content << std::endl;
+
     return true;
 }

@@ -13,4 +13,6 @@ bool ICMPV6_Packet::parseData(char * data, int size){
         std::cout << "invalid ICMPV6 size" << std::endl;
 
     memcpy(this->head, data, sizeof(icmpv6_header));
+
+    std::cout << "TODO" << std::endl;
 }

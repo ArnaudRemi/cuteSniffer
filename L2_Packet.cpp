@@ -2,8 +2,6 @@
 #include "L2_Packet.h"
 
 L2_Packet::L2_Packet() {
-    this->type = OTHER;
-
     this->head = new ethernet_header;
     this->content = NULL;
 }
@@ -58,12 +56,4 @@ int L2_Packet::getSize(){
 
 void L2_Packet::setSize(int size) {
     this->size = size;
-}
-
-L3_proto L2_Packet::getType() const {
-    return this->type;
-}
-
-void L2_Packet::setType(L3_proto type) {
-    this->type = type;
 }

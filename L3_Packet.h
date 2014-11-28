@@ -6,8 +6,6 @@
 
 class L3_Packet {
 
-    L3_proto type;
-
 public:
     L3_Packet();
     virtual ~L3_Packet();

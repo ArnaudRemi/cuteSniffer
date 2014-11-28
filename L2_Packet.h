@@ -20,7 +20,6 @@ typedef struct s_ethernet {
 
 class L2_Packet {
 
-    L3_proto type;
     char *data;
     int size;
     ethernet_header *head;
@@ -39,10 +38,6 @@ public:
 
     int getSize();
     void setSize(int size);
-
-    L3_proto getType() const;
-    void setType(L3_proto type);
-
 
 };
 

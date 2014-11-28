@@ -19,6 +19,7 @@ bool RawSocket::goPromiscious(char *if_name){
 
     ifr.ifr_ifindex = 0;
     strcpy(ifr.ifr_name, if_name);
+    //setsockopt(this->sock, SOL_SOCKET, SO_BINDTODEVICE, &ifr, sizeof(ifr));
     if(ioctl(this->sock,SIOGIFINDEX,&ifr) < 0)
     {
         perror("ioctl error ");
