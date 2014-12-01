@@ -33,6 +33,12 @@ public:
     void parseData(char *data, int size);
     void parseData();
 
+    std::string verboseDestAddress();
+    std::string verboseSrcAddress();
+    std::string verboseType();
+    std::string verboseAll();
+
+// GET/SET
     char *getData();
     void setData(char *data);
 

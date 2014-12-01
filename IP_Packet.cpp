@@ -1,4 +1,5 @@
 #include "IP_Packet.h"
+#include <sstream>
 
 IP_Packet::IP_Packet(){
     this->head = new ip_header;
@@ -31,7 +32,8 @@ bool IP_Packet::parseData(char *data, int size) {
         memcpy(this->head, data, finalsize);
     }
 
-    std::cout << "parse IP OK!" << std::endl;
+    std::cout << "parse IP OK" << std::endl;
+    std::cout << verboseAll() << std::endl;
 
     if (this->head->ip_p == IPPROTO_TCP){
         std::cout << "TCP packet" << std::endl;
@@ -54,3 +56,47 @@ bool IP_Packet::parseData(char *data, int size) {
 
     return true;
 }
+
+std::string IP_Packet::verboseDestAddr(){
+    std::stringstream ss;
+    for(int i=0;i<4;i++){
+        ss << std::dec << (int) ((unsigned char *) &(this->head->ip_dst.s_addr))[i];
+        if (i < 3)
+            ss << ".";
+    }
+    return ss.str();
+}
+
+std::string IP_Packet::verboseSrcAddr(){
+    std::stringstream ss;
+    for(int i=0;i<4;i++){
+        ss << std::dec << (int) ((unsigned char *) &(this->head->ip_src.s_addr))[i];
+        if (i < 3)
+            ss << ".";
+    }
+    return ss.str();
+}
+
+std::string IP_Packet::verboseType(){
+    if (this->head->ip_p == IPPROTO_TCP){
+        return "TCP packet";
+    }
+    else if (this->head->ip_p == IPPROTO_UDP){
+        return "UDP packet";
+    }
+    else if (this->head->ip_p == IPPROTO_ICMP){
+        return "ICMP packet";
+    }
+    return "other protocol";
+}
+
+std::string IP_Packet::verboseAll(){
+    std::string str = "Destination address : ";
+    str += verboseDestAddr();
+    str += "\nSource address : ";
+    str+= verboseSrcAddr();
+    str+="\nProtocol : ";
+    str+= verboseType();
+    return str;
+}
+

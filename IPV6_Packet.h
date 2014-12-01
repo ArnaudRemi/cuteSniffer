@@ -16,7 +16,7 @@ typedef struct s_ipv6 {
         struct ip6_hdrctl {
             unsigned int   flow; /* 20 bits of flow-ID */
             unsigned short plen; /* payload length */
-            unsigned char  next_head;  /* next header */
+            unsigned char  next_head; /* next header */
             unsigned char  hop_limit; /* hop limit */
         } un1;
         unsigned char un2_vfc;   /* 4 bits version, top 4 bits class */
@@ -35,6 +35,11 @@ public:
     ~IPV6_Packet();
 
     bool parse_data(char *data, int size);
+
+    std::string verboseDestAddr();
+    std::string verboseSrcAddr();
+    std::string verboseType();
+    std::string verboseAll();
 };
 
 

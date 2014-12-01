@@ -14,5 +14,7 @@ bool ICMPV6_Packet::parseData(char * data, int size){
 
     memcpy(this->head, data, sizeof(icmpv6_header));
 
+//    this->content =
+
     std::cout << "TODO" << std::endl;
 }

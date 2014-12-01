@@ -12,9 +12,9 @@ typedef struct s_tcp {
     unsigned short th_dport;               /* destination port */
     unsigned int th_seq;                 /* sequence number */
     unsigned int th_ack;                 /* acknowledgement number */
-    unsigned char  th_off;               /* data offset, rsvd */
+    unsigned char th_off;               /* data offset, rsvd */
 #define TH_OFF(th)      (((th)->th_off & 0xf0) >> 4)
-    unsigned char  th_flags;
+    unsigned char th_flags;
 #define TH_FIN  0x01
 #define TH_SYN  0x02
 #define TH_RST  0x04
@@ -33,12 +33,19 @@ class TCP_Packet : public L4_Packet {
 
     tcp_header *head;
     char *content;
+    int contentsize;
 
 public:
     TCP_Packet();
     ~TCP_Packet();
 
     bool parseData(char *data, int size);
+
+    std::string verboseSrcPort();
+    std::string verboseDestPort();
+    std::string verbosePayload();
+    std::string verbosePayloadHexa();
+    std::string verboseAll();
 };
 
 #endif

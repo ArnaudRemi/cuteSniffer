@@ -2,6 +2,7 @@
 #define __CUTE_ARP_PACKET__
 
 #include <iostream>
+#include <sstream>
 #include <stdio.h>
 #include <string.h>
 #include "L3_Packet.h"
@@ -30,6 +31,13 @@ public:
     ~ARP_Packet();
 
     bool parseData(char *data, int size);
+
+    std::string verboseDestMacAddr();
+    std::string verboseSrcMacAddr();
+    std::string verboseDestIpAddr();
+    std::string verboseSrcIpAddr();
+    std::string verboseAll();
+
 };
 
 #endif
