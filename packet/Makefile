@@ -2,12 +2,13 @@ NAME	=	paquet
 
 SRCS	=	main.cpp \
 			../Utils.cpp \
-			Ethernet.cpp \
-			ARP.cpp
+			Ethernet.cpp
 
 OBJS	=	$(SRCS:.cpp=.o)
 
 COMPIL	=	g++
+
+CXXFLAGS = -std=c++0x -g
 
 $(NAME):	$(OBJS)
 			$(COMPIL) -o $(NAME) $(OBJS)
