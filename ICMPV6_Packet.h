@@ -15,6 +15,7 @@ typedef struct s_icmpv6 {
 class ICMPV6_Packet : public L4_Packet {
 
     icmpv6_header *head;
+    char *content;
 
 public:
 
@@ -23,4 +24,5 @@ public:
 
     bool parseData(char * data, int size);
 };
+
 #endif

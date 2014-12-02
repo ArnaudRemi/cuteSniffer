@@ -1,4 +1,5 @@
 #include "IPV6_Packet.h"
+#include <sstream>
 
 IPV6_Packet::IPV6_Packet() {
     this->head = new ipv6_header;
@@ -30,6 +31,8 @@ bool IPV6_Packet::parse_data(char *data, int size) {
         return false;
     }
 
+    verboseAll();
+
     if (nexthead == IPPROTO_TCP) {
         std::cout << "TCP packet" << std::endl;
         this->content = new TCP_Packet;
@@ -49,4 +52,49 @@ bool IPV6_Packet::parse_data(char *data, int size) {
         std::cout << "other protocol" << std::endl;
 
     return true;
+}
+
+std::string IPV6_Packet::verboseDestAddr(){
+    std::stringstream ss;
+    for(int i=0;i<16;i+=2){
+        ss << std::hex << (int) this->head->ip6_dest.s6_addr[i] << (int) this->head->ip6_dest.s6_addr[i+1];
+        if (i < 14)
+            ss << ":";
+    }
+    return ss.str();
+}
+
+std::string IPV6_Packet::verboseSrcAddr(){
+    std::stringstream ss;
+    for(int i=0;i<16;i+=2){
+        ss << std::hex << (int) this->head->ip6_src.s6_addr[i] << (int) this->head->ip6_src.s6_addr[i+1];
+        if (i < 14)
+            ss << ":";
+    }
+    return ss.str();
+}
+
+std::string IPV6_Packet::verboseType(){
+    char nexthead = this->head->ip6_infos.un1.next_head;
+
+    if (nexthead == IPPROTO_TCP){
+        return "TCP packet";
+    }
+    else if (nexthead == IPPROTO_UDP){
+        return "UDP packet";
+    }
+    else if (nexthead == IPPROTO_ICMP){
+        return "ICMP packet";
+    }
+    return "other protocol";
+}
+
+std::string IPV6_Packet::verboseAll(){
+    std::string str = "Destination address : ";
+    str += verboseDestAddr();
+    str += "\nSource address : ";
+    str+= verboseSrcAddr();
+    str+="\nProtocol : ";
+    str+= verboseType();
+    return str;
 }

@@ -24,7 +24,7 @@ typedef struct s_ip {
 #define IP_MF 0x2000            /* more fragments flag */
 #define IP_OFFMASK 0x1fff       /* mask for fragmenting bits */
     unsigned char  ip_ttl;      /* time to live */
-    unsigned char  ip_p;        /* protocol */
+    unsigned char  ip_p;        /* protocol type*/
     unsigned short ip_sum;      /* checksum */
     struct in_addr ip_src;      /* source address */
     struct in_addr ip_dst;      /* destination address */
@@ -42,6 +42,12 @@ public:
     ~IP_Packet();
 
     bool parseData(char *data, int size);
+
+    std::string verboseAll();
+    std::string verboseDestAddr();
+    std::string verboseSrcAddr();
+    std::string verboseType();
+
 };
 
 #endif

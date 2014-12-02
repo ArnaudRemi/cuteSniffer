@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "L2_Packet.h"
 
 L2_Packet::L2_Packet() {
@@ -23,6 +24,8 @@ void L2_Packet::parseData(char *data, int size){
 
     memcpy(this->head, data, sizeof(ethernet_header));
 
+    std::cout << verboseAll() << std::endl;
+
     if (this->head->ether_type == ETH_P_IP){
         std::cout << "IPV4 is here!!!" << std::endl;
         this->content = new IP_Packet();
@@ -40,8 +43,52 @@ void L2_Packet::parseData(char *data, int size){
     }
     else
         std::cout << "other protocol" << std::endl;
+
+
 }
 
+std::string L2_Packet::verboseDestAddress(){
+    std::stringstream ss;
+    for(int i=0;i<6;i++){
+        ss << std::hex << (int) this->head->ether_dhost[i];
+        if (i < 5)
+            ss << ":";
+    }
+    return ss.str();
+}
+
+std::string L2_Packet::verboseSrcAddress(){
+    std::stringstream ss;
+    for(int i=0;i<6;i++){
+        ss << std::hex << (int) this->head->ether_shost[i];
+        if (i < 5)
+            ss << ":";
+    }
+    return ss.str();
+}
+
+std::string L2_Packet::verboseType(){
+    if (this->head->ether_type == ETH_P_IP)
+            return "IPV4";
+    else if  (this->head->ether_type == ETH_P_ARP)
+        return "ARP";
+    else if  (this->head->ether_type == ETH_P_IPV6)
+        return "IPV6";
+    return "other protocol";
+}
+
+std::string L2_Packet::verboseAll(){
+    std::string str = "Destination address : ";
+    str += verboseDestAddress();
+    str += "\nSource address : ";
+    str+= verboseSrcAddress();
+    str+="\nEtherType : ";
+    str+= verboseType();
+    return str;
+}
+
+
+// GET/SET
 char *L2_Packet::getData(){
     return this->data;
 }
