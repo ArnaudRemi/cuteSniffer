@@ -24,6 +24,10 @@ Ethernet::Ethernet(char* data, int dataSize) :
 		memset(&this->header, 0, sizeof(Ethernet::s_ethernet));
 }
 
+Ethernet::Ethernet(Ethernet &other) {
+	new (this) Ethernet(other.getBuffer(), other.getBufferSize());
+}
+
 Ethernet::~Ethernet() {
 }
 

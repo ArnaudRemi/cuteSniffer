@@ -32,6 +32,7 @@ private:
 public:
 	Ethernet();
 	Ethernet(char *data, int dataSize);
+	Ethernet(Ethernet &other);
 	virtual ~Ethernet();
 	std::string getEther_dhost();
 	std::string getEther_shost();

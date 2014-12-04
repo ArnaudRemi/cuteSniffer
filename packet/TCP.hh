@@ -8,6 +8,11 @@
 #ifndef PACKET_TCP_HH_
 #define PACKET_TCP_HH_
 
+#include <sstream>
+#include <cstring>
+#include <iostream>
+#include "AProtocol.hh"
+
 template<class T>
 class TCP: public ASubProtocol<T> {
 private:

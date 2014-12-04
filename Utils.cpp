@@ -63,7 +63,7 @@ unsigned char* Utils::convertIPToByte(std::string ip) {
 
 struct in_addr Utils::convertIPtoIn_addr(std::string ip) {
 	struct in_addr ret;
-	char *ptr = (char *)&(ret.s_addr);
+	unsigned char *ptr = (unsigned char *)&(ret.s_addr);
 	std::size_t save = 0;
 	std::size_t pos;
 	int convert;
@@ -96,7 +96,7 @@ std::string Utils::convertByteToIP(unsigned char* byte) {
 
 std::string Utils::convertIn_addrToIP(struct in_addr in_addr) {
 	std::string ret;
-	char *ptr = (char *)&(in_addr.s_addr);
+	unsigned char *ptr = (unsigned char *)&(in_addr.s_addr);
 
 	for (int i = 0; i <= 3; ++i) {
 		std::stringstream ss;

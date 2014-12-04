@@ -30,6 +30,7 @@ public:
 		if (this->buffer)
 			free(this->buffer);
 	}
+
 	char* getBuffer() {
 		this->actualizeBuffer();
 		return this->buffer;
@@ -44,10 +45,12 @@ public:
 		this->bufferSize = bufferSize;
 	}
 	void actualizeBuffer() {
-		if (this->buffer)
-			free(buffer);
-		this->buffer = (char *) malloc(this->getTotalSize());
-		this->bufferSize = this->getTotalSize();
+		if (this->bufferSize <= this->getTotalSize()) {
+			if (this->buffer)
+				free(buffer);
+			this->buffer = (char *) malloc(this->getTotalSize());
+			this->bufferSize = this->getTotalSize();
+		}
 		this->setDataOnBuffer();
 	}
 	virtual int getTotalSize() = 0;
@@ -68,6 +71,7 @@ public:
 			T(buffer, bufferSize) {
 
 	}
+	virtual int getTotalSize() = 0;
 };
 
 #endif /* PACKET_APROTOCOL_HH_ */
