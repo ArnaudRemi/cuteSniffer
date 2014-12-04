@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <cstring>
 
 unsigned char *Utils::convertMACToByte(std::string mac) {
 	unsigned char *ret;
@@ -104,5 +105,15 @@ std::string Utils::convertIn_addrToIP(struct in_addr in_addr) {
 			ret += ".";
 		ret += ss.str();
 	}
+	return ret;
+}
+
+char *Utils::memncpy(char *data, int size) {
+	if (!data)
+		return (NULL);
+	char *ret;
+	if ((ret = (char *)malloc(size)) == NULL)
+		return NULL;
+	memcpy(ret, data, size);
 	return ret;
 }

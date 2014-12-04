@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Ethernet.hh"
-#include "../Utils.hh"
+#include "Utils.hh"
 
 Ethernet::Ethernet() :
 		AProtocol(NULL, sizeof(Ethernet::s_ethernet)) {
@@ -40,11 +40,15 @@ short Ethernet::getEther_type() {
 }
 
 void Ethernet::setEther_dhost(std::string mac) {
-	memcpy(this->header.ether_dhost, Utils::convertMACToByte(mac), 6);
+	unsigned char *dhost = Utils::convertMACToByte(mac);
+	memcpy(this->header.ether_dhost, dhost, 6);
+	free(dhost);
 }
 
 void Ethernet::setEther_shost(std::string mac) {
-	memcpy(this->header.ether_shost, Utils::convertMACToByte(mac), 6);
+	unsigned char *shost = Utils::convertMACToByte(mac);
+	memcpy(this->header.ether_shost, shost, 6);
+	free(shost);
 }
 
 void Ethernet::setEther_type(short type) {
@@ -64,7 +68,7 @@ std::string Ethernet::toString() {
 }
 
 void Ethernet::setDataOnBuffer() {
-	memcpy(this->buffer, &(this->header), sizeof(Ethernet::s_ethernet));
+	memcpy(this->buffer, &(this->header), sizeof(Ethernet::ethernet_header));
 }
 
 

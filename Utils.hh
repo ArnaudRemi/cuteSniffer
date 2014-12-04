@@ -12,7 +12,7 @@ public:
 	static std::string convertByteToMAC(unsigned char *byte);
 	static std::string convertByteToIP(unsigned char* byte);
 	static std::string convertIn_addrToIP(struct in_addr);
-
+	static char *memncpy(char *data, int size);
 };
 
 #endif

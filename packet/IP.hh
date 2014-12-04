@@ -8,9 +8,14 @@
 #ifndef PACKET_IP_HH_
 #define PACKET_IP_HH_
 
-#include "Ethernet.hh"
+#include <sstream>
+#include <cstring>
+#include <iostream>
+#include "AProtocol.hh"
+#include "Utils.hh"
 
-class IP: public Ethernet {
+template<class T>
+class IP: public ASubProtocol<T> {
 private:
 	typedef struct s_ip {
 		unsigned char ip_vhl; /* version << 4 | header length >> 2 */
@@ -32,26 +37,122 @@ private:
 #define IP_V(ip)	(((ip)->ip_vhl) >> 4)
 	ip_header header;
 public:
-	unsigned char getIpVhl() const;
-	unsigned char getIpTos() const;
-	unsigned short getIpLen() const;
-	unsigned short getIpId() const;
-	unsigned short getIpOff() const;
-	unsigned char getIpTtl() const;
-	unsigned char getIpP() const;
-	unsigned short getIpSum() const;
-	struct in_addr getIpSrc() const;
-	struct in_addr getIpDst() const;
-	void setIpVhl(unsigned char ipVhl);
-	void setIpTos(unsigned char ipTos);
-	void setIpLen(unsigned short ipLen);
-	void setIpId(unsigned short ipId);
-	void setIpOff(unsigned short ipOff);
-	void setIpTtl(unsigned char ipTtl);
-	void setIpP(unsigned char ipP);
-	void setIpSum(unsigned short ipSum);
-	void setIpSrc(struct in_addr ipSrc); //TODO - finir get / set
-	void setIpDst(struct in_addr ipDst);
+	IP() {
+		memset(&this->header, 0, sizeof(ip_header));
+	}
+
+	IP(char* data, int dataSize) :
+			ASubProtocol<T>(data, dataSize) {
+		if (dataSize >= this->getTotalSize())
+			memcpy(&this->header, data + T::getTotalSize(), sizeof(ip_header));
+		else
+			memset(&this->header, 0, sizeof(ip_header));
+	}
+
+	IP(T &pqt) {
+		new (this) IP(pqt.getBuffer(), pqt.getBufferSize());
+	}
+
+	~IP() {
+	}
+
+	int getTotalSize() {
+		return T::getTotalSize() + sizeof(ip_header);
+	}
+
+	virtual void setDataOnBuffer() {
+		T::setDataOnBuffer();
+		std::cout << "sizeParent" << T::getTotalSize() << std::endl;
+	}
+
+	virtual std::string toString() {
+		std::ostringstream stream;
+		stream << T::toString() << "IP(" << this->getTotalSize()
+				<< ")=[IP Source : " << this->getIpSrc()
+				<< ", IP Destination : " << this->getIpDst() << "]" << std::endl;
+		return stream.str();
+	}
+
+	std::string getIpDst() const {
+		return Utils::convertIn_addrToIP(header.ip_dst);
+	}
+
+	void setIpDst(std::string ipDst) {
+		header.ip_dst = Utils::convertIPtoIn_addr(ipDst);
+	}
+
+	unsigned short getIpId() const {
+		return header.ip_id;
+	}
+
+	void setIpId(unsigned short ipId) {
+		header.ip_id = ipId;
+	}
+
+	unsigned short getIpLen() const {
+		return header.ip_len;
+	}
+
+	void setIpLen(unsigned short ipLen) {
+		header.ip_len = ipLen;
+	}
+
+	unsigned short getIpOff() const {
+		return header.ip_off;
+	}
+
+	void setIpOff(unsigned short ipOff) {
+		header.ip_off = ipOff;
+	}
+
+	unsigned char getIpP() const {
+		return header.ip_p;
+	}
+
+	void setIpP(unsigned char ipP) {
+		header.ip_p = ipP;
+	}
+
+	std::string getIpSrc() const {
+		return Utils::convertIn_addrToIP(header.ip_src);
+	}
+
+	void setIpSrc(std::string ipSrc) {
+		header.ip_src = Utils::convertIPtoIn_addr(ipSrc);
+	}
+
+	unsigned short getIpSum() const {
+		return header.ip_sum;
+	}
+
+	void setIpSum(unsigned short ipSum) {
+		header.ip_sum = ipSum;
+	}
+
+	unsigned char getIpTos() const {
+		return header.ip_tos;
+	}
+
+	void setIpTos(unsigned char ipTos) {
+		header.ip_tos = ipTos;
+	}
+
+	unsigned char getIpTtl() const {
+		return header.ip_ttl;
+	}
+
+	void setIpTtl(unsigned char ipTtl) {
+		header.ip_ttl = ipTtl;
+	}
+
+	unsigned char getIpVhl() const {
+		return header.ip_vhl;
+	}
+
+	void setIpVhl(unsigned char ipVhl) {
+		header.ip_vhl = ipVhl;
+	}
+
 };
 
 #endif /* PACKET_IP_HH_ */

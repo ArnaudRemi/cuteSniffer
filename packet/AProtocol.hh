@@ -9,22 +9,29 @@
 #define PACKET_APROTOCOL_HH_
 
 #include <type_traits>
+#include <cstring>
+#include <Utils.hh>
 
 class AProtocol {
-protected:
+public:
 	char* buffer;
 	int bufferSize;
+
 public:
 	AProtocol(char *buffer, int bufferSize) :
-			buffer(buffer), bufferSize(bufferSize) {
-
+			buffer(Utils::memncpy(buffer, bufferSize)), bufferSize(bufferSize) {
 	}
-	AProtocol() : buffer(NULL), bufferSize(0) {}
+
+	AProtocol() :
+			buffer(NULL), bufferSize(0) {
+	}
+
 	virtual ~AProtocol() {
+		if (this->buffer)
+			free(this->buffer);
 	}
 	char* getBuffer() {
-		if (buffer == NULL)
-			this->actualizeBuffer();
+		this->actualizeBuffer();
 		return this->buffer;
 	}
 	void setBuffer(char* buffer) {
@@ -39,7 +46,9 @@ public:
 	virtual int getTotalSize() = 0;
 	virtual std::string toString() = 0;
 	void actualizeBuffer() {
-		this->buffer = (char *)malloc(sizeof(this->getTotalSize()));
+		if (this->buffer)
+			free(buffer);
+		this->buffer = (char *) malloc(this->getTotalSize());
 		this->bufferSize = this->getTotalSize();
 		this->setDataOnBuffer();
 	}

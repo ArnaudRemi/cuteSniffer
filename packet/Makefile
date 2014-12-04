@@ -1,14 +1,16 @@
-NAME	=	paquet
+NAME		=	paquet
 
-SRCS	=	main.cpp \
-			../Utils.cpp \
-			Ethernet.cpp
+SRCS		=	main.cpp \
+				../Utils.cpp \
+				Ethernet.cpp
 
-OBJS	=	$(SRCS:.cpp=.o)
+OBJS		=	$(SRCS:.cpp=.o)
 
-COMPIL	=	g++
+COMPIL		=	g++
 
-CXXFLAGS = -std=c++0x -g
+INCLUDE		=	-I../
+
+CXXFLAGS 	=	-std=c++0x -g $(INCLUDE)
 
 $(NAME):	$(OBJS)
 			$(COMPIL) -o $(NAME) $(OBJS)

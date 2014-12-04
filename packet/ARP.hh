@@ -11,11 +11,11 @@
 #include <sstream>
 #include <cstring>
 #include "AProtocol.hh"
-#include "../Utils.hh"
-
+#include "Utils.hh"
 
 template<class T>
 class ARP: public ASubProtocol<T> {
+private:
 	typedef struct s_arp {
 		unsigned short htype; /* Hardware Type           */
 		unsigned short ptype; /* Protocol Type           */
@@ -32,14 +32,15 @@ class ARP: public ASubProtocol<T> {
 public:
 
 	ARP() {
-		memset(&this->header, 0, sizeof(s_arp));
+		memset(&this->header, 0, sizeof(arp_header));
 	}
 
-	ARP(char* data, int dataSize) : ASubProtocol<T>(data, dataSize) {
+	ARP(char* data, int dataSize) :
+			ASubProtocol<T>(data, dataSize) {
 		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(), sizeof(s_arp));
+			memcpy(&this->header, data + T::getTotalSize(), sizeof(arp_header));
 		else
-			memset(&this->header, 0, sizeof(s_arp));
+			memset(&this->header, 0, sizeof(arp_header));
 	}
 
 	ARP(T &pqt) {
@@ -47,6 +48,23 @@ public:
 	}
 
 	~ARP() {
+	}
+
+	int getTotalSize() {
+		return T::getTotalSize() + sizeof(arp_header);
+	}
+
+	virtual void setDataOnBuffer() {
+		T::setDataOnBuffer();
+		std::cout << "sizeParent" << T::getTotalSize() << std::endl;
+	}
+
+	virtual std::string toString() {
+		std::ostringstream stream;
+		stream << T::toString() << "ARP(" << this->getTotalSize()
+				<< ")=[Target IP : " << this->getTpa() << ", Sender IP : "
+				<< this->getSpa() << "]" << std::endl;
+		return stream.str();
 	}
 
 	unsigned char getHlen() const {
@@ -106,35 +124,27 @@ public:
 	}
 
 	void setSha(std::string sha) {
-		memcpy(this->header.sha, Utils::convertMACToByte(sha), 6);
+		unsigned char *mac = Utils::convertMACToByte(sha);
+		memcpy(this->header.sha, mac, 6);
+		free(mac);
 	}
 
 	void setSpa(std::string spa) {
-		memcpy(this->header.spa, Utils::convertIPToByte(spa), 4);
+		unsigned char *ip = Utils::convertIPToByte(spa);
+		memcpy(this->header.spa, ip, 4);
+		free(ip);
 	}
 
 	void setTha(std::string tha) {
-		memcpy(this->header.tha, Utils::convertMACToByte(tha), 6);
+		unsigned char *mac = Utils::convertMACToByte(tha);
+		memcpy(this->header.tha, mac, 6);
+		free(mac);
 	}
 
 	void setTpa(std::string tpa) {
-		memcpy(this->header.tpa, Utils::convertIPToByte(tpa), 4);
-	}
-
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(s_arp);
-	}
-
-	virtual void setDataOnBuffer() {
-		T::setDataOnBuffer();
-		std::cout << "sizeParent" << T::getTotalSize() << std::endl;
-	}
-
-	virtual std::string toString() {
-		std::ostringstream stream;
-		stream << T::toString() << "ARP(" << this->getTotalSize() << ")=[Target IP : " << this->getTpa()
-				<< ", Sender IP : " << this->getSpa() << "]" << std::endl;
-		return stream.str();
+		unsigned char *ip = Utils::convertIPToByte(tpa);
+		memcpy(this->header.tpa, ip, 4);
+		free(ip);
 	}
 
 };
