@@ -53,7 +53,7 @@ public:
 		new (this) IP(pqt.getBuffer(), pqt.getBufferSize());
 	}
 
-	~IP() {
+	virtual ~IP() {
 	}
 
 	int getTotalSize() {
@@ -62,7 +62,7 @@ public:
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		std::cout << "sizeParent" << T::getTotalSize() << std::endl;
+		memcpy(this->buffer + T::getTotalSize() , &(this->header), sizeof(ip_header));
 	}
 
 	virtual std::string toString() {

@@ -27,6 +27,22 @@ Ethernet::Ethernet(char* data, int dataSize) :
 Ethernet::~Ethernet() {
 }
 
+int Ethernet::getTotalSize() {
+	return sizeof(Ethernet::s_ethernet);
+}
+
+std::string Ethernet::toString() {
+	std::ostringstream stream;
+	stream << "Ethernet(" << this->getTotalSize() << ")=[Destination : "
+			<< this->getEther_dhost() << ", Source : " << this->getEther_shost()
+			<< ", type : " << this->getEther_type() << "]" << std::endl;
+	return stream.str();
+}
+
+void Ethernet::setDataOnBuffer() {
+	memcpy(this->buffer, &(this->header), sizeof(Ethernet::ethernet_header));
+}
+
 std::string Ethernet::getEther_shost() {
 	return (Utils::convertByteToMAC(this->header.ether_shost));
 }
@@ -54,29 +70,3 @@ void Ethernet::setEther_shost(std::string mac) {
 void Ethernet::setEther_type(short type) {
 	this->header.ether_type = type;
 }
-
-int Ethernet::getTotalSize() {
-	return sizeof(Ethernet::s_ethernet);
-}
-
-std::string Ethernet::toString() {
-	std::ostringstream stream;
-	stream << "Ethernet(" << this->getTotalSize() << ")=[Destination : "
-				<< this->getEther_dhost() << ", Source : " << this->getEther_shost()
-				<< ", type : " << this->getEther_type() << "]" << std::endl;
-	return stream.str();
-}
-
-void Ethernet::setDataOnBuffer() {
-	memcpy(this->buffer, &(this->header), sizeof(Ethernet::ethernet_header));
-}
-
-
-/*void Ethernet::actualizeBuffer() {
- if (buffer == NULL) {
- if ((buffer = (char *) malloc(sizeof(Ethernet::s_ethernet))) == NULL)
- exit(EXIT_FAILURE);
- this->buffSize = sizeof(Ethernet::s_ethernet);
- }
- memcpy(buffer, &this->header, sizeof(Ethernet::s_ethernet));
- }*/

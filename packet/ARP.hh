@@ -47,7 +47,7 @@ public:
 		new (this) ARP(pqt.getBuffer(), pqt.getBufferSize());
 	}
 
-	~ARP() {
+	virtual ~ARP() {
 	}
 
 	int getTotalSize() {
@@ -56,7 +56,7 @@ public:
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		std::cout << "sizeParent" << T::getTotalSize() << std::endl;
+		memcpy(this->buffer + T::getTotalSize() , &(this->header), sizeof(arp_header));
 	}
 
 	virtual std::string toString() {

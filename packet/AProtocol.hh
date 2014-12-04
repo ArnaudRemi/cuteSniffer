@@ -43,8 +43,6 @@ public:
 	void setBufferSize(int bufferSize) {
 		this->bufferSize = bufferSize;
 	}
-	virtual int getTotalSize() = 0;
-	virtual std::string toString() = 0;
 	void actualizeBuffer() {
 		if (this->buffer)
 			free(buffer);
@@ -52,6 +50,8 @@ public:
 		this->bufferSize = this->getTotalSize();
 		this->setDataOnBuffer();
 	}
+	virtual int getTotalSize() = 0;
+	virtual std::string toString() = 0;
 	virtual void setDataOnBuffer() = 0;
 };
 
