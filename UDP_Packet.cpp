@@ -1,3 +1,5 @@
+#include <sstream>
+#include <iomanip>
 #include "UDP_Packet.h"
 
 UDP_Packet::UDP_Packet(){
@@ -29,19 +31,19 @@ bool UDP_Packet::parseData(char * data, int size){
     return true;
 }
 
-std::string TCP_Packet::verboseSrcPort(){
+std::string UDP_Packet::verboseSrcPort(){
     std::stringstream ss;
     ss << std::dec << (int) this->head->udph_srcport;
     return ss.str();
 }
 
-std::string TCP_Packet::verboseDestPort(){
+std::string UDP_Packet::verboseDestPort(){
     std::stringstream ss;
     ss << std::dec << (int) this->head->udph_destport;
     return ss.str();
 }
 
-std::string TCP_Packet::verbosePayload() {
+std::string UDP_Packet::verbosePayload() {
     return this->content;
 }
 
@@ -57,7 +59,7 @@ std::string UDP_Packet::verbosePayloadHexa() {
     return ss.str();
 }
 
-std::string TCP_Packet::verboseAll() {
+std::string UDP_Packet::verboseAll() {
     std::string str = "Destination Port : ";
     str += verboseDestPort();
     str += "\nSource Port : ";

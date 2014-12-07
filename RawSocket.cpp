@@ -19,9 +19,10 @@ bool RawSocket::goPromiscious(char *if_name){
 
     ifr.ifr_ifindex = 0;
     strcpy(ifr.ifr_name, if_name);
-    //setsockopt(this->sock, SOL_SOCKET, SO_BINDTODEVICE, &ifr, sizeof(ifr));
-    if(ioctl(this->sock,SIOGIFINDEX,&ifr) < 0)
-    {
+    if (setsockopt(this->sock, SOL_SOCKET, SO_BINDTODEVICE, &ifr, sizeof(ifr)) < 0){
+        std::cout << "Fail to bind " << if_name << " to the raw socket" << std::endl;
+    }
+    if(ioctl(this->sock,SIOGIFINDEX,&ifr) < 0) {
         perror("ioctl error ");
         return 1;
     }
