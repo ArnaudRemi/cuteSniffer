@@ -1,14 +1,16 @@
-NAME		=	paquet
+NAME		=	packet
 
 SRCS		=	main.cpp \
 				../Utils.cpp \
-				Ethernet.cpp
+				Ethernet.cpp \
+				AProtocol.cpp
 
 OBJS		=	$(SRCS:.cpp=.o)
 
 COMPIL		=	g++
 
-INCLUDE		=	-I../
+INCLUDE		=	-I../ \
+				-I.
 
 CXXFLAGS 	=	-std=c++0x -g $(INCLUDE)
 

@@ -117,3 +117,43 @@ char *Utils::memncpy(char *data, int size) {
 	memcpy(ret, data, size);
 	return ret;
 }
+
+struct in6_addr Utils::convertIPV6toIn6_addr(std::string ipv6) {
+	struct in6_addr ret;
+	unsigned char *ptr = (unsigned char *)&(ret.s6_addr);
+	std::size_t save = 0;
+	std::size_t pos;
+	int convert;
+
+	for (int i = 0; i < 8; ++i) {
+		if ((pos = ipv6.find(":", save)) == std::string::npos)
+			pos = ipv6.size();
+		std::string hex1 = ipv6.substr(save, (pos - 2) - save);
+		std::string hex2 = ipv6.substr(save + 2, pos - (save + 2));
+		std::stringstream ss;
+		ss << std::hex << hex1;
+		ss >> convert;
+		ptr[i * 2] = (unsigned char) convert;
+		std::stringstream ss2;
+		ss2 << std::hex << hex2;
+		ss2 >> convert;
+		ptr[i * 2 + 1] = (unsigned char) convert;
+		save = pos + 1;
+	}
+	return ret;
+}
+
+std::string Utils::convertIn6_addrToIPV6(struct in6_addr in6_addr) {
+	std::string ret;
+	unsigned char *ptr = (unsigned char *)&(in6_addr.s6_addr);
+
+	for (int i = 0; i < 16; ++i) {
+		std::stringstream ss;
+		ss << std::hex << std::setfill('0') << std::setw(2) << (int) ptr[i];
+		if (i && !(i % 2))
+			ret += ":";
+		ret += ss.str();
+	}
+	return ret;
+}
+

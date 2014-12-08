@@ -74,4 +74,7 @@ public:
 	virtual int getTotalSize() = 0;
 };
 
+
+std::ostream& operator <<(std::ostream& stream, AProtocol& p);
+
 #endif /* PACKET_APROTOCOL_HH_ */
