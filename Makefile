@@ -1,22 +1,19 @@
-NAME	=	cuteSniffer
+NAME		=	cuteSniffer
 
-SRCS	=	main.cpp \
-			RawSocket.cpp \
-			IP_Packet.cpp \
-			TCP_Packet.cpp \
-			UDP_Packet.cpp \
-			ARP_Packet.cpp \
-			ICMPV6_Packet.cpp \
-			ICMP_Packet.cpp \
-			IPV6_Packet.cpp \
-			L2_Packet.cpp \
-			L3_Packet.cpp \
-			L4_Packet.cpp \
-			Utils.cpp
+SRCS		=	main.cpp \
+				tools/Utils.cpp \
+				tools/RawSocket.cpp \
+				packet/Ethernet.cpp \
+				packet/AProtocol.cpp
 
-OBJS	=	$(SRCS:.cpp=.o)
+OBJS		=	$(SRCS:.cpp=.o)
 
-COMPIL	=	g++
+COMPIL		=	g++
+
+INCLUDE		=	-Ipacket \
+				-Itools
+
+CXXFLAGS 	=	-std=c++0x -g $(INCLUDE)
 
 $(NAME):	$(OBJS)
 			$(COMPIL) -o $(NAME) $(OBJS)
