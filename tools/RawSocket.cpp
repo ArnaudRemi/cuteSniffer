@@ -67,7 +67,16 @@ bool RawSocket::goPromiscious(char *if_name) {
 
 Ethernet *RawSocket::getPacket() {
 	int data_size;
+	fd_set readfds;
+	struct timeval timeout;
 
+	FD_SET(this->sock, &readfds);
+	timeout.tv_sec = 0;
+	timeout.tv_usec = 0;
+	if (select(this->sock + 1, &readfds, NULL, NULL, &timeout) == -1)
+		return NULL;
+	if (!FD_ISSET(this->sock, &readfds))
+		return NULL;
 	data_size = read(this->sock, this->buffer, BUFFER_SIZE);
 	if (data_size < 0) {
 		std::cout << "read error , failed to get packets" << std::endl;

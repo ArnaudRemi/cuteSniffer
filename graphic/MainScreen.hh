@@ -27,11 +27,13 @@
 #include	<QPushButton>
 #include	<QWidget>
 #include	<string>
+#include	<QTimer>
 #include	<iostream>
 #include	<fstream>
 #include	<sstream>
 
 #include "Interaction.hh"
+#include "RawSocket.hh"
 
 class	FocusView;
 
@@ -49,6 +51,9 @@ class	MainScreen : public QMainWindow
     Modif
   } EBouton;
 
+  QTimer *timer;
+  RawSocket socket;
+
  public:
 
   MainScreen(QWidget *parent = 0);
@@ -63,6 +68,7 @@ class	MainScreen : public QMainWindow
   void	manInMiddle();
   void	modifier();
   void	cellSelected(int, int);
+  void getPacket();
 
  private:
   void	init();

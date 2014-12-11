@@ -29,7 +29,7 @@ MainScreen::MainScreen(QWidget *parent)
 void	MainScreen::init()
 {
   this->setFixedSize(1200, 780);
-  this->addButon(900,100, "quiter", MainScreen::Quit);
+  this->addButon(900,100, "Quitter", MainScreen::Quit);
   this->addButon(900,200, "Capturer", MainScreen::Capture);
   this->addButon(900,300, "Filtrer", MainScreen::Filtre);
   this->addButon(900,400, "Forger", MainScreen::Forge);
@@ -40,7 +40,17 @@ void	MainScreen::init()
   _table->setColumnCount(2);
   connect(_table, SIGNAL(cellDoubleClicked(int, int)), this, SLOT(cellSelected(int, int)));
   this->fillInfo();
+  socket.goPromiscious("eth0");
+  timer = new QTimer(this);
+  connect(timer, SIGNAL(timeout()), this, SLOT(getPacket()));
+  timer->start(1000);
   this->show();
+}
+
+void	MainScreen::getPacket() {
+	Ethernet *pqt = socket.getPacket();
+	if (pqt)
+		std::cout << *pqt << std::endl;
 }
 
 void	MainScreen::fillInfo()
