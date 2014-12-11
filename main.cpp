@@ -5,7 +5,9 @@
  *      Author: cursan_a
  */
 
+#include <QApplication>
 #include <iostream>
+#include "MainScreen.hh"
 #include "Ethernet.hh"
 #include "ARP.hh"
 #include "IP.hh"
@@ -17,7 +19,20 @@
 #include "ICMPV6.hh"
 #include "RawSocket.hh"
 
-int main() {
+void demoPacket();
+
+int main(int ac, char **av) {
+	if (ac == 2 && !strcmp(av[1], "demoPacket"))
+		demoPacket();
+	else {
+		QApplication a(ac, av);
+		MainScreen w;
+		w.show();
+		return a.exec();
+	}
+}
+
+void demoPacket() {
 	std::cout << "###########################################" << std::endl;
 	std::cout << "Simple Ethernet" << std::endl;
 	std::cout << "###########################################" << std::endl;
@@ -128,7 +143,8 @@ int main() {
 	RawSocket socket;
 	socket.goPromiscious("eth0");
 	Ethernet *testSocket = socket.getPacket();
-	std::cout << *testSocket << std::endl;
+	if (testSocket)
+		std::cout << *testSocket << std::endl;
 }
 
 // L2 : Ethernet

@@ -8,8 +8,8 @@
 // Last update Fri Dec  5 18:22:15 2014 antoine orsini
 //
 
-#include "FocusView.h"
-#include "MainScreen.h"
+#include "FocusView.hh"
+#include "MainScreen.hh"
 
 MainScreen::MainScreen(QWidget *parent)
 {

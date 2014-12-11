@@ -30,7 +30,8 @@
 #include	<iostream>
 #include	<fstream>
 #include	<sstream>
-#include	"Interaction.h"
+
+#include "Interaction.hh"
 
 class	MainScreen;
 

@@ -8,7 +8,7 @@
 // Last update Wed Dec  3 19:43:18 2014 antoine orsini
 //
 
-#include	"Interaction.h"
+#include	"Interaction.hh"
 
 Interaction::Interaction(std::string name, std::string port) : _name(name), _port(port)
 {

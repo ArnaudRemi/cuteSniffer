@@ -8,8 +8,8 @@
 // Last update Fri Dec  5 18:04:15 2014 antoine orsini
 //
 
-#include	"MainScreen.h"
-#include	"FocusView.h"
+#include	"MainScreen.hh"
+#include	"FocusView.hh"
 
 FocusView::FocusView(Interaction* inter, MainScreen* mainView) : _inter(inter), _mainVi(mainView)
 {
