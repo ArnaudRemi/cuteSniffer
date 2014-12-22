@@ -17,6 +17,7 @@
 #include	<QCheckBox>
 #include	<QCloseEvent>
 #include	<QCoreApplication>
+#include    <QListWidget>
 #include	<QTableWidget>
 #include	<QFile>
 #include	<QTextStream>
@@ -31,6 +32,16 @@
 #include	<iostream>
 #include	<fstream>
 #include	<sstream>
+
+#define _GNU_SOURCE     /* To get defns of NI_MAXSERV and NI_MAXHOST */
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <ifaddrs.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <linux/if_link.h>
 
 #include "Interaction.hh"
 #include "RawSocket.hh"
@@ -54,6 +65,9 @@ class	MainScreen : public QMainWindow
   QTimer *timer;
   RawSocket socket;
 
+    QListWidget *  ifList;
+    std::string interface;
+
  public:
 
   MainScreen(QWidget *parent = 0);
@@ -70,14 +84,17 @@ class	MainScreen : public QMainWindow
   void	cellSelected(int, int);
   void getPacket();
 
- private:
+
+private:
   void	init();
   //  void	checkUser();
   void	fillInfo();
+    std::list<std::string> *getAllInterfaces();
 
   void	addButon(int,int,const QString &, int);
   void	addItem(const QString&, int, int);
   void	addLabel(int, int, QString);
+  void addList(int x, int y, std::list<std::string> *lstr);
 
   void	connectQuit(QPushButton*);
   void	connectCapture(QPushButton*);
@@ -89,7 +106,10 @@ class	MainScreen : public QMainWindow
   QPushButton*	_confirm;
   QPushButton*	_cancel;
   QTableWidget*	_table;
-  std::list<Interaction* >	_mylist; 
+  std::list<Interaction* >	_mylist;
+
+private slots:
+    void itemClicked(QListWidgetItem* item);
 };
 
 #endif		/*MAINSCREEN*/
