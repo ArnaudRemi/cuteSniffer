@@ -66,6 +66,8 @@ void MainView::catchPacket() {
     if (packet == NULL)
         return;
     packets.push_back(new EthernetDisplay(packet));
+    if (packets.count() > 15)
+    	packets.removeFirst();
     emit this->packetsChanged();
 }
 

@@ -147,6 +147,14 @@ public:
 		free(ip);
 	}
 
+
+	virtual std::string getSource() {
+		return this->getSpa();
+	}
+	virtual std::string getDestination() {
+		return this->getSha();
+	}
+
 };
 
 #endif /* PACKET_ARP_HH_ */

@@ -56,7 +56,7 @@ std::string Ethernet::getEther_dhost() {
 }
 
 short Ethernet::getEther_type() {
-	return (this->header.ether_type);
+	return ntohs(this->header.ether_type);
 }
 
 std::string Ethernet::getEther_typeString() {
@@ -68,16 +68,18 @@ std::string Ethernet::getEther_typeString() {
         if (value[i] == type)
             return names[i];
     }
-    std::string  ret("UNKNOWN (");
-    ret += std::to_string(type);
+    std::string  ret("UNKNOWN (0x");
+    std::stringstream sstream;
+    sstream << std::hex << type;
+    ret += sstream.str();
     ret += ")";
     return ret;
 }
 
 std::string Ethernet::getPayload() {
     actualizeBuffer();
-    std::string ret = Utils::convertBrutDataToString(this->buffer + sizeof(ethernet_header),
-                                          this->bufferSize - sizeof(ethernet_header));
+    std::string ret = Utils::convertBrutDataToString(this->buffer + this->getTotalSize(),
+                                          this->bufferSize - this->getTotalSize());
     std::cout << "PAYLOAD : " << ret << std::endl;
     return ret;
 }
@@ -96,4 +98,13 @@ void Ethernet::setEther_shost(std::string mac) {
 
 void Ethernet::setEther_type(short type) {
 	this->header.ether_type = type;
+}
+
+
+std::string Ethernet::getSource() {
+	return this->getEther_shost();
+}
+
+std::string Ethernet::getDestination() {
+	return this->getEther_dhost();
 }

@@ -57,6 +57,8 @@ public:
 	virtual int getTotalSize() = 0;
 	virtual std::string toString() = 0;
 	virtual void setDataOnBuffer() = 0;
+	virtual std::string getSource() = 0;
+	virtual std::string getDestination() = 0;
 };
 
 template<typename T>
@@ -73,6 +75,8 @@ public:
 
 	}
 	virtual int getTotalSize() = 0;
+	virtual std::string getSource() = 0;
+	virtual std::string getDestination() = 0;
 };
 
 

@@ -45,6 +45,8 @@ public:
 	virtual int getTotalSize();
 	virtual std::string toString();
 	virtual void setDataOnBuffer();
+	virtual std::string getSource();
+	virtual std::string getDestination();
 };
 
 #endif /* PACKET_ETHERNET_HH_ */

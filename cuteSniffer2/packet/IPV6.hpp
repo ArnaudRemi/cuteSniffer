@@ -124,6 +124,12 @@ public:
 	void setUn2Vfc(unsigned char un2Vfc) {
 		this->header.un2_vfc = un2Vfc;
 	}
+	virtual std::string getSource() {
+		return this->getIp6Src();
+	}
+	virtual std::string getDestination() {
+		return this->getIp6Dest();
+	}
 };
 
 #endif /* PACKET_IPV6_HH_ */

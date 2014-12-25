@@ -152,6 +152,12 @@ public:
 	void setIpVhl(unsigned char ipVhl) {
 		header.ip_vhl = ipVhl;
 	}
+	virtual std::string getSource() {
+		return this->getIpSrc();
+	}
+	virtual std::string getDestination() {
+		return this->getIpDst();
+	}
 
 };
 

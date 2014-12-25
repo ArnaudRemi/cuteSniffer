@@ -1,6 +1,9 @@
-#include "RawSocket.hh"
-
 #include <iostream>
+#include "RawSocket.hh"
+#include "ARP.hpp"
+#include "IP.hpp"
+#include "IPV6.hpp"
+
 
 RawSocket::RawSocket() {
 #if __APPLE__
@@ -86,5 +89,17 @@ Ethernet *RawSocket::getPacket() {
 		std::cout << "read error , failed to get packets" << std::endl;
 		return NULL;
 	}
-	return new Ethernet(this->buffer, data_size);
+	Ethernet *pqt = new Ethernet(this->buffer, data_size);
+	switch (pqt->getEther_type()) {
+	case ETHERTYPE_ARP:
+		return new ARP<Ethernet>(*pqt);
+		break;
+	case ETHERTYPE_IP:
+		return new IP<Ethernet>(*pqt);
+		break;
+	case ETHERTYPE_IPV6:
+		return new IPV6<Ethernet>(*pqt);
+		break;
+	}
+	return pqt;
 }
