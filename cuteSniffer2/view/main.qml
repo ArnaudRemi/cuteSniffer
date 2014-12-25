@@ -8,6 +8,7 @@ ApplicationWindow {
     title: "cuteSniffer2"
     width: 800
     height: 450
+    color: "#e0dfdf"
     visible: true
 
     menuBar: MenuBar {
@@ -24,8 +25,35 @@ ApplicationWindow {
         }
     }
 
-    Button {
+    Text {
         x: 50
+        y: 60
+        text: qsTr("Interface")
+        font.pointSize: 15
+    }
+
+
+    Rectangle {
+        x: 170
+        y: 60
+        width: 150
+        height: 25
+        color: "#ffffff"
+        TextInput {
+            id: interfaceInput
+            width: 150
+            font.pointSize: 16
+            text: __root__.interface
+            Binding {
+                target: __root__
+                property: "interface"
+                value: interfaceInput.text
+            }
+        }
+    }
+
+    Button {
+        x: 350
         y: 50
         width: 200
         height: 50
@@ -36,7 +64,7 @@ ApplicationWindow {
     }
 
     Button {
-        x: 300
+        x: 580
         y: 50
         width: 200
         height: 50
