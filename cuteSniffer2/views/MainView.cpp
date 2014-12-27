@@ -45,6 +45,7 @@ void MainView::displayUsers() {
 void MainView::rowDoubleClick(int row) {
     QQmlEngine *engine = new QQmlEngine;
     QQmlComponent component(engine);
+    engine->rootContext()->setContextProperty("__packet__", packets.at(row));
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/ethernet.qml")));
     if (component.isReady())
         component.create();

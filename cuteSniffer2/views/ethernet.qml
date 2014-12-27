@@ -41,7 +41,7 @@ ApplicationWindow {
         x: 200
         y: 110
         width: 200
-        text: qsTr("Text Input")
+        text: __packet__.shost
         font.pixelSize: 20
     }
 
@@ -58,7 +58,7 @@ ApplicationWindow {
         width: 200
         x: 200
         y: 180
-        text: qsTr("Text Input")
+        text: __packet__.dhost
         font.pixelSize: 20
     }
 
@@ -75,7 +75,7 @@ ApplicationWindow {
         x: 200
         y: 250
         width: 200
-        text: qsTr("Text Input")
+        text: __packet__.type
         font.pixelSize: 20
     }
 
@@ -89,12 +89,13 @@ ApplicationWindow {
         font.pixelSize: 20
     }
 
-    Rectangle {
+    TextField {
         x: 8
         y: 400
         width: 584
         height: 392
-        color: "#ffffff"
+        text: __packet__.data
+        font.pixelSize: 20
     }
 }
 
