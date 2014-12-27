@@ -36,10 +36,10 @@ public:
 		memset(&this->header, 0, sizeof(ipv6_header));
 	}
 
-	IPV6(char* data, int dataSize) :
+    IPV6(unsigned char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize) {
-		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(), sizeof(ipv6_header));
+        if (dataSize >= this->getTotalHeaderSize())
+            memcpy(&this->header, data + T::getTotalHeaderSize(), sizeof(ipv6_header));
 		else
 			memset(&this->header, 0, sizeof(ipv6_header));
 	}
@@ -49,20 +49,24 @@ public:
 	}
 
 	virtual ~IPV6() {
-	}
+    }
 
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(ipv6_header);
-	}
+    virtual int getTotalHeaderSize() {
+        return T::getTotalHeaderSize() + sizeof(ipv6_header);
+    }
+
+    virtual int getTotalNbByteInBufferNeed() {
+        return this->getTotalHeaderSize();
+    }
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		memcpy(this->buffer + T::getTotalSize() , &(this->header), sizeof(ipv6_header));
+        memcpy(this->buffer + T::getTotalHeaderSize() , &(this->header), sizeof(ipv6_header));
 	}
 
 	virtual std::string toString() {
 		std::ostringstream stream;
-		stream << T::toString() << "IPV6(" << this->getTotalSize()
+        stream << T::toString() << "IPV6(" << this->getTotalHeaderSize()
 				<< ")=[Source IP: " << this->getIp6Src()
 				<< ", Destination IP: " << this->getIp6Dest() << "]"
 				<< std::endl;

@@ -31,18 +31,20 @@ private:
 	ethernet_header header;
 public:
 	Ethernet();
-	Ethernet(char *data, int dataSize);
+    Ethernet(unsigned char *data, int dataSize);
 	Ethernet(Ethernet &other);
 	virtual ~Ethernet();
 	std::string getEther_dhost();
 	std::string getEther_shost();
-	short getEther_type();
+    unsigned short getEther_type();
     std::string getEther_typeString();
     std::string getPayload();
 	void setEther_dhost(std::string mac);
 	void setEther_shost(std::string mac);
 	void setEther_type(short type);
-	virtual int getTotalSize();
+    unsigned int calculFCS();
+    virtual int getTotalHeaderSize();
+    virtual int getTotalNbByteInBufferNeed();
 	virtual std::string toString();
 	virtual void setDataOnBuffer();
 	virtual std::string getSource();

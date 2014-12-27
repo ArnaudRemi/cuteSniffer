@@ -82,35 +82,39 @@ public:
 		memset(&this->header, 0, sizeof(icmp_header));
 	}
 
-	ICMP(char* data, int dataSize) :
+    ICMP(unsigned char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize) {
-		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(),
+        if (dataSize >= this->getTotalHeaderSize())
+            memcpy(&this->header, data + T::getTotalHeaderSize(),
 					sizeof(icmp_header));
 		else
 			memset(&this->header, 0, sizeof(icmp_header));
-	}
+    }
 
 	ICMP(T &pqt) {
 		new (this) ICMP(pqt.getBuffer(), pqt.getBufferSize());
 	}
 
 	virtual ~ICMP() {
-	}
+    }
 
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(icmp_header);
-	}
+    virtual int getTotalHeaderSize() {
+        return T::getTotalHeaderSize() + sizeof(icmp_header);
+    }
+
+    virtual int getTotalNbByteInBufferNeed() {
+        return this->getTotalHeaderSize();
+    }
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		memcpy(this->buffer + T::getTotalSize(), &(this->header),
+        memcpy(this->buffer + T::getTotalHeaderSize(), &(this->header),
 				sizeof(icmp_header));
 	}
 
 	virtual std::string toString() {
 		std::ostringstream stream;
-		stream << T::toString() << "ICMP(" << this->getTotalSize()
+        stream << T::toString() << "ICMP(" << this->getTotalHeaderSize()
 				<< ")=[type : " << this->getType() << "]" << std::endl;
 		return stream.str();
 	}

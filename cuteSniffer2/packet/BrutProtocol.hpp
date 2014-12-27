@@ -26,8 +26,8 @@ public:
 
 	BrutProtocol(char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize), brut(NULL), brutSize(0) {
-		if (dataSize > T::getTotalSize()) {
-			this->brutSize = dataSize - T::getTotalSize();
+        if (dataSize > T::getTotalHeaderSize()) {
+            this->brutSize = dataSize - T::getTotalHeadSize();
 			data = Utils::memncpy(data + T::getTotalSize(), this->brutSize);
 		}
 	}

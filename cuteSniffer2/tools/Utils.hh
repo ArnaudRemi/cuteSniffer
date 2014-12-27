@@ -14,8 +14,8 @@ public:
 	static std::string convertByteToIP(unsigned char* byte);
 	static std::string convertIn_addrToIP(struct in_addr);
 	static std::string convertIn6_addrToIPV6(struct in6_addr);
-	static char *memncpy(char *data, int size);
-    static std::string convertBrutDataToString(char *data, int len);
+    static unsigned char *memncpy(unsigned char *data, int size);
+    static std::string convertBrutDataToString(unsigned char *data, int len);
 };
 
 

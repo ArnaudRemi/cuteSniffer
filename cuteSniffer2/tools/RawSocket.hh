@@ -29,7 +29,7 @@
 class RawSocket {
 
     int sock;
-    char *buffer;
+    unsigned char *buffer;
     int readSize;
 
 public:

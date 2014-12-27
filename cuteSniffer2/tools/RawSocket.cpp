@@ -6,7 +6,7 @@
 
 
 RawSocket::RawSocket() {
-	this->buffer = new char[BUFFER_SIZE + 1];
+    this->buffer = new unsigned char[BUFFER_SIZE + 1];
 }
 
 RawSocket::~RawSocket() {
@@ -42,7 +42,6 @@ bool RawSocket::runPromiscious(std::string if_name) {
 
 void RawSocket::stopPromiscious() {
     close(this->sock);
-    this->sock = NULL;
 }
 
 Ethernet *RawSocket::getPacket() {

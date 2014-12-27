@@ -28,10 +28,10 @@ public:
 		memset(&this->header, 0, sizeof(udp_header));
 	}
 
-	UDP(char* data, int dataSize) :
+    UDP(unsigned char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize) {
-		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(), sizeof(udp_header));
+        if (dataSize >= this->getTotalHeaderSize())
+            memcpy(&this->header, data + T::getTotalHeaderSize(), sizeof(udp_header));
 		else
 			memset(&this->header, 0, sizeof(udp_header));
 	}
@@ -43,25 +43,30 @@ public:
 	virtual ~UDP() {
 	}
 
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(udp_header);
-	}
+    virtual int getTotalHeaderSize() {
+        return T::getTotalHeaderSize() + sizeof(udp_header);
+    }
+
+    virtual int getTotalNbByteInBufferNeed() {
+        return this->getTotalHeaderSize();
+    }
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		memcpy(this->buffer + T::getTotalSize(), &(this->header),
+        memcpy(this->buffer + T::getTotalHeaderSize(), &(this->header),
 				sizeof(udp_header));
 	}
 
 	virtual std::string toString() {
 		std::ostringstream stream;
-		stream << T::toString() << "UDP(" << this->getTotalSize()
+        stream << T::toString() << "UDP(" << this->getTotalHeaderSize()
 				<< ")=[Source Port: " << this->getUdphSrcport()
 				<< ", Destination Port: " << this->getUdphDestport()
 				<< ", Len:" << this->getUdphLen()
 				<< "]" << std::endl;
 		return stream.str();
 	}
+
 	unsigned short getUdphChksum() const {
 		return header.udph_chksum;
 	}

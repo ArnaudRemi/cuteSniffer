@@ -43,10 +43,10 @@ public:
 		memset(&this->header, 0, sizeof(tcp_header));
 	}
 
-	TCP(char* data, int dataSize) :
+    TCP(unsigned char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize) {
-		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(), sizeof(tcp_header));
+        if (dataSize >= this->getTotalHeaderSize())
+            memcpy(&this->header, data + T::getTotalHeaderSize(), sizeof(tcp_header));
 		else
 			memset(&this->header, 0, sizeof(tcp_header));
 	}
@@ -56,20 +56,24 @@ public:
 	}
 
 	virtual ~TCP() {
-	}
+    }
 
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(tcp_header);
-	}
+    virtual int getTotalHeaderSize() {
+        return T::getTotalHeaderSize() + sizeof(tcp_header);
+    }
+
+    virtual int getTotalNbByteInBufferNeed() {
+        return this->getTotalHeaderSize();
+    }
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		memcpy(this->buffer + T::getTotalSize() , &(this->header), sizeof(tcp_header));
+        memcpy(this->buffer + T::getTotalHeaderSize() , &(this->header), sizeof(tcp_header));
 	}
 
 	virtual std::string toString() {
 		std::ostringstream stream;
-		stream << T::toString() << "TCP(" << this->getTotalSize()
+        stream << T::toString() << "TCP(" << this->getTotalHeaderSize()
 				<< ")=[Source Port: " << this->getThSport()
 				<< ", Destination Port: " << this->getThDport() << "]"
 				<< std::endl;

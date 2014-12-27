@@ -35,10 +35,10 @@ public:
 		memset(&this->header, 0, sizeof(arp_header));
 	}
 
-	ARP(char* data, int dataSize) :
+    ARP(unsigned char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize) {
-		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(), sizeof(arp_header));
+        if (dataSize >= this->getTotalHeaderSize())
+            memcpy(&this->header, data + T::getTotalHeaderSize(), sizeof(arp_header));
 		else
 			memset(&this->header, 0, sizeof(arp_header));
 	}
@@ -48,20 +48,24 @@ public:
 	}
 
 	virtual ~ARP() {
-	}
+    }
 
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(arp_header);
-	}
+    virtual int getTotalHeaderSize() {
+        return T::getTotalHeaderSize() + sizeof(arp_header);
+    }
+
+    virtual int getTotalNbByteInBufferNeed() {
+        return this->getTotalHeaderSize();
+    }
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		memcpy(this->buffer + T::getTotalSize() , &(this->header), sizeof(arp_header));
+        memcpy(this->buffer + T::getTotalHeaderSize() , &(this->header), sizeof(arp_header));
 	}
 
 	virtual std::string toString() {
 		std::ostringstream stream;
-		stream << T::toString() << "ARP(" << this->getTotalSize()
+        stream << T::toString() << "ARP(" << this->getTotalHeaderSize()
 				<< ")=[Target IP : " << this->getTpa() << ", Sender IP : "
 				<< this->getSpa() << "]" << std::endl;
 		return stream.str();
@@ -151,7 +155,7 @@ public:
 		return this->getSpa();
 	}
 	virtual std::string getDestination() {
-		return this->getSha();
+        return this->getTpa();
 	}
 
 };

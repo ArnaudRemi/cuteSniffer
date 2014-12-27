@@ -41,10 +41,10 @@ public:
 		memset(&this->header, 0, sizeof(ip_header));
 	}
 
-	IP(char* data, int dataSize) :
+    IP(unsigned char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize) {
-		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(), sizeof(ip_header));
+        if (dataSize >= this->getTotalHeaderSize())
+            memcpy(&this->header, data + T::getTotalHeaderSize(), sizeof(ip_header));
 		else
 			memset(&this->header, 0, sizeof(ip_header));
 	}
@@ -56,18 +56,22 @@ public:
 	virtual ~IP() {
 	}
 
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(ip_header);
-	}
+    virtual int getTotalHeaderSize() {
+        return T::getTotalHeaderSize() + sizeof(ip_header);
+    }
+
+    virtual int getTotalNbByteInBufferNeed() {
+        return this->getTotalHeaderSize();
+    }
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		memcpy(this->buffer + T::getTotalSize() , &(this->header), sizeof(ip_header));
+        memcpy(this->buffer + T::getTotalHeaderSize() , &(this->header), sizeof(ip_header));
 	}
 
 	virtual std::string toString() {
 		std::ostringstream stream;
-		stream << T::toString() << "IP(" << this->getTotalSize()
+        stream << T::toString() << "IP(" << this->getTotalHeaderSize()
 				<< ")=[IP Source : " << this->getIpSrc()
 				<< ", IP Destination : " << this->getIpDst() << "]" << std::endl;
 		return stream.str();

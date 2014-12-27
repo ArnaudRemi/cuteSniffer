@@ -12,7 +12,6 @@ SOURCES			=	main.cpp \
                                 views/EthernetDisplay.cpp
 
 HEADERS			=	packet/AProtocol.hh \
-                                packet/BrutProtocol.hpp \
                                 packet/Ethernet.hh \
                                 packet/ICMP.hpp \
                                 packet/ICMPV6.hpp \

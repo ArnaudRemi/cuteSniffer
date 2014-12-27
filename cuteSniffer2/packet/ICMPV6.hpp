@@ -22,10 +22,10 @@ public:
 		memset(&this->header, 0, sizeof(icmpv6_header));
 	}
 
-	ICMPV6(char* data, int dataSize) :
+    ICMPV6(unsigned char* data, int dataSize) :
 			ASubProtocol<T>(data, dataSize) {
-		if (dataSize >= this->getTotalSize())
-			memcpy(&this->header, data + T::getTotalSize(),
+        if (dataSize >= this->getTotalHeaderSize())
+            memcpy(&this->header, data + T::getTotalHeaderSize(),
 					sizeof(icmpv6_header));
 		else
 			memset(&this->header, 0, sizeof(icmpv6_header));
@@ -36,21 +36,25 @@ public:
 	}
 
 	virtual ~ICMPV6() {
-	}
+    }
 
-	int getTotalSize() {
-		return T::getTotalSize() + sizeof(icmpv6_header);
-	}
+    virtual int getTotalHeaderSize() {
+        return T::getTotalHeaderSize() + sizeof(icmpv6_header);
+    }
+
+    virtual int getTotalNbByteInBufferNeed() {
+        return this->getTotalHeaderSize();
+    }
 
 	virtual void setDataOnBuffer() {
 		T::setDataOnBuffer();
-		memcpy(this->buffer + T::getTotalSize(), &(this->header),
+        memcpy(this->buffer + T::getTotalHeaderSize(), &(this->header),
 				sizeof(icmpv6_header));
 	}
 
 	virtual std::string toString() {
 		std::ostringstream stream;
-		stream << T::toString() << "ICMPV6(" << this->getTotalSize()
+        stream << T::toString() << "ICMPV6(" << this->getTotalHeaderSize()
 				<< ")=[type : " << this->getType() << "]" << std::endl;
 		return stream.str();
 	}

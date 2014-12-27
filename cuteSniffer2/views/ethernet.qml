@@ -4,9 +4,10 @@ import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
+    id: ethernetWindow
     title: "Ethernet"
     width: 600
-    height: 800
+    height: 700
     color: "#f6f6f6"
     visible: true
 
@@ -89,13 +90,23 @@ ApplicationWindow {
         font.pixelSize: 20
     }
 
-    TextField {
-        x: 8
-        y: 400
-        width: 584
-        height: 392
+    TextArea {
         text: __packet__.data
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 50
+        anchors.top: parent.top
+        anchors.topMargin: 400
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
         font.pixelSize: 20
+    }
+
+    Button {
+        x: 512
+        y: 667
+        text: qsTr("Forger")
     }
 }
 
