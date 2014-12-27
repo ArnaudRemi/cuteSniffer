@@ -36,7 +36,8 @@ public:
     RawSocket();
     ~RawSocket();
 
-    bool goPromiscious(std::string if_name);
+    bool runPromiscious(std::string if_name);
+    void stopPromiscious();
     Ethernet *getPacket();
     /*int readNext();
     L2_Packet *getPacket();*/

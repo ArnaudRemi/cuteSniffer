@@ -25,66 +25,89 @@ ApplicationWindow {
         }
     }
 
+    Button {
+        id: play
+        x: 20
+        y: 20
+        width: 64
+        height: 64
+        onClicked: {
+            __root__.runCapture()
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "qrc:/images/play.png"
+        }
+    }
+
+    Button {
+        id: stop
+        x: 104
+        y: 20
+        width: 64
+        height: 64
+        onClicked: {
+            __root__.stopCapture()
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "qrc:/images/stop.png"
+        }
+    }
+
+    Button {
+        id: users
+        x: 188
+        y: 20
+        width: 64
+        height: 64
+        onClicked: {
+            __root__.displayUsers()
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "qrc:/images/computers.png"
+        }
+    }
+
     Text {
-        x: 50
-        y: 60
+        x: 20
+        y: 104
         text: qsTr("Interface")
         font.pointSize: 15
     }
 
-
-    Rectangle {
-        x: 170
-        y: 60
+    TextField {
+        id: interfaceInput
+        x: 130
+        y: 104
         width: 150
-        height: 25
-        color: "#ffffff"
-        TextInput {
-            id: interfaceInput
-            width: 150
-            font.pointSize: 16
-            text: __root__.interface
-            Binding {
-                target: __root__
-                property: "interface"
-                value: interfaceInput.text
-            }
+        font.pointSize: 16
+        text: __root__.interface
+        Binding {
+            target: __root__
+            property: "interface"
+            value: interfaceInput.text
         }
     }
-
-    Button {
-        x: 350
-        y: 50
-        width: 200
-        height: 50
-        text: "RUN CAPTURE"
-        onClicked: {
-            __root__.runCapture()
-        }
-    }
-
-    Button {
-        x: 580
-        y: 50
-        width: 200
-        height: 50
-        text: "STOP CAPTURE"
-        onClicked: {
-            __root__.stopCapture()
-        }
-    }
-
-
     TableView {
-        width: 800
-        height: 300
+        anchors.top: parent.top
+        anchors.topMargin: 150
+        anchors.right: parent.right
+        anchors.rightMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
         model: __root__.packets
 
         onDoubleClicked: {
             __root__.rowDoubleClick(row)
         }
 
-        y: 150
 
         TableViewColumn {
             title: "Source"

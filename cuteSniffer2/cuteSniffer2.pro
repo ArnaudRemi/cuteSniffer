@@ -1,18 +1,17 @@
 QT                      +=      core gui qml quick widgets
 
 
-SOURCES			=	packet/AProtocol.cpp \
+SOURCES			=	main.cpp \
+                                packet/AProtocol.cpp \
                                 packet/Ethernet.cpp \
                                 tools/RawSocket.cpp \
                                 tools/Utils.cpp \
-                                main.cpp \
-                                view/MainView.cpp \
-                                view/EthernetDisplay.cpp
+                                tools/ClientHandler.cpp \
+                                tools/Client.cpp \
+                                views/MainView.cpp \
+                                views/EthernetDisplay.cpp
 
 HEADERS			=	packet/AProtocol.hh \
-                                tools/RawSocket.hh \
-                                tools/Utils.hh \
-                                view/MainView.hh \
                                 packet/BrutProtocol.hpp \
                                 packet/Ethernet.hh \
                                 packet/ICMP.hpp \
@@ -22,13 +21,18 @@ HEADERS			=	packet/AProtocol.hh \
                                 packet/TCP.hpp \
                                 packet/UDP.hpp \
                                 packet/ARP.hpp \
-                                view/EthernetDisplay.hh
+                                tools/RawSocket.hh \
+                                tools/Utils.hh \
+                                tools/ClientHandler.hh \
+                                tools/Client.hh \
+                                views/MainView.hh \
+                                views/EthernetDisplay.hh
 
 INCLUDEPATH		=	packet \
                                 tools \
-                                view
+                                views
 
 QMAKE_CXXFLAGS          +=	-std=c++0x\
                                 -g
 
-OTHER_FILES             +=      view/main.qml
+RESOURCES               +=      qml.qrc

@@ -16,9 +16,9 @@ class MainView : public QObject
     Q_PROPERTY(QString interface READ getInterface WRITE setInterface NOTIFY interfaceChanged)
 private:
     void initView();
-    void initNetwork();
+    int initNetwork();
 public:
-    MainView(QQmlApplicationEngine *engine);
+    MainView(QQmlApplicationEngine *engineApp);
     ~MainView();
 
     QQmlListProperty<EthernetDisplay> getPackets();
@@ -29,17 +29,19 @@ public slots:
     void runCapture();
     void stopCapture();
     void catchPacket();
+    void displayUsers();
     void rowDoubleClick(int row);
 
 signals:
     void packetsChanged();
     void interfaceChanged();
+    void promisciousError();
 
 private:
     RawSocket socket;
     QTimer timerSocket;
     QList<EthernetDisplay *> packets;
-    QQmlApplicationEngine *engine;
+    QQmlApplicationEngine *engineApp;
     QString interface;
 };
 

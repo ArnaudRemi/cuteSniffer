@@ -147,7 +147,6 @@ public:
 		free(ip);
 	}
 
-
 	virtual std::string getSource() {
 		return this->getSpa();
 	}
