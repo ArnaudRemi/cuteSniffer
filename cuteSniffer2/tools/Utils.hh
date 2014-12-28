@@ -16,6 +16,7 @@ public:
 	static std::string convertIn6_addrToIPV6(struct in6_addr);
     static unsigned char *memncpy(unsigned char *data, int size);
     static std::string convertBrutDataToString(unsigned char *data, int len);
+    static unsigned char *convertStringToBrutData(std::string stdstr, int *len);
 };
 
 

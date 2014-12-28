@@ -168,3 +168,41 @@ std::string Utils::convertBrutDataToString(unsigned char *data, int len) {
     }
     return ret;
 }
+
+unsigned char *Utils::convertStringToBrutData(std::string stdstr, int *len) {
+    const char *str = stdstr.c_str();
+    int i = 0;
+    *len = 0;
+    while (str[i]) {
+        if (str[i] == '\\'){
+            i++;
+            while (str[i] && str[i] != '\\')
+                i++;
+            if (!str[i])
+                return NULL;
+        }
+        i++;
+        (*len)++;
+    }
+    unsigned char *ret;
+    if ((ret = (unsigned char*) malloc(*len)) == NULL)
+        return NULL;
+    i = 0;
+    int j = 0;
+    while (str[i]) {
+        if (str[i] == '\\'){
+            i++;
+            std::string nbStr;
+            while (str[i] != '\\')
+                nbStr += str[i++];
+            int nb;
+            std::istringstream(nbStr) >> nb;
+            ret[j] = (unsigned char)nb;
+        } else {
+            ret[j] = str[i];
+        }
+        i++;
+        j++;
+    }
+    return ret;
+}

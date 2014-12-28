@@ -25,7 +25,7 @@ void MainView::initView() {
 }
 
 void MainView::catchPacket() {
-    Ethernet *packet = socket.getPacket();
+    Ethernet *packet = RawSocket::getInstance().getPacket();
     if (packet == NULL)
         return;
     packets.push_back(new EthernetDisplay(packet));
@@ -53,7 +53,7 @@ void MainView::rowDoubleClick(int row) {
 }
 
 void MainView::runCapture() {
-    if (!timerSocket.isActive() && !socket.runPromiscious(interface.toStdString().c_str())) {
+    if (!timerSocket.isActive() && !RawSocket::getInstance().runPromiscious(interface.toStdString().c_str())) {
         std::cout << "START CAPTURE" << std::endl;
         timerSocket.start(200);
     }
@@ -64,7 +64,7 @@ void MainView::runCapture() {
 void MainView::stopCapture() {
     if (timerSocket.isActive()) {
         timerSocket.stop();
-        socket.stopPromiscious();
+        RawSocket::getInstance().stopPromiscious();
         std::cout << "STOP CAPTURE" << std::endl;
     }
 }

@@ -39,11 +39,17 @@ ApplicationWindow {
     }
 
     TextField {
+        id: shostInput
         x: 200
         y: 110
         width: 200
         text: __packet__.shost
         font.pixelSize: 20
+        Binding {
+            target: __packet__
+            property: "shost"
+            value: shostInput.text
+        }
     }
 
     Text {
@@ -56,11 +62,17 @@ ApplicationWindow {
     }
 
     TextField {
+        id: dhostInput
         width: 200
         x: 200
         y: 180
         text: __packet__.dhost
         font.pixelSize: 20
+        Binding {
+            target: __packet__
+            property: "dhost"
+            value: dhostInput.text
+        }
     }
 
     Text {
@@ -73,11 +85,17 @@ ApplicationWindow {
     }
 
     TextField {
+        id: typeInput
         x: 200
         y: 250
         width: 200
         text: __packet__.type
         font.pixelSize: 20
+        Binding {
+            target: __packet__
+            property: "type"
+            value: typeInput.text
+        }
     }
 
     Text {
@@ -90,8 +108,9 @@ ApplicationWindow {
         font.pixelSize: 20
     }
 
-    TextArea {
-        text: __packet__.data
+    TextField {
+        id: dataInput
+        text: qsTr("#__packet__.data#")
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 50
         anchors.top: parent.top
@@ -101,12 +120,20 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.leftMargin: 8
         font.pixelSize: 20
+        Binding {
+            target: __packet__
+            property: "data"
+            value: dataInput.text
+        }
     }
 
     Button {
         x: 512
         y: 667
         text: qsTr("Forger")
+        onClicked: {
+            __packet__.sendPacket();
+        }
     }
 }
 

@@ -31,18 +31,19 @@ class RawSocket {
     int sock;
     unsigned char *buffer;
     int readSize;
+    struct ifreq ifr;
+    static RawSocket instance;
+
+private:
+    RawSocket();
 
 public:
-    RawSocket();
     ~RawSocket();
-
     bool runPromiscious(std::string if_name);
     void stopPromiscious();
     Ethernet *getPacket();
-    /*int readNext();
-    L2_Packet *getPacket();*/
-
-
+    void sendPacket(Ethernet *packet);
+    static RawSocket &getInstance();
 };
 
 #endif

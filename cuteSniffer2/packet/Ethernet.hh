@@ -34,6 +34,7 @@ public:
     Ethernet(unsigned char *data, int dataSize);
 	Ethernet(Ethernet &other);
 	virtual ~Ethernet();
+    ethernet_header getEthernetHeader();
 	std::string getEther_dhost();
 	std::string getEther_shost();
     unsigned short getEther_type();
@@ -41,7 +42,7 @@ public:
     std::string getPayload();
 	void setEther_dhost(std::string mac);
 	void setEther_shost(std::string mac);
-	void setEther_type(short type);
+    void setEther_type(unsigned short type);
     unsigned int calculFCS();
     virtual int getTotalHeaderSize();
     virtual int getTotalNbByteInBufferNeed();

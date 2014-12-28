@@ -38,7 +38,6 @@ signals:
     void promisciousError();
 
 private:
-    RawSocket socket;
     QTimer timerSocket;
     QList<EthernetDisplay *> packets;
     QQmlApplicationEngine *engineApp;

@@ -102,7 +102,11 @@ void Ethernet::setEther_shost(std::string mac) {
 	free(shost);
 }
 
-void Ethernet::setEther_type(short type) {
+Ethernet::ethernet_header Ethernet::getEthernetHeader() {
+    return this->header;
+}
+
+void Ethernet::setEther_type(unsigned short type) {
 	this->header.ether_type = type;
 }
 

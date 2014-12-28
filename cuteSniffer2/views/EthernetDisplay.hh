@@ -8,10 +8,10 @@
 class EthernetDisplay : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString dhost READ getDhost NOTIFY dhostChanged)
-    Q_PROPERTY(QString shost READ getShost NOTIFY shostChanged)
-    Q_PROPERTY(QString type READ getType NOTIFY typeChanged)
-    Q_PROPERTY(QString data READ getData NOTIFY dataChanged)
+    Q_PROPERTY(QString dhost READ getDhost WRITE setDhost NOTIFY dhostChanged)
+    Q_PROPERTY(QString shost READ getShost WRITE setShost NOTIFY shostChanged)
+    Q_PROPERTY(QString type READ getType WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(QString data READ getData WRITE setData NOTIFY dataChanged)
 
 public:
     EthernetDisplay();
@@ -21,6 +21,11 @@ public:
     QString getShost() const;
     QString getType() const;
     QString getData() const;
+    void setDhost(QString);
+    void setShost(QString);
+    void setType(QString);
+    void setData(QString);
+    void actualizePacket();
 
 signals:
     void dhostChanged();
@@ -28,8 +33,11 @@ signals:
     void typeChanged();
     void dataChanged();
 
+public slots:
+    void sendPacket();
+
 private:
-    Ethernet *paquet;
+    Ethernet *packet;
     QString shost;
     QString dhost;
     QString type;
