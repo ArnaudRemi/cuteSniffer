@@ -8,6 +8,7 @@ SOURCES			=	main.cpp \
                                 tools/Utils.cpp \
                                 tools/ClientHandler.cpp \
                                 tools/Client.cpp \
+                                tools/PcapReader.cpp \
                                 views/MainView.cpp \
                                 views/EthernetDisplay.cpp
 
@@ -24,6 +25,7 @@ HEADERS			=	packet/AProtocol.hh \
                                 tools/Utils.hh \
                                 tools/ClientHandler.hh \
                                 tools/Client.hh \
+                                tools/PcapReader.hh \
                                 views/MainView.hh \
                                 views/EthernetDisplay.hh
 

@@ -50,7 +50,7 @@ void EthernetDisplay::actualizePacket() {
     Ethernet *newPacket = new Ethernet(*this->packet);
     newPacket->setEther_dhost(this->dhost.toStdString());
     newPacket->setEther_shost(this->shost.toStdString());
-    newPacket->setEther_type((unsigned short)this->getType().toShort());
+    //newPacket->setEther_type((unsigned short)this->getType().toShort());
     //TODO - CP Payload
     RawSocket::getInstance().sendPacket(newPacket);
     std::cout << "RESEND" << *newPacket << std::endl;

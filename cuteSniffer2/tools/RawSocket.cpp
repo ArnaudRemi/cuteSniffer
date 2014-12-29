@@ -79,7 +79,7 @@ Ethernet *RawSocket::getPacket() {
 }
 
 void RawSocket::sendPacket(Ethernet *packet) {
-    struct sockaddr_ll 	socket_address;
+    struct sockaddr_ll socket_address;
 
     packet->actualizeBuffer();
     memset(&socket_address, 0, sizeof(socket_address));

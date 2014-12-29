@@ -1,8 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <iostream>
 #include "MainView.hh"
 
-void fillData(QList<QObject *> &data);
 
 int main(int argc, char *argv[])
 {
@@ -10,6 +10,15 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     MainView mainView(&engine);
     return app.exec();
+
+	//TEST PCAP READER
+	/*PcapReader r("toto.pcap");
+	std::list<Ethernet *> ret = r.getPackets();
+	std::cout << "get " << ret.size() << " packets" << std::endl;
+	for (Ethernet *pqt : ret) {
+		IP<Ethernet> *dp = new IP<Ethernet>(*pqt);
+		std::cout << *dp << std::endl;
+	}*/
 }
 
 // L2 : Ethernet
