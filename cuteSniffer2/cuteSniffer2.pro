@@ -8,9 +8,9 @@ SOURCES			=	main.cpp \
                                 tools/Utils.cpp \
                                 tools/ClientHandler.cpp \
                                 tools/Client.cpp \
-                                tools/PcapReader.cpp \
                                 views/MainView.cpp \
-                                views/EthernetDisplay.cpp
+                                views/EthernetDisplay.cpp \
+    tools/PcapHandler.cpp
 
 HEADERS			=	packet/AProtocol.hh \
                                 packet/Ethernet.hh \
@@ -25,9 +25,9 @@ HEADERS			=	packet/AProtocol.hh \
                                 tools/Utils.hh \
                                 tools/ClientHandler.hh \
                                 tools/Client.hh \
-                                tools/PcapReader.hh \
                                 views/MainView.hh \
-                                views/EthernetDisplay.hh
+                                views/EthernetDisplay.hh \
+    tools/PcapHandler.hh
 
 INCLUDEPATH		=	packet \
                                 tools \

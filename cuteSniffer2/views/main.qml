@@ -26,7 +26,7 @@ ApplicationWindow {
     }
 
     Button {
-        id: play
+        id: playBtn
         x: 20
         y: 20
         width: 64
@@ -42,7 +42,7 @@ ApplicationWindow {
     }
 
     Button {
-        id: stop
+        id: stopBtn
         x: 104
         y: 20
         width: 64
@@ -58,8 +58,40 @@ ApplicationWindow {
     }
 
     Button {
-        id: users
+        id: saveBtn
         x: 188
+        y: 20
+        width: 64
+        height: 64
+        onClicked: {
+            __root__.saveCapture();
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "qrc:/images/save.png"
+        }
+    }
+
+    Button {
+        id: deleteBtn
+        x: 272
+        y: 20
+        width: 64
+        height: 64
+        onClicked: {
+            __root__.deleteCapture();
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "qrc:/images/delete.png"
+        }
+    }
+
+    Button {
+        id: users
+        x: 356
         y: 20
         width: 64
         height: 64
@@ -69,7 +101,7 @@ ApplicationWindow {
         Image {
             width: 64
             height: 64
-            source: "qrc:/images/computers.png"
+            source: "qrc:/images/users.png"
         }
     }
 
@@ -93,6 +125,7 @@ ApplicationWindow {
             value: interfaceInput.text
         }
     }
+
     TableView {
         anchors.top: parent.top
         anchors.topMargin: 150

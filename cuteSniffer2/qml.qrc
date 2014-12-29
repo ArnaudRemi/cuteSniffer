@@ -5,6 +5,8 @@
         <file>views/users.qml</file>
         <file>images/play.png</file>
         <file>images/stop.png</file>
-        <file>images/computers.png</file>
+        <file>images/save.png</file>
+        <file>images/delete.png</file>
+        <file>images/users.png</file>
     </qresource>
 </RCC>

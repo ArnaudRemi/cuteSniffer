@@ -5,8 +5,8 @@
  *      Author: cursan_a
  */
 
-#ifndef CUTESNIFFER2_TOOLS_PCAPREADER_HH_
-#define CUTESNIFFER2_TOOLS_PCAPREADER_HH_
+#ifndef CUTESNIFFER2_TOOLS_PCAPHANDLER_HH_
+#define CUTESNIFFER2_TOOLS_PCAPHANDLER_HH_
 
 #include "Ethernet.hh"
 #include <string>
@@ -18,7 +18,7 @@ typedef unsigned int guint32 ;
 typedef unsigned short guint16;
 typedef int gint32;
 
-class PcapReader {
+class PcapHandler {
 public :
 	typedef struct pcap_hdr_s {
 	        guint32 magic_number;   /* magic number */
@@ -39,17 +39,21 @@ public :
 
 private:
 	std::string path;
-	std::ifstream file;
+	std::ifstream rfile;
+	std::ofstream wfile;
 	pcap_hdr_t header;
 	unsigned int lenFile;
 	unsigned int cursor;
 
 public:
-	PcapReader(std::string path);
+    PcapHandler(std::string const &path);
 	std::list<Ethernet *> getPackets();
+	void writeFile(std::list<Ethernet *> packets);
 private:
-	void openFile();
+	void openReadFile();
+	void openWriteFile();
 	void getHeader();
+	void setHeader();
 };
 
-#endif /* CUTESNIFFER2_TOOLS_PCAPREADER_HH_ */
+#endif /* CUTESNIFFER2_TOOLS_PCAPHANDLER_HH_ */

@@ -28,6 +28,8 @@ public:
 public slots:
     void runCapture();
     void stopCapture();
+    void saveCapture();
+    void deleteCapture();
     void catchPacket();
     void displayUsers();
     void rowDoubleClick(int row);

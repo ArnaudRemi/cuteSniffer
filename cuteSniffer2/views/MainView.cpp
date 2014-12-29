@@ -69,6 +69,14 @@ void MainView::stopCapture() {
     }
 }
 
+void MainView::saveCapture() {
+    std::cout << "saveCapture" << std::endl;
+}
+
+void MainView::deleteCapture() {
+    std::cout << "deleteCapture" << std::endl;
+}
+
 QQmlListProperty<EthernetDisplay> MainView::getPackets() {
     return QQmlListProperty<EthernetDisplay>(this, packets);
 }

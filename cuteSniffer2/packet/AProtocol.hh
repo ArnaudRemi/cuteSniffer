@@ -14,10 +14,13 @@
 #include "Utils.hh"
 
 class AProtocol {
-public:
+protected:
     unsigned char* buffer;
 	int bufferSize;
+    unsigned int sec;
+	unsigned int msec;
 
+	void setTime();
 public:
     AProtocol(unsigned char *buffer, int bufferSize);
     AProtocol();
@@ -33,6 +36,10 @@ public:
     virtual std::string toString() = 0;
 	virtual std::string getSource() = 0;
     virtual std::string getDestination() = 0;
+	unsigned int getMsec() const;
+	void setMsec(unsigned int msec);
+	unsigned int getSec() const;
+	void setSec(unsigned int sec);
 };
 
 template<typename T>
