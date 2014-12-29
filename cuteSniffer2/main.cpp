@@ -9,13 +9,13 @@
 
 int main(int argc, char *argv[])
 {
-    /*QGuiApplication app(argc, argv);
+	QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
     MainView mainView(&engine);
-    return app.exec();*/
+    return app.exec();
 
 	//TEST PCAP READER
-	PcapHandler r("toto.pcap");
+	/*PcapHandler r("toto.pcap");
 	std::list<Ethernet *> ret = r.getPackets();
 	std::cout << "get " << ret.size() << " packets" << std::endl;
 	for (Ethernet *pqt : ret) {
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 		std::cout << *dp << std::endl;
 	}
 	PcapHandler t("toto2.pcap");
-	t.writeFile(ret);
+	t.writeFile(ret);*/
 }
 
 // L2 : Ethernet

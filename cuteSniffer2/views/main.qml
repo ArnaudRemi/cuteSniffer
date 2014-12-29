@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.2
 import __data_element__ 1.0
 
 ApplicationWindow {
+    id: applicationWindow1
     title: "cuteSniffer2"
     width: 800
     height: 450
@@ -127,14 +128,11 @@ ApplicationWindow {
     }
 
     TableView {
-        anchors.top: parent.top
-        anchors.topMargin: 150
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
+        x: 10
+        y: 150
+        width: 780
+        height: 270
+        currentRow: -1
         model: __root__.packets
 
         onDoubleClicked: {

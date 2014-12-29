@@ -29,7 +29,7 @@ void MainView::catchPacket() {
     if (packet == NULL)
         return;
     packets.push_back(new EthernetDisplay(packet));
-    if (packets.count() > 15)
+    if (packets.count() > 12)
     	packets.removeFirst();
     emit this->packetsChanged();
 }
@@ -74,6 +74,8 @@ void MainView::saveCapture() {
 }
 
 void MainView::deleteCapture() {
+    packets.clear();
+    emit this->packetsChanged();
     std::cout << "deleteCapture" << std::endl;
 }
 
