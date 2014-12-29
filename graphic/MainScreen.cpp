@@ -25,6 +25,8 @@ MainScreen::MainScreen(QWidget * parent) {
     this->init();
 
     this->ifList = NULL;
+    this->filters = NULL;
+
 }
 
 void    MainScreen::init() {
@@ -42,7 +44,7 @@ void    MainScreen::init() {
     this->fillInfo();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(getPacket()));
-    timer->start(1000);
+    timer->start(100);
     this->show();
 }
 
@@ -72,6 +74,13 @@ void    MainScreen::getPacket() {
     Ethernet *pqt = socket.getPacket();
     if (pqt)
         std::cout << *pqt << std::endl;
+
+    if (filters != NULL)
+        for (Filter *filter : *filters)
+            if (!filter->isValid(pqt))
+                return;
+
+    std::cout << "valid packet" << std::endl;
 }
 
 void    MainScreen::fillInfo() {
@@ -151,7 +160,9 @@ void    MainScreen::addList(int x, int y, std::list <std::string> *lstr) {
 void MainScreen::itemClicked(QListWidgetItem * item) {
     QMessageBox::information(this, "Hello!", "Capture start on \"" + item->text() + "\"");
     socket.goPromiscious((char *) item->text().toStdString().c_str());
+
     //TODO : start sniffing
+
     this->ifList->close();
 };
 
@@ -192,7 +203,11 @@ void    MainScreen::capture() {
 }
 
 void    MainScreen::filtring() {
-    this->close();
+    ContentFilter filter;
+
+    filter.showConfig();
+
+    QWidget * w = filter.getWindow();
 }
 
 void    MainScreen::forging() {

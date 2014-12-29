@@ -5,6 +5,7 @@ SOURCES			=	graphic/FocusView.cpp \
 					packet/Ethernet.cpp \
 					tools/RawSocket.cpp \
 					tools/Utils.cpp \
+					filters/ContentFilter.cpp \
 					main.cpp
 
 HEADERS			=	graphic/FocusView.hh \
@@ -20,10 +21,13 @@ HEADERS			=	graphic/FocusView.hh \
 					packet/IPV6.hh \
 					packet/TCP.hh \
 					packet/UDP.hh \
+					filters/ContentFilter.hh \
+					filters/Filter.hh \
 					tools/RawSocket.hh \
 					tools/Utils.hh
 				
 INCLUDEPATH		=	graphic \
+					filters \
 					packet \
 					tools
 				

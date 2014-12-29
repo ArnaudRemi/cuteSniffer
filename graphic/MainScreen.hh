@@ -45,6 +45,8 @@
 
 #include "Interaction.hh"
 #include "RawSocket.hh"
+#include "Filter.hh"
+#include "ContentFilter.hh"
 
 class	FocusView;
 
@@ -66,7 +68,8 @@ class	MainScreen : public QMainWindow
   RawSocket socket;
 
     QListWidget *  ifList;
-    std::string interface;
+
+    std::list<Filter*> *filters;
 
  public:
 
