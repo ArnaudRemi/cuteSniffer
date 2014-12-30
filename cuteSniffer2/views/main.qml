@@ -14,14 +14,190 @@ ApplicationWindow {
 
     menuBar: MenuBar {
         Menu {
-            title: qsTr("&File")
-            MenuItem {
-                text: qsTr("&Open")
-                onTriggered: messageDialog.show(qsTr("Open action triggered"));
+            title: qsTr("Filtres")
+            /*Menu {
+                title: qsTr("&File")
+                MenuItem {
+                    text: qsTr("&Open")
+                    onTriggered: messageDialog.show(qsTr("Open action triggered"));
+                }
+                MenuItem {
+                    text: qsTr("E&xit")
+                    onTriggered: Qt.quit();
+                }
+            }*/
+            Menu {
+                title: qsTr("Ethernet")
+                MenuItem {
+                    text: qsTr("dhost")
+                }
+                MenuItem {
+                    text: qsTr("shost")
+                }
+                MenuItem {
+                    text: qsTr("type")
+                }
             }
-            MenuItem {
-                text: qsTr("E&xit")
-                onTriggered: Qt.quit();
+            MenuSeparator { }
+            Menu {
+                title: qsTr("ARP")
+                MenuItem {
+                    text: qsTr("htype")
+                }
+                MenuItem {
+                    text: qsTr("ptype")
+                }
+                MenuItem {
+                    text: qsTr("hlen")
+                }
+                MenuItem {
+                    text: qsTr("plen")
+                }
+                MenuItem {
+                    text: qsTr("oper")
+                }
+                MenuItem {
+                    text: qsTr("sha")
+                }
+                MenuItem {
+                    text: qsTr("spa")
+                }
+                MenuItem {
+                    text: qsTr("tha")
+                }
+                MenuItem {
+                    text: qsTr("tpa")
+                }
+            }
+            Menu {
+                title: qsTr("IP")
+                MenuItem {
+                    text: qsTr("vhl")
+                }
+                MenuItem {
+                    text: qsTr("tos")
+                }
+                MenuItem {
+                    text: qsTr("len")
+                }
+                MenuItem {
+                    text: qsTr("id")
+                }
+                MenuItem {
+                    text: qsTr("off")
+                }
+                MenuItem {
+                    text: qsTr("ttl")
+                }
+                MenuItem {
+                    text: qsTr("p")
+                }
+                MenuItem {
+                    text: qsTr("sum")
+                }
+                MenuItem {
+                    text: qsTr("src")
+                }
+                MenuItem {
+                    text: qsTr("dst")
+                }
+            }
+            Menu {
+                title: qsTr("IPV6")
+                MenuItem {
+                    text: qsTr("flow")
+                }
+                MenuItem {
+                    text: qsTr("plen")
+                }
+                MenuItem {
+                    text: qsTr("next_head")
+                }
+                MenuItem {
+                    text: qsTr("hop_limit")
+                }
+                MenuItem {
+                    text: qsTr("un2_vfc")
+                }
+                MenuItem {
+                    text: qsTr("src")
+                }
+                MenuItem {
+                    text: qsTr("dst")
+                }
+            }
+            MenuSeparator { }
+            Menu {
+                title: qsTr("ICMP")
+                MenuItem {
+                    text: qsTr("type")
+                }
+                MenuItem {
+                    text: qsTr("code")
+                }
+                MenuItem {
+                    text: qsTr("checksum")
+                }
+                MenuItem {
+                    text: qsTr("gateway")
+                }
+            }
+            Menu {
+                title: qsTr("ICMPV6")
+                MenuItem {
+                    text: qsTr("type")
+                }
+                MenuItem {
+                    text: qsTr("code")
+                }
+                MenuItem {
+                    text: qsTr("checksum")
+                }
+            }
+            Menu {
+                title: qsTr("TCP")
+                MenuItem {
+                    text: qsTr("sport")
+                }
+                MenuItem {
+                    text: qsTr("dport")
+                }
+                MenuItem {
+                    text: qsTr("seq")
+                }
+                MenuItem {
+                    text: qsTr("ack")
+                }
+                MenuItem {
+                    text: qsTr("off")
+                }
+                MenuItem {
+                    text: qsTr("flags")
+                }
+                MenuItem {
+                    text: qsTr("win")
+                }
+                MenuItem {
+                    text: qsTr("sum")
+                }
+                MenuItem {
+                    text: qsTr("urp")
+                }
+            }
+            Menu {
+                title: qsTr("UDP")
+                MenuItem {
+                    text: qsTr("srcport")
+                }
+                MenuItem {
+                    text: qsTr("destport")
+                }
+                MenuItem {
+                    text: qsTr("len")
+                }
+                MenuItem {
+                    text: qsTr("chksum")
+                }
             }
         }
     }
