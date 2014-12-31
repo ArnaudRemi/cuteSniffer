@@ -3,10 +3,14 @@
         <file>views/main.qml</file>
         <file>views/ethernet.qml</file>
         <file>views/users.qml</file>
+        <file>views/openPcap.qml</file>
+        <file>views/savePcap.qml</file>
         <file>images/play.png</file>
         <file>images/stop.png</file>
         <file>images/save.png</file>
+        <file>images/open.png</file>
         <file>images/delete.png</file>
         <file>images/users.png</file>
+        <file>images/router.png</file>
     </qresource>
 </RCC>

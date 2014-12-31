@@ -113,6 +113,23 @@ public:
 		return header.ip_p;
 	}
 
+	std::string getIpP_string() const {
+		unsigned char c = header.ip_p;
+		const char *names[] = {"ICMP", "IGMP", "TCP", "UDP"};
+		const unsigned char value[] ={0x01, 0x02, 0x06, 0x11};
+
+		for (int i = 0; i < 4; i++) {
+			if (value[i] == c)
+				return names[i];
+		}
+		std::string  ret("UNKNOWN (0x");
+		std::stringstream sstream;
+		sstream << std::hex << c;
+		ret += sstream.str();
+		ret += ")";
+		return ret;
+	}
+
 	void setIpP(unsigned char ipP) {
 		header.ip_p = ipP;
 	}

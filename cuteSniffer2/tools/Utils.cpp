@@ -161,8 +161,9 @@ std::string Utils::convertBrutDataToString(unsigned char *data, int len) {
     std::string ret;
 
     for (int i = 0; i < len; i++) {
-        if(data[i] < 32 || data[i] > 12 || data[i] == '\\')
-            ret += '\\' + std::to_string((int)data[i]) + '\\';
+        if(data[i] < 32 || data[i] > 126 || data[i] == '\\')
+            //ret += '\\' + std::to_string((int)data[i]) + '\\';
+            ret += '.';
         else
             ret += data[i];
     }
