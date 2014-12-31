@@ -1,0 +1,5 @@
+Pour compiler un .deb :
+
+Creer l'arborescence dans ce dossier (dossier usr puis usr/bin)
+Mettre l'executable dans ce dossier
+Executer la commande dans build.sh
