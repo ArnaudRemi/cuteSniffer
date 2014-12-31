@@ -13,12 +13,12 @@
  * MAC of my network card
  * IP to replace for the target
  *
- * A has a mac aa:bb:cc:dd:ee and IP 192.168.1.1
- * He communicates with B 192.168.1.254
+ * A has a mac aa:aa:aa:aa:aa and IP 192.168.1.1
+ * He communicates with B 192.168.1.254, mac bb:bb:bb:bb:bb
  * I want to intercept that. My mac is ee:dd:cc:bb:aa
  *
- * I call ManInTheMiddle(a, b) with a {aa:bb:cc:dd:ee, 192.168.1.1} (target data) and b {ee:dd:cc:bb:aa, 192.168.1.254} (replacement data)
- * Then I call buildArpPacket and I can get my ARP packet by using getPacket()
+ * I call ManInTheMiddle(a, b) with a {aa:aa:aa:aa:aa, 192.168.1.1} (target data) and b {bb:bb:bb:bb:bb, 192.168.1.254} (target2 data) and c {ee:dd:cc:bb:aa} (replacement mac)
+ * Then I call buildArpPacket and I can get my ARP packet by using getPacket(), first one is for a and second one for b.
 */
 
 typedef struct s_network_data {
@@ -29,19 +29,22 @@ typedef struct s_network_data {
 class ManInTheMiddle {
 private:
     t_network_data  _target;
-    t_network_data  _replacement;
+    t_network_data  _target2;
 
-    ARP<Ethernet>   _packet;
+    std::string     _mac;
+
+    ARP<Ethernet>   _packet[2];
 
 public:
-    ManInTheMiddle(t_network_data, t_network_data);
+    ManInTheMiddle(t_network_data, t_network_data, std::string);
     ~ManInTheMiddle();
 
     void    setTargetData(t_network_data);
-    void    setReplacementData(t_network_data);
+    void    setTarget2Data(t_network_data);
+    void    setMac(std::string);
     void    buildArpPacket();
 
-    ARP<Ethernet>   getPacket();
+    ARP<Ethernet>   *getPacket();
 };
 
 #endif // CUTESNIFFER2_TOOLS_MANINTHEMIDDLE_HH

@@ -1,0 +1,9 @@
+Package: cuteSniffer
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Depends: bash
+Maintainer: cursan_a <cursan_a@epitech.eu>
+Description: Network monitoring and packet manipulation
+Homepage: http://www.epitech.eu/
