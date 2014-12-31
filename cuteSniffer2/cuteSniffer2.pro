@@ -11,7 +11,8 @@ SOURCES			=	main.cpp \
                                 tools/PcapHandler.cpp \
                                 views/MainView.cpp \
                                 views/EthernetDisplay.cpp \
-                                filters/FilterData.cpp
+                                filters/FilterData.cpp \
+    tools/ManInTheMiddle.cpp
 
 HEADERS			=	packet/AProtocol.hh \
                                 packet/Ethernet.hh \
@@ -29,7 +30,8 @@ HEADERS			=	packet/AProtocol.hh \
                                 tools/Client.hh \
                                 views/MainView.hh \
                                 views/EthernetDisplay.hh \
-                                filters/FilterData.hh
+                                filters/FilterData.hh \
+    tools/ManInTheMiddle.hh
 
 INCLUDEPATH		=	packet \
                                 tools \
