@@ -28,6 +28,14 @@ void MainView::catchPacket() {
     Ethernet *packet = RawSocket::getInstance().getPacket();
     if (packet == NULL)
         return;
+
+    if (!this->filters.isEmpty()) {
+        for (int i = 0; i < this->filters.size(); ++i) {
+            if (this->filters[i]->isActive() && !this->filters[i]->isValid(packet))
+                return;
+        }
+    }
+
     packets.push_back(new EthernetDisplay(packet));
     if (packets.count() > 12)
     	packets.removeFirst();
@@ -90,5 +98,12 @@ QString MainView::getInterface() const {
 void MainView::setInterface(QString value) {
     this->interface = value;
     std::cout << "Interface : " << value.toStdString() << std::endl;
+}
+
+void MainView::addStringFilter() {this->addFilter(new StringFilter);}
+
+void MainView::addFilter(Filter *filter) {
+    filter->getWidget()->startConfig();
+    this->filters.append(filter);
 }
 
