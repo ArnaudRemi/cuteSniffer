@@ -36,7 +36,7 @@ HEADERS			=	packet/AProtocol.hh \
 INCLUDEPATH		=	packet \
                                 tools \
                                 views \
-                                filter
+                                filters
 
 QMAKE_CXXFLAGS          +=	-std=c++0x\
                                 -g
