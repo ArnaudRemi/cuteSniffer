@@ -11,8 +11,6 @@ SOURCES			=	main.cpp \
                                 tools/PcapHandler.cpp \
                                 views/MainView.cpp \
                                 views/EthernetDisplay.cpp \
-                                views/filters/StringFilterWidget.cpp \
-                                filters/StringFilter.cpp \
                                 filters/FilterData.cpp \
     tools/ManInTheMiddle.cpp
 
@@ -33,10 +31,6 @@ HEADERS			=	packet/AProtocol.hh \
                                 views/MainView.hh \
                                 views/EthernetDisplay.hh \
                                 filters/FilterData.hh \
-                                filters/Filter.hh \
-                                filters/StringFilter.hh \
-                                views/filters/FilterWidget.hh \
-                                views/filters/StringFilterWidget.hh \
                                 tools/ManInTheMiddle.hh
 
 INCLUDEPATH		=	packet \
@@ -44,6 +38,7 @@ INCLUDEPATH		=	packet \
                                 views \
                                 filters \
                                 views/filters
+                                filters
 
 QMAKE_CXXFLAGS          +=	-std=c++0x\
                                 -g

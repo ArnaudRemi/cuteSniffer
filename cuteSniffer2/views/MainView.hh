@@ -9,8 +9,8 @@
 #include <QQmlListProperty>
 #include "EthernetDisplay.hh"
 #include "RawSocket.hh"
-#include "StringFilter.hh"
-#include "FilterWidget.hh"
+//#include "StringFilter.hh"
+//#include "FilterWidget.hh"
 
 class MainView : public QObject
 {
@@ -27,7 +27,7 @@ public:
     QQmlListProperty<EthernetDisplay> getPackets();
     QString getInterface() const;
     void setInterface(QString value);
-    void addFilter(Filter *filter);
+    //void addFilter(Filter *filter);
 
 public slots:
     void runCapture();
@@ -37,7 +37,7 @@ public slots:
     void catchPacket();
     void displayUsers();
     void rowDoubleClick(int row);
-    void addStringFilter();
+//    void addStringFilter();
 
 signals:
     void packetsChanged();
@@ -49,7 +49,7 @@ private:
     QList<EthernetDisplay *> packets;
     QQmlApplicationEngine *engineApp;
     QString interface;
-    QList<Filter *> filters;
+//    QList<Filter *> filters;
 };
 
 #endif // MAIN_VIEW_HH__

@@ -2,7 +2,7 @@
 #define	__FILTER
 
 #include <QObject>
-//#include "FilterWidget.hh"
+#include "FilterWidget.hh"
 #include "Ethernet.hh"
 
 class FilterWidget;

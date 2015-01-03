@@ -204,7 +204,6 @@ ApplicationWindow {
                  title: qsTr("Contenu")
                  MenuItem {
                      text: qsTr("Texte")
-                     onTriggered: __root__.addStringFilter();
                  }
                  MenuItem {
                      text: qsTr("Hexadecimal")

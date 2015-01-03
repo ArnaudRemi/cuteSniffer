@@ -3,7 +3,9 @@
 
 #include "Filter.hh"
 #include "Ethernet.hh"
-#include "StringFilterWidget.hh"
+//#include "StringFilterWidget.hh"
+
+class StringFilterWidget;
 
 class StringFilter : public Filter {
 

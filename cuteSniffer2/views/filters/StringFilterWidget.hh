@@ -7,8 +7,10 @@
 #include <QLineEdit>
 #include <iostream>
 #include "FilterWidget.hh"
-#include "StringFilter.hh"
+//#include "StringFilter.hh"
 #include "Ethernet.hh"
+
+class StringFilter;
 
 class StringFilterWidget : public FilterWidget {
 

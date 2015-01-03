@@ -1,4 +1,5 @@
 #include "StringFilter.hh"
+//#include "StringFilterWidget.hh"
 
 StringFilter::StringFilter(){
     this->active = false;

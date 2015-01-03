@@ -1,4 +1,6 @@
 #include "StringFilterWidget.hh"
+//#include "StringFilter.hh"
+//#include "Filter.hh"
 
 StringFilterWidget::StringFilterWidget(StringFilter *stringfilter){
     this->filter = stringfilter;
