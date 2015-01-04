@@ -4,6 +4,7 @@
 #include <QQmlComponent>
 #include "MainView.hh"
 #include "Ethernet.hh"
+#include "FilterData.hh"
 #include "ARP.hpp"
 
 MainView::MainView(QQmlApplicationEngine *engineApp) : engineApp(engineApp), interface("eth0") {
@@ -22,6 +23,10 @@ void MainView::initView() {
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/main.qml")));
     if (component.isReady())
         component.create();
+
+//    FilterData::getInstance().setIpDst("173.194.40.98");
+//    FilterData::getInstance().setIpv6Dest("173.194.40.98");
+    //FilterData::getInstance().setEtherShost("18:3d:a2:98:37:74");
 }
 
 void MainView::catchPacket() {
@@ -35,6 +40,9 @@ void MainView::catchPacket() {
                 return;
         }
     } */
+
+    if (!FilterData::getInstance().validate(packet))
+        return;
 
     packets.push_back(new EthernetDisplay(packet));
     if (packets.count() > 12)
