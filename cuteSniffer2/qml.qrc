@@ -11,5 +11,6 @@
         <file>images/open.png</file>
         <file>images/delete.png</file>
         <file>images/users.png</file>
+        <file>images/router.png</file>
     </qresource>
 </RCC>

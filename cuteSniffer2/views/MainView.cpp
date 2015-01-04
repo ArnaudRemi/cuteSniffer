@@ -8,7 +8,9 @@
 #include "Ethernet.hh"
 #include "ARP.hpp"
 
-MainView::MainView(QQmlApplicationEngine *engineApp) : engineApp(engineApp), interface("eth0") {
+MainView::MainView(QQmlApplicationEngine *engineApp) :  engineApp(engineApp),
+    interface("eth0") {
+    this->clientHandler.setUserMac("00:0c:29:a2:74:01");
     initView();
     connect(&timerSocket, SIGNAL(timeout()), this, SLOT(catchPacket()));
 }
@@ -19,7 +21,9 @@ MainView::~MainView() {
 
 void MainView::initView() {
     qmlRegisterType<EthernetDisplay>("__data_element__", 1, 0, "EthernetDisplay");
+    qmlRegisterType<Client>("__data_element__", 1, 0, "Client");
     engineApp->rootContext()->setContextProperty("__root__", this);
+    engineApp->rootContext()->setContextProperty("__clientHandler__", &clientHandler);
     QQmlComponent component(engineApp);
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/main.qml")));
     if (component.isReady())
@@ -45,24 +49,25 @@ QString MainView::getSaveFile() const {
 }
 
 void MainView::catchPacket() {
-    Ethernet *packet = RawSocket::getInstance().getPacket();
-    if (packet == NULL)
-        return;
-
-    /*    if (!this->filters.isEmpty()) {
+    while (1) {
+        Ethernet *packet = RawSocket::getInstance().getPacket();
+        if (packet == NULL)
+            return;
+        this->clientHandler.addClient(packet);
+        /*    if (!this->filters.isEmpty()) {
         for (int i = 0; i < this->filters.size(); ++i) {
             if (this->filters[i]->isActive() && !this->filters[i]->isValid(packet))
                 return;
         }
-    } */
-    packetsData.push_back(packet);
-    packets.push_back(new EthernetDisplay(packet));
-    emit this->packetsChanged();
+        } */
+        packetsData.push_back(packet);
+        packets.push_back(new EthernetDisplay(packet));
+        emit this->packetsChanged();
+    }
 }
 
 void MainView::displayUsers() {
-    QQmlEngine *engine = new QQmlEngine;
-    QQmlComponent component(engine);
+    QQmlComponent component(engineApp);
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/users.qml")));
     if (component.isReady())
         component.create();
@@ -96,18 +101,14 @@ void MainView::stopCapture() {
 void MainView::saveCapture() {
     this->saveFile = "/tmp/pcapsave_";
     this->saveFile += std::to_string((long int)time(NULL)).c_str();
-    QQmlEngine *engine = new QQmlEngine;
-    QQmlComponent component(engine);
-    engine->rootContext()->setContextProperty("__root__", this);
+    QQmlComponent component(engineApp);
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/savePcap.qml")));
     if (component.isReady())
         component.create();
 }
 
 void MainView::openCapture(){
-    QQmlEngine *engine = new QQmlEngine;
-    QQmlComponent component(engine);
-    engine->rootContext()->setContextProperty("__root__", this);
+    QQmlComponent component(engineApp);
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/openPcap.qml")));
     if (component.isReady())
         component.create();
@@ -158,6 +159,9 @@ void MainView::setInterface(QString value) {
     std::cout << "Interface : " << value.toStdString() << std::endl;
 }
 
+ClientHandler MainView::getClientHandler() const {
+    return this->clientHandler;
+}
 //void MainView::addStringFilter() {this->addFilter(new StringFilter);}
 
 /*void MainView::addFilter(Filter *filter) {

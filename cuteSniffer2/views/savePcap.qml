@@ -3,7 +3,7 @@ import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
-ApplicationWindow {
+Window {
     id: saveFileWin
     title: "Sauvegarder un fichier Pcap"
     width: 400

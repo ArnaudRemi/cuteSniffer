@@ -10,6 +10,7 @@
 #include <QQmlListProperty>
 #include "EthernetDisplay.hh"
 #include "RawSocket.hh"
+#include "ClientHandler.hh"
 //#include "StringFilter.hh"
 //#include "FilterWidget.hh"
 
@@ -20,6 +21,7 @@ class MainView : public QObject
     Q_PROPERTY(QString interface READ getInterface WRITE setInterface NOTIFY interfaceChanged)
     Q_PROPERTY(QString openFile READ getOpenFile WRITE setOpenFile NOTIFY openFileChanged)
     Q_PROPERTY(QString saveFile READ getSaveFile WRITE setSaveFile NOTIFY saveFileChanged)
+    Q_PROPERTY(ClientHandler clientHandler READ getClientHandler NOTIFY clientHandlerChanged)
 private:
     void initView();
     int initNetwork();
@@ -35,6 +37,7 @@ public:
     QString getOpenFile() const;
     void setSaveFile(QString const &saveFile);
     QString getSaveFile() const;
+    ClientHandler getClientHandler() const;
     //void addFilter(Filter *filter);
 
 public slots:
@@ -52,6 +55,7 @@ public slots:
 //    void addStringFilter();
 
 signals:
+    void clientHandlerChanged();
     void packetsChanged();
     void interfaceChanged();
     void promisciousError();
@@ -60,6 +64,7 @@ signals:
 
 private:
     QTimer timerSocket;
+    ClientHandler clientHandler;
     QList<EthernetDisplay *> packets;
     std::list<Ethernet *> packetsData;
     QQmlApplicationEngine *engineApp;

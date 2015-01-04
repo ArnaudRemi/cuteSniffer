@@ -9,23 +9,37 @@
 #define CUTESNIFFER2_TOOLS_CLIENTHANDLER_HH_
 
 #include <QObject>
-
+#include <QList>
+#include <QQmlListProperty>
+#include <string>
+#include "Client.hh"
+#include "Ethernet.hh"
+#include "ARP.hpp"
+#include "IP.hpp"
+#include "IPV6.hpp"
 
 class ClientHandler : public QObject {
+private:
     Q_OBJECT
-
-private:
+    Q_PROPERTY(QQmlListProperty<Client> clients READ getClients NOTIFY clientsChanged)
+public:
     ClientHandler();
-public:
-    static ClientHandler &getInstance();
-    static ClientHandler instance;
-
+    ClientHandler(ClientHandler const &);
+    ClientHandler &operator=(ClientHandler const &);
+    ClientHandler(QString const &userMac);
+    QQmlListProperty<Client> getClients();
+    void addClient(std::string const &mac);
+    void addClient(std::string const &mac, std::string const &ip);
+    void addClient(Ethernet *packet);
+	QString getUserMac() const;
+    void setUserMac(QString const &userMac);
 signals:
+    void clientsChanged();
 
 private:
-    // QList
+    QList<Client *> clients;
+    QString userMac;
 
-public:
 };
 
 #endif /* CUTESNIFFER2_TOOLS_CLIENTHANDLER_HH_ */
