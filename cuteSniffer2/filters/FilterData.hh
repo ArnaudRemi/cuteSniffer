@@ -3,6 +3,13 @@
 
 #include <QString>
 #include <QObject>
+#include "Ethernet.hh"
+#include "IP.hpp"
+#include "IPV6.hpp"
+#include "ARP.hpp"
+#include "TCP.hpp"
+#include "UDP.hpp"
+#include "ICMP.hpp"
 
 class FilterData : public QObject {
 	Q_OBJECT
@@ -188,6 +195,8 @@ class FilterData : public QObject {
 	static FilterData intance;
 public :
 
+	bool validate(Ethernet *packet);
+
 	QString getEtherDhost() const;
 	void setEtherDhost(QString etherDhost);
 	QString getEtherShost() const;
@@ -301,6 +310,18 @@ public :
 	char getUdpFlag() const;
 
 	static FilterData &getInstance();
+
+	// VALIDATORS
+
+	bool validateTcp(Ethernet *packet);
+	bool validateUdp(Ethernet *packet);
+	bool validateTcp_V6(Ethernet *packet);
+	bool validateUdp_V6(Ethernet *packet);
+	bool validateIcmp(Ethernet *packet);
+	bool validateIp(Ethernet *packet);
+	bool validateArp(Ethernet *packet);
+	bool validateIpv6(Ethernet *packet);
+	bool validateEthernet(Ethernet *packet);
 
     signals:
     void etherDhostChanged();

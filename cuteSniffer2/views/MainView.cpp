@@ -6,6 +6,7 @@
 #include "MainView.hh"
 #include "PcapHandler.hh"
 #include "Ethernet.hh"
+#include "FilterData.hh"
 #include "ARP.hpp"
 
 MainView::MainView(QQmlApplicationEngine *engineApp) :  engineApp(engineApp),
@@ -28,6 +29,10 @@ void MainView::initView() {
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/main.qml")));
     if (component.isReady())
         component.create();
+
+//    FilterData::getInstance().setIpDst("173.194.40.98");
+//    FilterData::getInstance().setIpv6Dest("173.194.40.98");
+    //FilterData::getInstance().setEtherShost("18:3d:a2:98:37:74");
 }
 
 void MainView::setOpenFile(QString const &openFile) {
@@ -53,13 +58,9 @@ void MainView::catchPacket() {
         Ethernet *packet = RawSocket::getInstance().getPacket();
         if (packet == NULL)
             return;
+        if (!FilterData::getInstance().validate(packet))
+            continue;
         this->clientHandler.addClient(packet);
-        /*    if (!this->filters.isEmpty()) {
-        for (int i = 0; i < this->filters.size(); ++i) {
-            if (this->filters[i]->isActive() && !this->filters[i]->isValid(packet))
-                return;
-        }
-        } */
         packetsData.push_back(packet);
         packets.push_back(new EthernetDisplay(packet));
         emit this->packetsChanged();

@@ -687,3 +687,163 @@ void FilterData::setUdpSrcport(QString udpSrcport) {
 char FilterData::getUdpFlag() const {
 	return udpFlag;
 }
+
+// VALIDATORS
+
+bool FilterData::validateTcp(Ethernet *packet) {
+    IP<Ethernet> *ip = new IP<Ethernet>(*packet);
+    TCP<IP<Ethernet>> *tcp = new TCP<IP<Ethernet>>(*ip);
+
+    if (tcpFlag & TCP_SPORT)
+        if (tcp->getThSport() != tcp_sport.toShort())
+            return false;
+    if (tcpFlag & TCP_DPORT)
+        if (tcp->getThDport() != tcp_dport.toShort())
+            return false;
+    return true;
+}
+
+bool FilterData::validateTcp_V6(Ethernet *packet) {
+    IPV6<Ethernet> *ipv6 = new IPV6<Ethernet>(*packet);
+    TCP<IPV6<Ethernet>> *tcp = new TCP<IPV6<Ethernet>>(*ipv6);
+
+    if (tcpFlag & TCP_SPORT)
+        if (tcp->getThSport() != tcp_sport.toShort())
+            return false;
+    if (tcpFlag & TCP_DPORT)
+        if (tcp->getThDport() != tcp_dport.toShort())
+            return false;
+    return true;
+}
+
+bool FilterData::validateUdp(Ethernet *packet) {
+    IP<Ethernet> *ip = new IP<Ethernet>(*packet);
+    UDP<IP<Ethernet>> *udp = new UDP<IP<Ethernet>>(*ip);
+
+    if (udpFlag & UDP_SRCPORT)
+        if (udp->getUdphDestport() != udp_destport.toShort())
+            return false;
+    if (udpFlag & UDP_DESTPORT)
+        if (udp->getUdphSrcport() != udp_srcport.toShort())
+            return false;
+    return true;
+}
+
+bool FilterData::validateUdp_V6(Ethernet *packet) {
+    IPV6<Ethernet> *ipv6 = new IPV6<Ethernet>(*packet);
+    UDP<IPV6<Ethernet>> *udp = new UDP<IPV6<Ethernet>>(*ipv6);
+
+    if (udpFlag & UDP_SRCPORT)
+        if (udp->getUdphDestport() != udp_destport.toShort())
+            return false;
+    if (udpFlag & UDP_DESTPORT)
+        if (udp->getUdphSrcport() != udp_destport.toShort())
+            return false;
+    return true;
+}
+
+bool FilterData::validateIcmp(Ethernet *packet) {
+ // ???
+    return true;
+}
+
+bool FilterData::validateIp(Ethernet *packet) {
+    IP<Ethernet> *ip = new IP<Ethernet>(*packet);
+    std::string type = ip->getIpP_string();
+
+    //useless
+    if (ipFlag & IP_VHL)
+        if (((unsigned int) ip->getIpVhl()) != (unsigned int) std::stoi(ip_vhl.toStdString()))
+            return false;
+    if (ipFlag & IP_P)
+        if (type != ip_p.toStdString())
+            return false;
+    if (ipFlag & IP_SRC)
+        if (ip->getSource() != ip_src.toStdString())
+            return false;
+    if (ipFlag & IP_DST)
+        if (ip->getDestination() != ip_dst.toStdString())
+            return false;
+
+    if (type == "TCP")
+        return validateTcp(packet);
+    else if (type == "UDP")
+        return validateUdp(packet);
+    else if (type == "ICMP")
+        return validateIcmp(packet);
+
+    return true;
+}
+
+bool FilterData::validateArp(Ethernet *packet) {
+    ARP<Ethernet> *arp = new ARP<Ethernet>(*packet);
+
+    if (arpFlag & ARP_SHA)
+        if ( arp->getSha() != arp_sha.toStdString())
+            return false;
+    if (arpFlag & ARP_SPA)
+        if (arp->getSpa() != arp_spa.toStdString())
+            return false;
+    if (arpFlag & ARP_THA)
+        if (arp->getTha() != arp_tha.toStdString())
+            return false;
+    if (arpFlag & ARP_TPA)
+        if (arp->getTpa() != arp_tpa.toStdString())
+            return false;
+    return true;
+}
+
+bool FilterData::validateIpv6(Ethernet *packet) {
+    IPV6<Ethernet> *ipv6 = new IPV6<Ethernet>(*packet);
+    std::string type = ipv6->getNextHead_String();
+
+    if (ipFlag & IP_SRC)
+        if (ipv6->getIp6Src() != ipv6_src.toStdString())
+            return false;
+    if (ipFlag & IP_DST)
+        if (ipv6->getIp6Dest() != ipv6_dest.toStdString())
+            return false;
+
+    if (type == "TCP")
+        return validateTcp_V6(packet);
+    else if (type == "UDP")
+        return validateUdp_V6(packet);
+
+    return true;
+}
+
+bool FilterData::validateEthernet(Ethernet *packet){
+    if (etherFlag & ETHER_DHOST)
+        if (packet->getEther_dhost() != ether_dhost.toStdString())
+            return false;
+    if (etherFlag & ETHER_SHOST)
+        if (packet->getEther_shost() != ether_shost.toStdString())
+            return false;
+    if (etherFlag & ETHER_TYPE)
+        if (packet->getEther_typeString() != ether_type.toStdString())
+            return false;
+    return true;
+}
+
+bool FilterData::validate(Ethernet *packet) {
+    bool isvalid = true;
+    std::string type = packet->getEther_typeString();
+
+    if (etherFlag & (ETHER_DHOST | ETHER_SHOST | ETHER_TYPE))
+        isvalid = validateEthernet(packet);
+
+    if (type == "IP") {
+        if (!validateIp(packet))
+            return false;
+    }
+    else if (type == "ARP") {
+        if (!validateArp(packet))
+            return false;
+    }
+    else if (type == "IPV6") {
+        if (!validateIpv6(packet))
+            return false;
+    }
+
+    return isvalid;
+}

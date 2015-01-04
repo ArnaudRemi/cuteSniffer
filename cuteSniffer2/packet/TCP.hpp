@@ -151,6 +151,14 @@ public:
 	void setThWin(unsigned short thWin) {
 		header.th_win = thWin;
 	}
+
+	std::string getDestination() {
+		return "";
+	}
+
+	std::string getSource() {
+		return "";
+	}
 };
 
 #endif /* PACKET_TCP_HH_ */

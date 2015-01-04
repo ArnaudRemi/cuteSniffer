@@ -98,6 +98,14 @@ public:
 	void setUdphSrcport(unsigned short udphSrcport) {
 		header.udph_srcport = udphSrcport;
 	}
+
+	std::string getDestination() {
+		return "";
+	}
+
+	std::string getSource() {
+		return "";
+	}
 };
 
 #endif /* PACKET_UDP_HH_ */
