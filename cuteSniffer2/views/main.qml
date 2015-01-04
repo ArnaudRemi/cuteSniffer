@@ -220,8 +220,15 @@ ApplicationWindow {
         height: 64
         onClicked: {
             __root__.runCapture()
+            playBtn.opacity=0.7
+            playImg.opacity=0.7
+            playBtn.enabled=false
+            stopBtn.opacity=1
+            stopImg.opacity=1
+            stopBtn.enabled=true
         }
         Image {
+            id: playImg
             width: 64
             height: 64
             source: "qrc:/images/play.png"
@@ -234,12 +241,22 @@ ApplicationWindow {
         y: 20
         width: 64
         height: 64
+        opacity: 0.7
+        enabled: false
         onClicked: {
             __root__.stopCapture()
+            playBtn.opacity=1
+            playImg.opacity=1
+            playBtn.enabled=true
+            stopBtn.opacity=0.7
+            stopImg.opacity=0.7
+            stopBtn.enabled=false
         }
         Image {
+            id: stopImg
             width: 64
             height: 64
+            opacity: 0.7
             source: "qrc:/images/stop.png"
         }
     }
@@ -261,8 +278,24 @@ ApplicationWindow {
     }
 
     Button {
-        id: deleteBtn
+        id: openBtn
         x: 272
+        y: 20
+        width: 64
+        height: 64
+        onClicked: {
+            __root__.openCapture();
+        }
+        Image {
+            width: 64
+            height: 64
+            source: "qrc:/images/open.png"
+        }
+    }
+
+    Button {
+        id: deleteBtn
+        x: 356
         y: 20
         width: 64
         height: 64
@@ -278,7 +311,7 @@ ApplicationWindow {
 
     Button {
         id: users
-        x: 356
+        x: 440
         y: 20
         width: 64
         height: 64

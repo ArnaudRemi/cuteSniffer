@@ -2,7 +2,9 @@
 #include <QtQml>
 #include <QQuickWindow>
 #include <QQmlComponent>
+#include <time.h>
 #include "MainView.hh"
+#include "PcapHandler.hh"
 #include "Ethernet.hh"
 #include "FilterData.hh"
 #include "ARP.hpp"
@@ -29,12 +31,30 @@ void MainView::initView() {
     //FilterData::getInstance().setEtherShost("18:3d:a2:98:37:74");
 }
 
+void MainView::setOpenFile(QString const &openFile) {
+    this->openFile = openFile;
+    emit this->openFileChanged();
+}
+
+QString MainView::getOpenFile() const {
+    return openFile;
+}
+
+void MainView::setSaveFile(QString const &saveFile) {
+    this->saveFile = saveFile;
+    emit this->saveFileChanged();
+}
+
+QString MainView::getSaveFile() const {
+    return saveFile;
+}
+
 void MainView::catchPacket() {
     Ethernet *packet = RawSocket::getInstance().getPacket();
     if (packet == NULL)
         return;
 
-/*    if (!this->filters.isEmpty()) {
+    /*    if (!this->filters.isEmpty()) {
         for (int i = 0; i < this->filters.size(); ++i) {
             if (this->filters[i]->isActive() && !this->filters[i]->isValid(packet))
                 return;
@@ -44,9 +64,8 @@ void MainView::catchPacket() {
     if (!FilterData::getInstance().validate(packet))
         return;
 
+    packetsData.push_back(packet);
     packets.push_back(new EthernetDisplay(packet));
-    if (packets.count() > 12)
-    	packets.removeFirst();
     emit this->packetsChanged();
 }
 
@@ -70,7 +89,6 @@ void MainView::rowDoubleClick(int row) {
 
 void MainView::runCapture() {
     if (!timerSocket.isActive() && !RawSocket::getInstance().runPromiscious(interface.toStdString().c_str())) {
-        std::cout << "START CAPTURE" << std::endl;
         timerSocket.start(200);
     }
     else
@@ -81,16 +99,57 @@ void MainView::stopCapture() {
     if (timerSocket.isActive()) {
         timerSocket.stop();
         RawSocket::getInstance().stopPromiscious();
-        std::cout << "STOP CAPTURE" << std::endl;
     }
 }
 
 void MainView::saveCapture() {
-    std::cout << "saveCapture" << std::endl;
+    this->saveFile = "/tmp/pcapsave_";
+    this->saveFile += std::to_string((long int)time(NULL)).c_str();
+    QQmlEngine *engine = new QQmlEngine;
+    QQmlComponent component(engine);
+    engine->rootContext()->setContextProperty("__root__", this);
+    component.loadUrl(QUrl(QStringLiteral("qrc:/views/savePcap.qml")));
+    if (component.isReady())
+        component.create();
+}
+
+void MainView::openCapture(){
+    QQmlEngine *engine = new QQmlEngine;
+    QQmlComponent component(engine);
+    engine->rootContext()->setContextProperty("__root__", this);
+    component.loadUrl(QUrl(QStringLiteral("qrc:/views/openPcap.qml")));
+    if (component.isReady())
+        component.create();
+}
+
+void MainView::openFileSelect() {
+    std::cout << "openFile : " << this->openFile.toStdString() << std::endl;
+    packets.clear();
+    packetsData.clear();
+    try {
+        PcapHandler pcap(this->openFile.toStdString());
+        packetsData = pcap.getPackets();
+        for (Ethernet *pkt : packetsData)
+            packets.push_back(new EthernetDisplay(pkt));
+        emit packetsChanged();
+    } catch (std::exception e) {
+        std::cout << "Impossible d'ouvrir le fichier : "<< e.what() << std::endl;
+    }
+}
+
+void MainView::saveFileSelect() {
+    std::cout << "saveFile : " << this->saveFile.toStdString() << std::endl;
+    try {
+        PcapHandler pcap(this->saveFile.toStdString());
+        pcap.writeFile(packetsData);
+    } catch (std::exception e) {
+        std::cout << "Impossible de sauvegarder le fichier : "<< e.what() << std::endl;
+    }
 }
 
 void MainView::deleteCapture() {
     packets.clear();
+    packetsData.clear();
     emit this->packetsChanged();
     std::cout << "deleteCapture" << std::endl;
 }

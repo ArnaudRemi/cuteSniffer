@@ -9,10 +9,10 @@ SOURCES			=	main.cpp \
                                 tools/ClientHandler.cpp \
                                 tools/Client.cpp \
                                 tools/PcapHandler.cpp \
+                                tools/ManInTheMiddle.cpp \
                                 views/MainView.cpp \
                                 views/EthernetDisplay.cpp \
-                                filters/FilterData.cpp \
-    tools/ManInTheMiddle.cpp
+                                filters/FilterData.cpp
 
 HEADERS			=	packet/AProtocol.hh \
                                 packet/Ethernet.hh \
@@ -28,16 +28,14 @@ HEADERS			=	packet/AProtocol.hh \
                                 tools/ClientHandler.hh \
                                 tools/PcapHandler.hh \
                                 tools/Client.hh \
+                                tools/ManInTheMiddle.hh \
                                 views/MainView.hh \
                                 views/EthernetDisplay.hh \
-                                filters/FilterData.hh \
-                                tools/ManInTheMiddle.hh
+                                filters/FilterData.hh
 
 INCLUDEPATH		=	packet \
                                 tools \
                                 views \
-                                filters \
-                                views/filters
                                 filters
 
 QMAKE_CXXFLAGS          +=	-std=c++0x\
