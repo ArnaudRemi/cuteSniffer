@@ -23,7 +23,12 @@ Window {
                 Image {
                     width: 32
                     height: 32
-                    source: "qrc:/images/users.png"
+                    source: {
+                        if (!model.router)
+                            "qrc:/images/users.png"
+                        else
+                            "qrc:/images/router.png"
+                    }
                 }
 
                 Text {

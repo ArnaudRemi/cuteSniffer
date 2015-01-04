@@ -28,8 +28,8 @@ public:
     ClientHandler &operator=(ClientHandler const &);
     ClientHandler(QString const &userMac);
     QQmlListProperty<Client> getClients();
-    void addClient(std::string const &mac);
-    void addClient(std::string const &mac, std::string const &ip);
+    void addClient(std::string const &mac, bool router);
+    void addClient(std::string const &mac, std::string const &ip, bool router);
     void addClient(Ethernet *packet);
 	QString getUserMac() const;
     void setUserMac(QString const &userMac);
