@@ -190,6 +190,27 @@ class FilterData : public QObject {
 #define UDP_LEN 4
 #define UDP_CHKSUM 8
 
+<<<<<<< HEAD
+=======
+	// to accept all ->  acceptProtocol = 0xff
+	char acceptFlag;
+#define ACC_IP 1
+#define ACC_IPV6 2
+#define ACC_ARP 4
+#define ACC_ICMP 8
+#define ACC_UDP 16
+#define ACC_TCP 32
+
+	//content
+	QString content_string;
+	QString content_hexa;
+	char contentFlag;
+#define CON_STRING 1
+#define CON_HEXA 2
+
+
+	FilterData();
+>>>>>>> 3669d9027540265bdc4de270f264b277b591ce78
 	FilterData(const FilterData &);
 	static FilterData intance;
 public :
@@ -312,7 +333,7 @@ public :
 	static FilterData &getInstance();
 
 	// VALIDATORS
-
+	bool validateProtocol(std::string type);
 	bool validateTcp(Ethernet *packet);
 	bool validateUdp(Ethernet *packet);
 	bool validateTcp_V6(Ethernet *packet);

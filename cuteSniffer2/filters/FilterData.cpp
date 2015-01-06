@@ -751,6 +751,9 @@ bool FilterData::validateIp(Ethernet *packet) {
     IP<Ethernet> *ip = new IP<Ethernet>(*packet);
     std::string type = ip->getIpP_string();
 
+    if (!validateProtocol(type))
+        return false;
+
     //useless
     if (ipFlag & IP_VHL)
         if (((unsigned int) ip->getIpVhl()) != (unsigned int) std::stoi(ip_vhl.toStdString()))
@@ -797,6 +800,9 @@ bool FilterData::validateIpv6(Ethernet *packet) {
     IPV6<Ethernet> *ipv6 = new IPV6<Ethernet>(*packet);
     std::string type = ipv6->getNextHead_String();
 
+    if (!validateProtocol(type))
+        return false;
+
     if (ipFlag & IP_SRC)
         if (ipv6->getIp6Src() != ipv6_src.toStdString())
             return false;
@@ -825,12 +831,48 @@ bool FilterData::validateEthernet(Ethernet *packet){
     return true;
 }
 
+bool FilterData::validateProtocol(std::string type){
+    if (type == "IP" && !(acceptFlag & ACC_IP))
+            return false;
+    else if (type == "ARP" && !(acceptFlag & ACC_ARP))
+            return false;
+    else if (type == "IPV6" && !(acceptFlag & ACC_IPV6))
+            return false;
+    else if (type == "ICMP" && !(acceptFlag & ACC_ICMP))
+        return false;
+    else if (type == "TCP" && !(acceptFlag & ACC_TCP))
+        return false;
+    else if (type == "UDP" && !(acceptFlag & ACC_UDP))
+        return false;
+    return true;
+}
+
+bool FilterData::validateContent(Ethernet *packet) {
+    if (contentFlag & CON_STRING) {
+        char* buffer = packet->getBuffer();
+        char* toFind = content_string.toStdString().c_str();
+        char* found = std::search(buffer, buffer + packet->getBufferSize(), toFind, toFind + strlen(toFind));
+
+        if(found >= buffer + packet->getBufferSize())
+            return false;
+    }
+
+    if (contentFlag & CON_HEXA) {
+        //stringstream ?
+    }
+
+    return true;
+}
+
 bool FilterData::validate(Ethernet *packet) {
-    bool isvalid = true;
     std::string type = packet->getEther_typeString();
 
+    if (!validateProtocol(type))
+        return false;
+
     if (etherFlag & (ETHER_DHOST | ETHER_SHOST | ETHER_TYPE))
-        isvalid = validateEthernet(packet);
+        if (!validateEthernet(packet))
+            return false;
 
     if (type == "IP") {
         if (!validateIp(packet))
@@ -845,5 +887,13 @@ bool FilterData::validate(Ethernet *packet) {
             return false;
     }
 
+<<<<<<< HEAD
     return isvalid;
 }
+=======
+    if (!validateContent(packet))
+        return false;
+
+    return true;
+}
+>>>>>>> 3669d9027540265bdc4de270f264b277b591ce78
