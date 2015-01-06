@@ -190,10 +190,8 @@ class FilterData : public QObject {
 #define UDP_LEN 4
 #define UDP_CHKSUM 8
 
-<<<<<<< HEAD
-=======
 	// to accept all ->  acceptProtocol = 0xff
-	char acceptFlag;
+    char acceptFlag;
 #define ACC_IP 1
 #define ACC_IPV6 2
 #define ACC_ARP 4
@@ -209,8 +207,6 @@ class FilterData : public QObject {
 #define CON_HEXA 2
 
 
-	FilterData();
->>>>>>> 3669d9027540265bdc4de270f264b277b591ce78
 	FilterData(const FilterData &);
 	static FilterData intance;
 public :
@@ -343,6 +339,7 @@ public :
 	bool validateArp(Ethernet *packet);
 	bool validateIpv6(Ethernet *packet);
 	bool validateEthernet(Ethernet *packet);
+    bool validateContent(Ethernet*);
 
     signals:
     void etherDhostChanged();

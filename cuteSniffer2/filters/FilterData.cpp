@@ -1,7 +1,7 @@
 #include "FilterData.hh"
 
 
-FilterData::FilterData() {
+FilterData::FilterData() : acceptFlag(0xff){
 
 }
 
@@ -18,11 +18,11 @@ FilterData &FilterData::getInstance() {
 // A R P
 
 QString FilterData::getArpHlen() const {
-	return arp_hlen;
+    return arp_hlen;
 }
 
 void FilterData::setArpHlen(QString arpHlen) {
-	arp_hlen = arpHlen;
+    arp_hlen = arpHlen;
     if (arp_hlen.isEmpty())
         arpFlag &= ~ARP_HLEN;
     else
@@ -31,11 +31,11 @@ void FilterData::setArpHlen(QString arpHlen) {
 }
 
 QString FilterData::getArpHtype() const {
-	return arp_htype;
+    return arp_htype;
 }
 
 void FilterData::setArpHtype(QString arpHtype) {
-	arp_htype = arpHtype;
+    arp_htype = arpHtype;
     if (arp_htype.isEmpty())
         arpFlag &= ~ARP_HTYPE;
     else
@@ -44,11 +44,11 @@ void FilterData::setArpHtype(QString arpHtype) {
 }
 
 QString FilterData::getArpOper() const {
-	return arp_oper;
+    return arp_oper;
 }
 
 void FilterData::setArpOper(QString arpOper) {
-	arp_oper = arpOper;
+    arp_oper = arpOper;
     if (arp_oper.isEmpty())
         arpFlag &= ~ARP_OPER;
     else
@@ -57,11 +57,11 @@ void FilterData::setArpOper(QString arpOper) {
 }
 
 QString FilterData::getArpPlen() const {
-	return arp_plen;
+    return arp_plen;
 }
 
 void FilterData::setArpPlen(QString arpPlen) {
-	arp_plen = arpPlen;
+    arp_plen = arpPlen;
     if (arp_plen.isEmpty())
         arpFlag &= ~ARP_PLEN;
     else
@@ -70,11 +70,11 @@ void FilterData::setArpPlen(QString arpPlen) {
 }
 
 QString FilterData::getArpPtype() const {
-	return arp_ptype;
+    return arp_ptype;
 }
 
 void FilterData::setArpPtype(QString arpPtype) {
-	arp_ptype = arpPtype;
+    arp_ptype = arpPtype;
     if (arp_ptype.isEmpty())
         arpFlag &= ~ARP_PTYPE;
     else
@@ -83,11 +83,11 @@ void FilterData::setArpPtype(QString arpPtype) {
 }
 
 QString FilterData::getArpSha() const {
-	return arp_sha;
+    return arp_sha;
 }
 
 void FilterData::setArpSha(QString arpSha) {
-	arp_sha = arpSha;
+    arp_sha = arpSha;
     if (arp_sha.isEmpty())
         arpFlag &= ~ARP_SHA;
     else
@@ -96,11 +96,11 @@ void FilterData::setArpSha(QString arpSha) {
 }
 
 QString FilterData::getArpSpa() const {
-	return arp_spa;
+    return arp_spa;
 }
 
 void FilterData::setArpSpa(QString arpSpa) {
-	arp_spa = arpSpa;
+    arp_spa = arpSpa;
     if (arp_spa.isEmpty())
         arpFlag &= ~ARP_SPA;
     else
@@ -109,11 +109,11 @@ void FilterData::setArpSpa(QString arpSpa) {
 }
 
 QString FilterData::getArpTha() const {
-	return arp_tha;
+    return arp_tha;
 }
 
 void FilterData::setArpTha(QString arpTha) {
-	arp_tha = arpTha;
+    arp_tha = arpTha;
     if (arp_tha.isEmpty())
         arpFlag &= ~ARP_THA;
     else
@@ -122,11 +122,11 @@ void FilterData::setArpTha(QString arpTha) {
 }
 
 QString FilterData::getArpTpa() const {
-	return arp_tpa;
+    return arp_tpa;
 }
 
 void FilterData::setArpTpa(QString arpTpa) {
-	arp_tpa = arpTpa;
+    arp_tpa = arpTpa;
     if (arp_tpa.isEmpty())
         arpFlag &= ~ARP_TPA;
     else
@@ -135,13 +135,13 @@ void FilterData::setArpTpa(QString arpTpa) {
 }
 
 short FilterData::getArpFlag() const {
-	return arpFlag;
+    return arpFlag;
 }
 
 // E T H E R N E T
 
 QString FilterData::getEtherDhost() const {
-	return ether_dhost;
+    return ether_dhost;
 }
 
 void FilterData::setEtherDhost(QString etherDhost) {
@@ -154,7 +154,7 @@ void FilterData::setEtherDhost(QString etherDhost) {
 }
 
 QString FilterData::getEtherShost() const {
-	return ether_shost;
+    return ether_shost;
 }
 
 void FilterData::setEtherShost(QString etherShost) {
@@ -167,7 +167,7 @@ void FilterData::setEtherShost(QString etherShost) {
 }
 
 QString FilterData::getEtherType() const {
-	return ether_type;
+    return ether_type;
 }
 
 void FilterData::setEtherType(QString etherType) {
@@ -180,17 +180,17 @@ void FilterData::setEtherType(QString etherType) {
 }
 
 char FilterData::getEtherFlag() const {
-	return etherFlag;
+    return etherFlag;
 }
 
 // I P
 
 QString FilterData::getIpDst() const {
-	return ip_dst;
+    return ip_dst;
 }
 
 void FilterData::setIpDst(QString ipDst) {
-	ip_dst = ipDst;
+    ip_dst = ipDst;
     if (ip_dst.isEmpty())
         ipFlag &= ~IP_DST;
     else
@@ -199,11 +199,11 @@ void FilterData::setIpDst(QString ipDst) {
 }
 
 QString FilterData::getIpId() const {
-	return ip_id;
+    return ip_id;
 }
 
 void FilterData::setIpId(QString ipId) {
-	ip_id = ipId;
+    ip_id = ipId;
     if (ip_id.isEmpty())
         ipFlag &= ~IP_ID;
     else
@@ -212,11 +212,11 @@ void FilterData::setIpId(QString ipId) {
 }
 
 QString FilterData::getIpLen() const {
-	return ip_len;
+    return ip_len;
 }
 
 void FilterData::setIpLen(QString ipLen) {
-	ip_len = ipLen;
+    ip_len = ipLen;
     if (ip_len.isEmpty())
         ipFlag &= ~IP_LEN;
     else
@@ -225,11 +225,11 @@ void FilterData::setIpLen(QString ipLen) {
 }
 
 QString FilterData::getIpOff() const {
-	return ip_off;
+    return ip_off;
 }
 
 void FilterData::setIpOff(QString ipOff) {
-	ip_off = ipOff;
+    ip_off = ipOff;
     if (ip_off.isEmpty())
         ipFlag &= ~IP_OFF;
     else
@@ -238,11 +238,11 @@ void FilterData::setIpOff(QString ipOff) {
 }
 
 QString FilterData::getIpP() const {
-	return ip_p;
+    return ip_p;
 }
 
 void FilterData::setIpP(QString ipP) {
-	ip_p = ipP;
+    ip_p = ipP;
     if (ip_p.isEmpty())
         ipFlag &= ~IP_P;
     else
@@ -251,11 +251,11 @@ void FilterData::setIpP(QString ipP) {
 }
 
 QString FilterData::getIpSrc() const {
-	return ip_src;
+    return ip_src;
 }
 
 void FilterData::setIpSrc(QString ipSrc) {
-	ip_src = ipSrc;
+    ip_src = ipSrc;
     if (ip_src.isEmpty())
         ipFlag &= ~IP_SRC;
     else
@@ -264,11 +264,11 @@ void FilterData::setIpSrc(QString ipSrc) {
 }
 
 QString FilterData::getIpSum() const {
-	return ip_sum;
+    return ip_sum;
 }
 
 void FilterData::setIpSum(QString ipSum) {
-	ip_sum = ipSum;
+    ip_sum = ipSum;
     if (ip_sum.isEmpty())
         ipFlag &= ~IP_SUM;
     else
@@ -277,11 +277,11 @@ void FilterData::setIpSum(QString ipSum) {
 }
 
 QString FilterData::getIpTos() const {
-	return ip_tos;
+    return ip_tos;
 }
 
 void FilterData::setIpTos(QString ipTos) {
-	ip_tos = ipTos;
+    ip_tos = ipTos;
     if (ip_tos.isEmpty())
         ipFlag &= ~IP_TOS_;
     else
@@ -290,11 +290,11 @@ void FilterData::setIpTos(QString ipTos) {
 }
 
 QString FilterData::getIpTtl() const {
-	return ip_ttl;
+    return ip_ttl;
 }
 
 void FilterData::setIpTtl(QString ipTtl) {
-	ip_ttl = ipTtl;
+    ip_ttl = ipTtl;
     if (ip_ttl.isEmpty())
         ipFlag &= ~IP_TTL_;
     else
@@ -303,11 +303,11 @@ void FilterData::setIpTtl(QString ipTtl) {
 }
 
 QString FilterData::getIpVhl() const {
-	return ip_vhl;
+    return ip_vhl;
 }
 
 void FilterData::setIpVhl(QString ipVhl) {
-	ip_vhl = ipVhl;
+    ip_vhl = ipVhl;
     if (ip_vhl.isEmpty())
         ipFlag &= ~IP_VHL;
     else
@@ -316,17 +316,17 @@ void FilterData::setIpVhl(QString ipVhl) {
 }
 
 short FilterData::getIpFlag() const {
-	return ipFlag;
+    return ipFlag;
 }
 
 // I P V 6
 
 QString FilterData::getIpv6Dest() const {
-	return ipv6_dest;
+    return ipv6_dest;
 }
 
 void FilterData::setIpv6Dest(QString ipv6Dest) {
-	ipv6_dest = ipv6Dest;
+    ipv6_dest = ipv6Dest;
     if (ipv6_dest.isEmpty())
         ipv6Flag &= ~IPV6_DEST;
     else
@@ -335,11 +335,11 @@ void FilterData::setIpv6Dest(QString ipv6Dest) {
 }
 
 QString FilterData::getIpv6Flow() const {
-	return ipv6_flow;
+    return ipv6_flow;
 }
 
 void FilterData::setIpv6Flow(QString ipv6Flow) {
-	ipv6_flow = ipv6Flow;
+    ipv6_flow = ipv6Flow;
     if (ipv6_flow.isEmpty())
         ipv6Flag &= ~IPV6_FLOW;
     else
@@ -348,11 +348,11 @@ void FilterData::setIpv6Flow(QString ipv6Flow) {
 }
 
 QString FilterData::getIpv6NextHead() const {
-	return ipv6_next_head;
+    return ipv6_next_head;
 }
 
 void FilterData::setIpv6NextHead(QString ipv6NextHead) {
-	ipv6_next_head = ipv6NextHead;
+    ipv6_next_head = ipv6NextHead;
     if (ipv6_next_head.isEmpty())
         ipv6Flag &= ~IPV6_NEXT_HEAD;
     else
@@ -361,11 +361,11 @@ void FilterData::setIpv6NextHead(QString ipv6NextHead) {
 }
 
 QString FilterData::getIpv6Plen() const {
-	return ipv6_plen;
+    return ipv6_plen;
 }
 
 void FilterData::setIpv6Plen(QString ipv6Plen) {
-	ipv6_plen = ipv6Plen;
+    ipv6_plen = ipv6Plen;
     if (ipv6_plen.isEmpty())
         ipv6Flag &= ~IPV6_PLEN;
     else
@@ -374,11 +374,11 @@ void FilterData::setIpv6Plen(QString ipv6Plen) {
 }
 
 QString FilterData::getIpv6Src() const {
-	return ipv6_src;
+    return ipv6_src;
 }
 
 void FilterData::setIpv6Src(QString ipv6Src) {
-	ipv6_src = ipv6Src;
+    ipv6_src = ipv6Src;
     if (ipv6_src.isEmpty())
         ipv6Flag &= ~IPV6_SRC;
     else
@@ -387,11 +387,11 @@ void FilterData::setIpv6Src(QString ipv6Src) {
 }
 
 QString FilterData::getIpv6Un2Vfc() const {
-	return ipv6_un2_vfc;
+    return ipv6_un2_vfc;
 }
 
 void FilterData::setIpv6Un2Vfc(QString ipv6Un2Vfc) {
-	ipv6_un2_vfc = ipv6Un2Vfc;
+    ipv6_un2_vfc = ipv6Un2Vfc;
     if (ipv6_un2_vfc.isEmpty())
         ipv6Flag &= ~IPV6_UN2_VFC;
     else
@@ -400,17 +400,17 @@ void FilterData::setIpv6Un2Vfc(QString ipv6Un2Vfc) {
 }
 
 char FilterData::getIpv6Flag() const {
-	return ipv6Flag;
+    return ipv6Flag;
 }
 
 // I C M P
 
 QString FilterData::getIcmpChecksum() const {
-	return icmp_checksum;
+    return icmp_checksum;
 }
 
 void FilterData::setIcmpChecksum(QString icmpChecksum) {
-	icmp_checksum = icmpChecksum;
+    icmp_checksum = icmpChecksum;
     if (icmp_checksum.isEmpty())
         icmpFlag &= ~ICMP_CHECKSUM;
     else
@@ -419,11 +419,11 @@ void FilterData::setIcmpChecksum(QString icmpChecksum) {
 }
 
 QString FilterData::getIcmpCode() const {
-	return icmp_code;
+    return icmp_code;
 }
 
 void FilterData::setIcmpCode(QString icmpCode) {
-	icmp_code = icmpCode;
+    icmp_code = icmpCode;
     if (icmp_code.isEmpty())
         icmpFlag &= ~ICMP_CODE;
     else
@@ -432,11 +432,11 @@ void FilterData::setIcmpCode(QString icmpCode) {
 }
 
 QString FilterData::getIcmpGateway() const {
-	return icmp_gateway;
+    return icmp_gateway;
 }
 
 void FilterData::setIcmpGateway(QString icmpGateway) {
-	icmp_gateway = icmpGateway;
+    icmp_gateway = icmpGateway;
     if (icmp_gateway.isEmpty())
         icmpFlag &= ~ICMP_GATEWAY;
     else
@@ -445,11 +445,11 @@ void FilterData::setIcmpGateway(QString icmpGateway) {
 }
 
 QString FilterData::getIcmpType() const {
-	return icmp_type;
+    return icmp_type;
 }
 
 void FilterData::setIcmpType(QString icmpType) {
-	icmp_type = icmpType;
+    icmp_type = icmpType;
     if (icmp_type.isEmpty())
         icmpFlag &= ~ICMP_TYPE;
     else
@@ -458,17 +458,17 @@ void FilterData::setIcmpType(QString icmpType) {
 }
 
 char FilterData::getIcmpFlag() const {
-	return icmpFlag;
+    return icmpFlag;
 }
 
 // I C M P V 6
 
 QString FilterData::getIcmpv6Checksum() const {
-	return icmpv6_checksum;
+    return icmpv6_checksum;
 }
 
 void FilterData::setIcmpv6Checksum(QString icmpv6Checksum) {
-	icmpv6_checksum = icmpv6Checksum;
+    icmpv6_checksum = icmpv6Checksum;
     if (icmpv6_checksum.isEmpty())
         icmpv6Flag &= ~ICMPV6_CHECKSUM;
     else
@@ -477,11 +477,11 @@ void FilterData::setIcmpv6Checksum(QString icmpv6Checksum) {
 }
 
 QString FilterData::getIcmpv6Code() const {
-	return icmpv6_code;
+    return icmpv6_code;
 }
 
 void FilterData::setIcmpv6Code(QString icmpv6Code) {
-	icmpv6_code = icmpv6Code;
+    icmpv6_code = icmpv6Code;
     if (icmpv6_code.isEmpty())
         icmpv6Flag &= ~ICMPV6_CODE;
     else
@@ -490,11 +490,11 @@ void FilterData::setIcmpv6Code(QString icmpv6Code) {
 }
 
 QString FilterData::getIcmpv6Type() const {
-	return icmpv6_type;
+    return icmpv6_type;
 }
 
 void FilterData::setIcmpv6Type(QString icmpv6Type) {
-	icmpv6_type = icmpv6Type;
+    icmpv6_type = icmpv6Type;
     if (icmpv6_type.isEmpty())
         icmpv6Flag &= ~ICMPV6_TYPE;
     else
@@ -503,18 +503,18 @@ void FilterData::setIcmpv6Type(QString icmpv6Type) {
 }
 
 char FilterData::getIcmpv6Flag() const {
-	return icmpv6Flag;
+    return icmpv6Flag;
 }
 
 
 // T C P
 
 QString FilterData::getTcpAck() const {
-	return tcp_ack;
+    return tcp_ack;
 }
 
 void FilterData::setTcpAck(QString tcpAck) {
-	tcp_ack = tcpAck;
+    tcp_ack = tcpAck;
     if (tcp_ack.isEmpty())
         tcpFlag &= ~TCP_ACK;
     else
@@ -523,11 +523,11 @@ void FilterData::setTcpAck(QString tcpAck) {
 }
 
 QString FilterData::getTcpDport() const {
-	return tcp_dport;
+    return tcp_dport;
 }
 
 void FilterData::setTcpDport(QString tcpDport) {
-	tcp_dport = tcpDport;
+    tcp_dport = tcpDport;
     if (tcp_dport.isEmpty())
         tcpFlag &= ~TCP_DPORT;
     else
@@ -536,11 +536,11 @@ void FilterData::setTcpDport(QString tcpDport) {
 }
 
 QString FilterData::getTcpFlags() const {
-	return tcp_flags;
+    return tcp_flags;
 }
 
 void FilterData::setTcpFlags(QString tcpFlags) {
-	tcp_flags = tcpFlags;
+    tcp_flags = tcpFlags;
     if (tcp_flags.isEmpty())
         tcpFlag &= ~TCP_FLAGS;
     else
@@ -549,11 +549,11 @@ void FilterData::setTcpFlags(QString tcpFlags) {
 }
 
 QString FilterData::getTcpOff() const {
-	return tcp_off;
+    return tcp_off;
 }
 
 void FilterData::setTcpOff(QString tcpOff) {
-	tcp_off = tcpOff;
+    tcp_off = tcpOff;
     if (tcp_off.isEmpty())
         tcpFlag &= ~TCP_OFF;
     else
@@ -562,11 +562,11 @@ void FilterData::setTcpOff(QString tcpOff) {
 }
 
 QString FilterData::getTcpSeq() const {
-	return tcp_seq;
+    return tcp_seq;
 }
 
 void FilterData::setTcpSeq(QString tcpSeq) {
-	tcp_seq = tcpSeq;
+    tcp_seq = tcpSeq;
     if (tcp_seq.isEmpty())
         tcpFlag &= ~TCP_SEQ;
     else
@@ -575,11 +575,11 @@ void FilterData::setTcpSeq(QString tcpSeq) {
 }
 
 QString FilterData::getTcpSport() const {
-	return tcp_sport;
+    return tcp_sport;
 }
 
 void FilterData::setTcpSport(QString tcpSport) {
-	tcp_sport = tcpSport;
+    tcp_sport = tcpSport;
     if (tcp_sport.isEmpty())
         tcpFlag &= ~TCP_SPORT;
     else
@@ -588,11 +588,11 @@ void FilterData::setTcpSport(QString tcpSport) {
 }
 
 QString FilterData::getTcpSum() const {
-	return tcp_sum;
+    return tcp_sum;
 }
 
 void FilterData::setTcpSum(QString tcpSum) {
-	tcp_sum = tcpSum;
+    tcp_sum = tcpSum;
     if (tcp_sum.isEmpty())
         tcpFlag &= ~TCP_SUM;
     else
@@ -601,11 +601,11 @@ void FilterData::setTcpSum(QString tcpSum) {
 }
 
 QString FilterData::getTcpUrp() const {
-	return tcp_urp;
+    return tcp_urp;
 }
 
 void FilterData::setTcpUrp(QString tcpUrp) {
-	tcp_urp = tcpUrp;
+    tcp_urp = tcpUrp;
     if (tcp_urp.isEmpty())
         tcpFlag &= ~TCP_URP;
     else
@@ -614,11 +614,11 @@ void FilterData::setTcpUrp(QString tcpUrp) {
 }
 
 QString FilterData::getTcpWin() const {
-	return tcp_win;
+    return tcp_win;
 }
 
 void FilterData::setTcpWin(QString tcpWin) {
-	tcp_win = tcpWin;
+    tcp_win = tcpWin;
     if (tcp_win.isEmpty())
         tcpFlag &= ~TCP_WIN;
     else
@@ -627,17 +627,17 @@ void FilterData::setTcpWin(QString tcpWin) {
 }
 
 short FilterData::getTcpFlag() const {
-	return tcpFlag;
+    return tcpFlag;
 }
 
 // U D P
 
 QString FilterData::getUdpChksum() const {
-	return udp_chksum;
+    return udp_chksum;
 }
 
 void FilterData::setUdpChksum(QString udpChksum) {
-	udp_chksum = udpChksum;
+    udp_chksum = udpChksum;
     if (udp_chksum.isEmpty())
         tcpFlag &= ~UDP_CHKSUM;
     else
@@ -646,11 +646,11 @@ void FilterData::setUdpChksum(QString udpChksum) {
 }
 
 QString FilterData::getUdpDestport() const {
-	return udp_destport;
+    return udp_destport;
 }
 
 void FilterData::setUdpDestport(QString udpDestport) {
-	udp_destport = udpDestport;
+    udp_destport = udpDestport;
     if (udp_destport.isEmpty())
         tcpFlag &= ~UDP_DESTPORT;
     else
@@ -659,11 +659,11 @@ void FilterData::setUdpDestport(QString udpDestport) {
 }
 
 QString FilterData::getUdpLen() const {
-	return udp_len;
+    return udp_len;
 }
 
 void FilterData::setUdpLen(QString udpLen) {
-	udp_len = udpLen;
+    udp_len = udpLen;
     if (udp_len.isEmpty())
         tcpFlag &= ~UDP_LEN;
     else
@@ -672,11 +672,11 @@ void FilterData::setUdpLen(QString udpLen) {
 }
 
 QString FilterData::getUdpSrcport() const {
-	return udp_srcport;
+    return udp_srcport;
 }
 
 void FilterData::setUdpSrcport(QString udpSrcport) {
-	udp_srcport = udpSrcport;
+    udp_srcport = udpSrcport;
     if (udp_srcport.isEmpty())
         tcpFlag &= ~UDP_SRCPORT;
     else
@@ -685,7 +685,7 @@ void FilterData::setUdpSrcport(QString udpSrcport) {
 }
 
 char FilterData::getUdpFlag() const {
-	return udpFlag;
+    return udpFlag;
 }
 
 // VALIDATORS
@@ -742,8 +742,8 @@ bool FilterData::validateUdp_V6(Ethernet *packet) {
     return true;
 }
 
-bool FilterData::validateIcmp(Ethernet *packet) {
- // ???
+bool FilterData::validateIcmp(Ethernet *) {
+    // ???
     return true;
 }
 
@@ -833,11 +833,11 @@ bool FilterData::validateEthernet(Ethernet *packet){
 
 bool FilterData::validateProtocol(std::string type){
     if (type == "IP" && !(acceptFlag & ACC_IP))
-            return false;
+        return false;
     else if (type == "ARP" && !(acceptFlag & ACC_ARP))
-            return false;
+        return false;
     else if (type == "IPV6" && !(acceptFlag & ACC_IPV6))
-            return false;
+        return false;
     else if (type == "ICMP" && !(acceptFlag & ACC_ICMP))
         return false;
     else if (type == "TCP" && !(acceptFlag & ACC_TCP))
@@ -849,9 +849,9 @@ bool FilterData::validateProtocol(std::string type){
 
 bool FilterData::validateContent(Ethernet *packet) {
     if (contentFlag & CON_STRING) {
-        char* buffer = packet->getBuffer();
-        char* toFind = content_string.toStdString().c_str();
-        char* found = std::search(buffer, buffer + packet->getBufferSize(), toFind, toFind + strlen(toFind));
+        unsigned char* buffer = packet->getBuffer();
+        const char* toFind = content_string.toStdString().c_str();
+        unsigned char* found = std::search(buffer, buffer + packet->getBufferSize(), toFind, toFind + strlen(toFind));
 
         if(found >= buffer + packet->getBufferSize())
             return false;
@@ -886,14 +886,8 @@ bool FilterData::validate(Ethernet *packet) {
         if (!validateIpv6(packet))
             return false;
     }
-
-<<<<<<< HEAD
-    return isvalid;
-}
-=======
     if (!validateContent(packet))
         return false;
 
     return true;
 }
->>>>>>> 3669d9027540265bdc4de270f264b277b591ce78
