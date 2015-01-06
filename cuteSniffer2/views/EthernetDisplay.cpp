@@ -53,7 +53,7 @@ void EthernetDisplay::actualizePacket() {
     //newPacket->setEther_type((unsigned short)this->getType().toShort());
     //TODO - CP Payload
     RawSocket::getInstance().sendPacket(newPacket);
-    std::cout << "RESEND" << *newPacket << std::endl;
+    std::cout << "RESEND : " << *newPacket << std::endl;
 }
 
 void EthernetDisplay::sendPacket() {

@@ -23,15 +23,17 @@ MainView::~MainView() {
 void MainView::initView() {
     qmlRegisterType<EthernetDisplay>("__data_element__", 1, 0, "EthernetDisplay");
     qmlRegisterType<Client>("__data_element__", 1, 0, "Client");
+    qmlRegisterType<FilterData>("__data_element__", 1, 0, "FilterData");
     engineApp->rootContext()->setContextProperty("__root__", this);
     engineApp->rootContext()->setContextProperty("__clientHandler__", &clientHandler);
+    engineApp->rootContext()->setContextProperty("__filters__", &(FilterData::getInstance()));
     QQmlComponent component(engineApp);
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/main.qml")));
     if (component.isReady())
         component.create();
 
-//    FilterData::getInstance().setIpDst("173.194.40.98");
-//    FilterData::getInstance().setIpv6Dest("173.194.40.98");
+    //    FilterData::getInstance().setIpDst("173.194.40.98");
+    //    FilterData::getInstance().setIpv6Dest("173.194.40.98");
     //FilterData::getInstance().setEtherShost("18:3d:a2:98:37:74");
 }
 
@@ -54,17 +56,15 @@ QString MainView::getSaveFile() const {
 }
 
 void MainView::catchPacket() {
-    while (1) {
-        Ethernet *packet = RawSocket::getInstance().getPacket();
-        if (packet == NULL)
-            return;
-        if (!FilterData::getInstance().validate(packet))
-            continue;
-        this->clientHandler.addClient(packet);
-        packetsData.push_back(packet);
-        packets.push_back(new EthernetDisplay(packet));
-        emit this->packetsChanged();
-    }
+    Ethernet *packet = RawSocket::getInstance().getPacket();
+    if (packet == NULL)
+        return;
+    if (!FilterData::getInstance().validate(packet))
+        return;
+    this->clientHandler.addClient(packet);
+    packetsData.push_back(packet);
+    packets.push_back(new EthernetDisplay(packet));
+    emit this->packetsChanged();
 }
 
 void MainView::displayUsers() {
@@ -86,7 +86,7 @@ void MainView::rowDoubleClick(int row) {
 
 void MainView::runCapture() {
     if (!timerSocket.isActive() && !RawSocket::getInstance().runPromiscious(interface.toStdString().c_str())) {
-        timerSocket.start(200);
+        timerSocket.start(1);
     }
     else
         emit promisciousError();

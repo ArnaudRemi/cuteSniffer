@@ -29,12 +29,30 @@ ApplicationWindow {
                 title: qsTr("Ethernet")
                 MenuItem {
                     text: qsTr("dhost")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("Ethernet dhost : ");
+                        filterBox_textField.text = __filters__.ether_dhost
+                        filterBox_textFiled_biding.property = "ether_dhost"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("shost")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("Ethernet shost : ");
+                        filterBox_textField.text = __filters__.ether_shost
+                        filterBox_textFiled_biding.property = "ether_shost"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("type")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("Ethernet type : ");
+                        filterBox_textField.text = __filters__.ether_type
+                        filterBox_textFiled_biding.property = "ether_type"
+                        filterBox.visible = true
+                    }
                 }
             }
             MenuSeparator { }
@@ -369,20 +387,70 @@ ApplicationWindow {
         TableViewColumn {
             title: "Type"
             role: "type"
+            width: 100
         }
         TableViewColumn {
             title: "Data"
             role: "data"
+            width: 350
         }
     }
 
-    MessageDialog {
-        id: messageDialog
-        title: qsTr("May I have your attention, please?")
 
-        function show(caption) {
-            messageDialog.text = caption;
-            messageDialog.open();
+
+    Rectangle {
+        id: filterBox
+        width: 350
+        height: 200
+        x: 225
+        y: 125
+        color: "#f6f6f6"
+        visible: false
+        border.width: 1
+        Rectangle {
+            width: 350
+            height: 30
+            color: "#e4e4e4"
+            border.width: 1
+            Text {
+                width: 350
+                height: 30
+                text: qsTr("Gestion des Filtres")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 16
+            }
+        }
+
+        Text {
+            id: filterBox_text
+            x: 20
+            y: 105
+            text: qsTr("Text")
+            font.pixelSize: 12
+        }
+
+        TextField {
+            id: filterBox_textField
+            x: 150
+            y: 100
+            placeholderText: qsTr("Text Field")
+            Binding {
+                id: filterBox_textFiled_biding
+                target: __filters__
+                value: filterBox_textField.text
+            }
+        }
+
+        Button {
+            id: filterBox_button
+            x: 280
+            y: 100
+            width: 50
+            text: qsTr("OK")
+            onClicked: {
+                filterBox.visible = false
+            }
         }
     }
 

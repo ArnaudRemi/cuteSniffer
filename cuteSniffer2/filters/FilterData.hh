@@ -190,11 +190,11 @@ class FilterData : public QObject {
 #define UDP_LEN 4
 #define UDP_CHKSUM 8
 
-	FilterData();
 	FilterData(const FilterData &);
 	static FilterData intance;
 public :
 
+    FilterData();
 	bool validate(Ethernet *packet);
 
 	QString getEtherDhost() const;

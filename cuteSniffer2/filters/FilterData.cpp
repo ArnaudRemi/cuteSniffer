@@ -145,7 +145,7 @@ QString FilterData::getEtherDhost() const {
 }
 
 void FilterData::setEtherDhost(QString etherDhost) {
-	ether_dhost = etherDhost;
+    ether_dhost = etherDhost;
     if (ether_dhost.isEmpty())
         etherFlag &= ~ETHER_DHOST;
     else

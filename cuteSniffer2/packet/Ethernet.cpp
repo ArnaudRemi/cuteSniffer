@@ -86,7 +86,6 @@ std::string Ethernet::getPayload() {
     actualizeBuffer();
     std::string ret = Utils::convertBrutDataToString(this->buffer + this->getTotalHeaderSize(),
                                           this->bufferSize - this->getTotalHeaderSize());
-    std::cout << "PAYLOAD : " << ret << std::endl;
     return ret;
 }
 
