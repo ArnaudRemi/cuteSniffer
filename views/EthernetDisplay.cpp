@@ -5,12 +5,13 @@ EthernetDisplay::EthernetDisplay() {
 
 }
 
-EthernetDisplay::EthernetDisplay(Ethernet *packet) : packet(packet),
-                                                     shost(packet->getEther_shost().c_str()),
-                                                     dhost(packet->getEther_dhost().c_str()),
-                                                     type(packet->getEther_typeString().c_str()),
-                                                     data(packet->getPayload().c_str()) {
-
+EthernetDisplay::EthernetDisplay(Ethernet *packet) : packet(packet) {
+    packet->actualizeBuffer();
+    shost = packet->getEther_shost().c_str();
+    dhost = packet->getEther_dhost().c_str();
+    type = packet->getEther_typeString().c_str();
+    dotData = Utils::convertBrutDataToDotString(packet->getBuffer(), packet->getBufferSize()).c_str();
+    data = Utils::convertBrutDataToString(packet->getBuffer(), packet->getBufferSize()).c_str();
 }
 
 EthernetDisplay::~EthernetDisplay() {
@@ -29,6 +30,9 @@ QString EthernetDisplay::getType() const {
 QString EthernetDisplay::getData() const {
     return this->data;
 }
+QString EthernetDisplay::getDotData() const {
+    return this->dotData;
+}
 
 void EthernetDisplay::setDhost(QString dhost) {
     this->dhost = dhost;
@@ -46,18 +50,23 @@ void EthernetDisplay::setData(QString data) {
     this->data = data;
 }
 
+void EthernetDisplay::setDotData(QString data) {
+    this->dotData = data;
+}
+
 Ethernet *EthernetDisplay::getPacket() const {
     return this->packet;
 }
 
 void EthernetDisplay::actualizePacket() {
     try {
-    Ethernet *newPacket = new Ethernet(*this->packet);
-    newPacket->setEther_dhost(this->dhost.toStdString());
-    newPacket->setEther_shost(this->shost.toStdString());
-    //newPacket->setEther_type((unsigned short)this->getType().toShort());
-    //TODO - CP Payload
-    this->packet = newPacket;
+        int len = 0;
+        unsigned char *buffer = Utils::convertStringToBrutData(this->data.toStdString(), &len);
+        Ethernet *newPacket = new Ethernet(buffer, len);
+        newPacket->setEther_dhost(this->dhost.toStdString());
+        newPacket->setEther_shost(this->shost.toStdString());
+        newPacket->setEther_type(this->getType().toStdString());
+        packet = newPacket;
     } catch (std::exception) {
         std::cerr << "Erreur dans la formation du paquet" << std::endl;
     }

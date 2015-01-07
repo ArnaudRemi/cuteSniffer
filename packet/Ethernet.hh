@@ -43,6 +43,7 @@ public:
 	void setEther_dhost(std::string mac);
 	void setEther_shost(std::string mac);
     void setEther_type(unsigned short type);
+    void setEther_type(std::string type);
     unsigned int calculFCS();
     virtual int getTotalHeaderSize();
     virtual int getTotalNbByteInBufferNeed();

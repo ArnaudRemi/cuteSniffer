@@ -519,7 +519,7 @@ ApplicationWindow {
         }
         TableViewColumn {
             title: "Data"
-            role: "data"
+            role: "dotData"
             width: 350
         }
     }

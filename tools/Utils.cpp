@@ -162,7 +162,17 @@ std::string Utils::convertBrutDataToString(unsigned char *data, int len) {
 
     for (int i = 0; i < len; i++) {
         if(data[i] < 32 || data[i] > 126 || data[i] == '\\')
-            //ret += '\\' + std::to_string((int)data[i]) + '\\';
+            ret += '\\' + std::to_string((int)data[i]) + '\\';
+        else
+            ret += data[i];
+    }
+    return ret;
+}
+std::string Utils::convertBrutDataToDotString(unsigned char *data, int len) {
+    std::string ret;
+
+    for (int i = 0; i < len; i++) {
+        if(data[i] < 32 || data[i] > 126 || data[i] == '\\')
             ret += '.';
         else
             ret += data[i];

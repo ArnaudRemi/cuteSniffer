@@ -65,9 +65,9 @@ unsigned short Ethernet::getEther_type() {
 }
 
 std::string Ethernet::getEther_typeString() {
-    short int type = ntohs(this->header.ether_type);
+    unsigned short type = ntohs(this->header.ether_type);
     const char *names[] = {"PUP", "IP", "ARP", "REVARP", "VLAN", "IPV6", "PAE", "RSN_PREAUTH", "LOOPBACK" };
-    const int value[] ={ETHERTYPE_PUP, ETHERTYPE_IP, ETHERTYPE_ARP, ETHERTYPE_REVARP,ETHERTYPE_VLAN,
+    const unsigned short value[] ={ETHERTYPE_PUP, ETHERTYPE_IP, ETHERTYPE_ARP, ETHERTYPE_REVARP,ETHERTYPE_VLAN,
                         ETHERTYPE_IPV6, ETHERTYPE_PAE, ETHERTYPE_RSN_PREAUTH, ETHERTYPE_LOOPBACK};
     for (int i = 0; i < 9; i++) {
         if (value[i] == type)
@@ -106,6 +106,18 @@ Ethernet::ethernet_header Ethernet::getEthernetHeader() {
 
 void Ethernet::setEther_type(unsigned short type) {
 	this->header.ether_type = type;
+}
+
+void Ethernet::setEther_type(std::string type) {
+    const char *names[] = {"PUP", "IP", "ARP", "REVARP", "VLAN", "IPV6", "PAE", "RSN_PREAUTH", "LOOPBACK" };
+    const unsigned short value[] ={ETHERTYPE_PUP, ETHERTYPE_IP, ETHERTYPE_ARP, ETHERTYPE_REVARP,ETHERTYPE_VLAN,
+                        ETHERTYPE_IPV6, ETHERTYPE_PAE, ETHERTYPE_RSN_PREAUTH, ETHERTYPE_LOOPBACK};
+    for (int i = 0; i < 9; i++) {
+        if (!type.compare(names[i])) {
+            this->header.ether_type = htons(value[i]);
+            return;
+        }
+    }
 }
 
 

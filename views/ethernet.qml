@@ -5,7 +5,7 @@ import QtQuick.Dialogs 1.2
 
 Window {
     id: ethernetWin
-    title: "Ethernet"
+    title: "Packet"
     width: 370
     height: 450
     color: "#f6f6f6"
@@ -22,7 +22,7 @@ Window {
             y: 0
             width: 370
             height: 40
-            text: qsTr("Ethernet")
+            text: qsTr("Packet")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: 24
@@ -114,7 +114,7 @@ Window {
         y: 200
         width: 330
         height: 200
-        text: qsTr("#__packet__.data#")
+        text: __packet__.data
         font.pixelSize: 14
         Binding {
             target: __packet__
