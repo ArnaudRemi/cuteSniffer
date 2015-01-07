@@ -19,6 +19,7 @@ class MainView : public QObject
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<EthernetDisplay> packets READ getPackets NOTIFY packetsChanged)
     Q_PROPERTY(QString interface READ getInterface WRITE setInterface NOTIFY interfaceChanged)
+    Q_PROPERTY(QString mac READ getMac WRITE setMac NOTIFY macChanged)
     Q_PROPERTY(QString openFile READ getOpenFile WRITE setOpenFile NOTIFY openFileChanged)
     Q_PROPERTY(QString saveFile READ getSaveFile WRITE setSaveFile NOTIFY saveFileChanged)
     Q_PROPERTY(ClientHandler clientHandler READ getClientHandler NOTIFY clientHandlerChanged)
@@ -33,6 +34,8 @@ public:
     QQmlListProperty<EthernetDisplay> getPackets();
     QString getInterface() const;
     void setInterface(QString value);
+    QString getMac() const;
+    void setMac(QString value);
     void setOpenFile(QString const &openFile);
     QString getOpenFile() const;
     void setSaveFile(QString const &saveFile);
@@ -58,6 +61,7 @@ signals:
     void clientHandlerChanged();
     void packetsChanged();
     void interfaceChanged();
+    void macChanged();
     void promisciousError();
     void openFileChanged();
     void saveFileChanged();
@@ -69,6 +73,7 @@ private:
     std::list<Ethernet *> packetsData;
     QQmlApplicationEngine *engineApp;
     QString interface;
+    QString mac;
     QString openFile;
     QString saveFile;
 //    QList<Filter *> filters;

@@ -345,6 +345,8 @@ ApplicationWindow {
             stopBtn.opacity=1
             stopImg.opacity=1
             stopBtn.enabled=true
+            interfaceInput.enabled=false
+            macInput.enabled=false
         }
         Image {
             id: playImg
@@ -370,6 +372,8 @@ ApplicationWindow {
             stopBtn.opacity=0.7
             stopImg.opacity=0.7
             stopBtn.enabled=false
+            interfaceInput.enabled=true
+            macInput.enabled=true
         }
         Image {
             id: stopImg
@@ -446,15 +450,15 @@ ApplicationWindow {
 
     Text {
         x: 20
-        y: 104
-        text: qsTr("Interface")
+        y: 105
+        text: qsTr("Interface : ")
         font.pointSize: 15
     }
 
     TextField {
         id: interfaceInput
         x: 130
-        y: 104
+        y: 105
         width: 150
         font.pointSize: 16
         text: __root__.interface
@@ -462,6 +466,27 @@ ApplicationWindow {
             target: __root__
             property: "interface"
             value: interfaceInput.text
+        }
+    }
+
+    Text {
+        x: 350
+        y: 105
+        text: qsTr("Mac : ")
+        font.pointSize: 15
+    }
+
+    TextField {
+        id: macInput
+        x: 410
+        y: 105
+        width: 300
+        font.pointSize: 16
+        text: __root__.mac
+        Binding {
+            target: __root__
+            property: "mac"
+            value: macInput.text
         }
     }
 

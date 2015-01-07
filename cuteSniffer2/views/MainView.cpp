@@ -10,8 +10,8 @@
 #include "ARP.hpp"
 
 MainView::MainView(QQmlApplicationEngine *engineApp) :  engineApp(engineApp),
-    interface("eth0") {
-    this->clientHandler.setUserMac("00:0c:29:a2:74:01");
+    interface("eth0"), mac("00:0c:29:a2:74:01") {
+    this->clientHandler.setUserMac(mac);
     initView();
     connect(&timerSocket, SIGNAL(timeout()), this, SLOT(catchPacket()));
 }
@@ -157,7 +157,19 @@ QString MainView::getInterface() const {
 
 void MainView::setInterface(QString value) {
     this->interface = value;
+    emit interfaceChanged();
     std::cout << "Interface : " << value.toStdString() << std::endl;
+}
+
+QString MainView::getMac() const {
+    return this->mac;
+}
+
+void MainView::setMac(QString value) {
+    this->mac = value;
+    this->clientHandler.setUserMac(mac);
+    emit macChanged();
+    std::cout << "Mac : " << value.toStdString() << std::endl;
 }
 
 ClientHandler MainView::getClientHandler() const {
