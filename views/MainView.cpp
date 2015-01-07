@@ -84,6 +84,15 @@ void MainView::rowDoubleClick(int row) {
         component.create();
 }
 
+void MainView::newPacket() {
+    QQmlEngine *engine = new QQmlEngine;
+    QQmlComponent component(engine);
+    engine->rootContext()->setContextProperty("__packet__", new EthernetDisplay());
+    component.loadUrl(QUrl(QStringLiteral("qrc:/views/ethernet.qml")));
+    if (component.isReady())
+        component.create();
+}
+
 void MainView::runCapture() {
     if (!timerSocket.isActive() && !RawSocket::getInstance().runPromiscious(interface.toStdString().c_str())) {
         timerSocket.start(1);

@@ -12,5 +12,6 @@
         <file>images/delete.png</file>
         <file>images/users.png</file>
         <file>images/router.png</file>
+        <file>images/newPacket.png</file>
     </qresource>
 </RCC>

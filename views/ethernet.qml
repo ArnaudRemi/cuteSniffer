@@ -41,7 +41,7 @@ Window {
     TextField {
         id: shostInput
         x: 150
-        y: 40
+        y: 50
         width: 200
         text: __packet__.shost
         font.pixelSize: 14
@@ -65,7 +65,7 @@ Window {
         id: dhostInput
         width: 200
         x: 150
-        y: 80
+        y: 90
         text: __packet__.dhost
         font.pixelSize: 14
         Binding {
@@ -87,7 +87,7 @@ Window {
     TextField {
         id: typeInput
         x: 150
-        y: 120
+        y: 130
         width: 200
         text: __packet__.type
         font.pixelSize: 14

@@ -448,6 +448,25 @@ ApplicationWindow {
         }
     }
 
+    Button {
+        id: newPacket
+        x: 524
+        y: 20
+        width: 64
+        height: 64
+        onClicked: {
+            __root__.newPacket()
+        }
+        Image {
+            id: newPacketImg
+            x: 5
+            y: 5
+            width: 54
+            height: 54
+            source: "qrc:/images/newPacket.png"
+        }
+    }
+
     Text {
         x: 20
         y: 105

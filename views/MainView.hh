@@ -53,6 +53,7 @@ public slots:
     void catchPacket();
     void displayUsers();
     void rowDoubleClick(int row);
+    void newPacket();
 
     void openFileSelect();
     void saveFileSelect();
