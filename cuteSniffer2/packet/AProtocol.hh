@@ -8,12 +8,11 @@
 #ifndef PACKET_APROTOCOL_HH_
 #define PACKET_APROTOCOL_HH_
 
+#include "Utils.hh"
 #include <type_traits>
 #include <cstring>
 #include <stdlib.h>
 
-#include "Utils.hh"
-class Utils;
 
 class AProtocol {
 protected:

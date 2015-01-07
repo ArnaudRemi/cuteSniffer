@@ -2,7 +2,6 @@
 
 
 FilterData::FilterData() : acceptFlag(0xff){
-
 }
 
 FilterData::FilterData(const FilterData &) : QObject(0) {

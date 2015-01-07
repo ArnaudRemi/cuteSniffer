@@ -31,6 +31,7 @@ ApplicationWindow {
                     text: qsTr("dhost")
                     onTriggered: {
                         filterBox_text.text = qsTr("Ethernet dhost : ");
+                        filterBox_textFiled_biding.property = ""
                         filterBox_textField.text = __filters__.ether_dhost
                         filterBox_textFiled_biding.property = "ether_dhost"
                         filterBox.visible = true
@@ -40,6 +41,7 @@ ApplicationWindow {
                     text: qsTr("shost")
                     onTriggered: {
                         filterBox_text.text = qsTr("Ethernet shost : ");
+                        filterBox_textFiled_biding.property = ""
                         filterBox_textField.text = __filters__.ether_shost
                         filterBox_textFiled_biding.property = "ether_shost"
                         filterBox.visible = true
@@ -49,6 +51,7 @@ ApplicationWindow {
                     text: qsTr("type")
                     onTriggered: {
                         filterBox_text.text = qsTr("Ethernet type : ");
+                        filterBox_textFiled_biding.property = ""
                         filterBox_textField.text = __filters__.ether_type
                         filterBox_textFiled_biding.property = "ether_type"
                         filterBox.visible = true
@@ -58,7 +61,7 @@ ApplicationWindow {
             MenuSeparator { }
             Menu {
                 title: qsTr("ARP")
-                MenuItem {
+                /*MenuItem {
                     text: qsTr("htype")
                 }
                 MenuItem {
@@ -72,26 +75,61 @@ ApplicationWindow {
                 }
                 MenuItem {
                     text: qsTr("oper")
-                }
+                }*/
                 MenuItem {
                     text: qsTr("sha")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("ARP sha : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.arp_sha
+                        filterBox_textFiled_biding.property = "arp_sha"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("spa")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("ARP spa : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.arp_spa
+                        filterBox_textFiled_biding.property = "arp_spa"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("tha")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("ARP tha : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.arp_tha
+                        filterBox_textFiled_biding.property = "arp_tha"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("tpa")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("ARP tpa : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.arp_tpa
+                        filterBox_textFiled_biding.property = "arp_tpa"
+                        filterBox.visible = true
+                    }
                 }
             }
             Menu {
                 title: qsTr("IP")
                 MenuItem {
                     text: qsTr("vhl")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("IP vhl : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.ip_vhl
+                        filterBox_textFiled_biding.property = "ip_vhl"
+                        filterBox.visible = true
+                    }
                 }
-                MenuItem {
+                /*MenuItem {
                     text: qsTr("tos")
                 }
                 MenuItem {
@@ -105,23 +143,45 @@ ApplicationWindow {
                 }
                 MenuItem {
                     text: qsTr("ttl")
-                }
+                }*/
                 MenuItem {
                     text: qsTr("p")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("IP p : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.ip_p
+                        filterBox_textFiled_biding.property = "ip_p"
+                        filterBox.visible = true
+                    }
                 }
-                MenuItem {
+                /*MenuItem {
                     text: qsTr("sum")
-                }
+                }*/
                 MenuItem {
                     text: qsTr("src")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("IP src : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.ip_src
+                        filterBox_textFiled_biding.property = "ip_src"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("dst")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("IP dst : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.ip_dst
+                        filterBox_textFiled_biding.property = "ip_dst"
+                        filterBox.visible = true
+                    }
                 }
             }
             Menu {
                 title: qsTr("IPV6")
-                MenuItem {
+
+                /*MenuItem {
                     text: qsTr("flow")
                 }
                 MenuItem {
@@ -135,16 +195,30 @@ ApplicationWindow {
                 }
                 MenuItem {
                     text: qsTr("un2_vfc")
-                }
+                }*/
                 MenuItem {
                     text: qsTr("src")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("IPV6 src : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.ipv6_src
+                        filterBox_textFiled_biding.property = "ipv6_src"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
-                    text: qsTr("dst")
+                    text: qsTr("dest")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("IPV6 dest : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.ipv6_dest
+                        filterBox_textFiled_biding.property = "ipv6_dest"
+                        filterBox.visible = true
+                    }
                 }
             }
             MenuSeparator { }
-            Menu {
+            /*Menu {
                 title: qsTr("ICMP")
                 MenuItem {
                     text: qsTr("type")
@@ -170,16 +244,30 @@ ApplicationWindow {
                 MenuItem {
                     text: qsTr("checksum")
                 }
-            }
+            }*/
             Menu {
                 title: qsTr("TCP")
                 MenuItem {
                     text: qsTr("sport")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("TCP sport : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.tcp_sport
+                        filterBox_textFiled_biding.property = "tcp_sport"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("dport")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("TCP dport : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.tcp_dport
+                        filterBox_textFiled_biding.property = "tcp_dport"
+                        filterBox.visible = true
+                    }
                 }
-                MenuItem {
+                /*MenuItem {
                     text: qsTr("seq")
                 }
                 MenuItem {
@@ -199,24 +287,38 @@ ApplicationWindow {
                 }
                 MenuItem {
                     text: qsTr("urp")
-                }
+                }*/
             }
             Menu {
                 title: qsTr("UDP")
                 MenuItem {
                     text: qsTr("srcport")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("UDP srcport : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.udp_srcport
+                        filterBox_textFiled_biding.property = "udp_srcport"
+                        filterBox.visible = true
+                    }
                 }
                 MenuItem {
                     text: qsTr("destport")
+                    onTriggered: {
+                        filterBox_text.text = qsTr("UDP destport : ");
+                        filterBox_textFiled_biding.property = ""
+                        filterBox_textField.text = __filters__.udp_destport
+                        filterBox_textFiled_biding.property = "udp_destport"
+                        filterBox.visible = true
+                    }
                 }
-                MenuItem {
+               /* MenuItem {
                     text: qsTr("len")
                 }
                 MenuItem {
                     text: qsTr("chksum")
-                }
+                }*/
             }
-            MenuSeparator { }
+            /*MenuSeparator { }
             Menu {
                  title: qsTr("Contenu")
                  MenuItem {
@@ -225,7 +327,7 @@ ApplicationWindow {
                  MenuItem {
                      text: qsTr("Hexadecimal")
                  }
-            }
+            }*/
         }
     }
 

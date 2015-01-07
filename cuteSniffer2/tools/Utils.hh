@@ -3,8 +3,7 @@
 
 #include <string>
 #include <netinet/in.h>
-
-class Ethernet;
+#include <algorithm>
 
 class Utils {
 public:
@@ -19,7 +18,7 @@ public:
     static unsigned char *memncpy(unsigned char *data, int size);
     static std::string convertBrutDataToString(unsigned char *data, int len);
     static unsigned char *convertStringToBrutData(std::string stdstr, int *len);
-	static void modifyValue(Ethernet *packet, std::string tochange, std::string value);
+    static void modifyValue(unsigned char *buffer, int *lenAddr, std::string tochange, std::string value);
 };
 
 
