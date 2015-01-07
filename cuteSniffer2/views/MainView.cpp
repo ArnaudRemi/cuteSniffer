@@ -31,10 +31,6 @@ void MainView::initView() {
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/main.qml")));
     if (component.isReady())
         component.create();
-
-    //    FilterData::getInstance().setIpDst("173.194.40.98");
-    //    FilterData::getInstance().setIpv6Dest("173.194.40.98");
-    //FilterData::getInstance().setEtherShost("18:3d:a2:98:37:74");
 }
 
 void MainView::setOpenFile(QString const &openFile) {
@@ -55,6 +51,10 @@ QString MainView::getSaveFile() const {
     return saveFile;
 }
 
+int MainView::getCurrentRow() const {
+    return packets.size();
+}
+
 void MainView::catchPacket() {
     Ethernet *packet = RawSocket::getInstance().getPacket();
     if (packet == NULL)
@@ -65,6 +65,7 @@ void MainView::catchPacket() {
     packetsData.push_back(packet);
     packets.push_back(new EthernetDisplay(packet));
     emit this->packetsChanged();
+    emit this->currentRowChanged();
 }
 
 void MainView::displayUsers() {
@@ -77,11 +78,10 @@ void MainView::displayUsers() {
 void MainView::rowDoubleClick(int row) {
     QQmlEngine *engine = new QQmlEngine;
     QQmlComponent component(engine);
-    engine->rootContext()->setContextProperty("__packet__", packets.at(row));
+    engine->rootContext()->setContextProperty("__packet__", new EthernetDisplay(packets.at(row)->getPacket()));
     component.loadUrl(QUrl(QStringLiteral("qrc:/views/ethernet.qml")));
     if (component.isReady())
         component.create();
-    std::cout << "ROW : " << row << std::endl;
 }
 
 void MainView::runCapture() {
@@ -116,7 +116,6 @@ void MainView::openCapture(){
 }
 
 void MainView::openFileSelect() {
-    std::cout << "openFile : " << this->openFile.toStdString() << std::endl;
     packets.clear();
     packetsData.clear();
     try {
@@ -126,17 +125,16 @@ void MainView::openFileSelect() {
             packets.push_back(new EthernetDisplay(pkt));
         emit packetsChanged();
     } catch (std::exception e) {
-        std::cout << "Impossible d'ouvrir le fichier : "<< e.what() << std::endl;
+        std::cerr << "Impossible d'ouvrir le fichier : "<< e.what() << std::endl;
     }
 }
 
 void MainView::saveFileSelect() {
-    std::cout << "saveFile : " << this->saveFile.toStdString() << std::endl;
     try {
         PcapHandler pcap(this->saveFile.toStdString());
         pcap.writeFile(packetsData);
     } catch (std::exception e) {
-        std::cout << "Impossible de sauvegarder le fichier : "<< e.what() << std::endl;
+        std::cerr << "Impossible de sauvegarder le fichier : "<< e.what() << std::endl;
     }
 }
 
@@ -144,7 +142,6 @@ void MainView::deleteCapture() {
     packets.clear();
     packetsData.clear();
     emit this->packetsChanged();
-    std::cout << "deleteCapture" << std::endl;
 }
 
 QQmlListProperty<EthernetDisplay> MainView::getPackets() {
@@ -158,7 +155,6 @@ QString MainView::getInterface() const {
 void MainView::setInterface(QString value) {
     this->interface = value;
     emit interfaceChanged();
-    std::cout << "Interface : " << value.toStdString() << std::endl;
 }
 
 QString MainView::getMac() const {
@@ -169,16 +165,8 @@ void MainView::setMac(QString value) {
     this->mac = value;
     this->clientHandler.setUserMac(mac);
     emit macChanged();
-    std::cout << "Mac : " << value.toStdString() << std::endl;
 }
 
 ClientHandler MainView::getClientHandler() const {
     return this->clientHandler;
 }
-//void MainView::addStringFilter() {this->addFilter(new StringFilter);}
-
-/*void MainView::addFilter(Filter *filter) {
-    filter->getWidget()->startConfig();
-    this->filters.append(filter);
-}*/
-

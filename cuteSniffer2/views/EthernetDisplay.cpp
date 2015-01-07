@@ -46,17 +46,24 @@ void EthernetDisplay::setData(QString data) {
     this->data = data;
 }
 
+Ethernet *EthernetDisplay::getPacket() const {
+    return this->packet;
+}
+
 void EthernetDisplay::actualizePacket() {
+    try {
     Ethernet *newPacket = new Ethernet(*this->packet);
     newPacket->setEther_dhost(this->dhost.toStdString());
     newPacket->setEther_shost(this->shost.toStdString());
     //newPacket->setEther_type((unsigned short)this->getType().toShort());
     //TODO - CP Payload
-    RawSocket::getInstance().sendPacket(newPacket);
-    std::cout << "RESEND : " << *newPacket << std::endl;
+    this->packet = newPacket;
+    } catch (std::exception) {
+        std::cerr << "Erreur dans la formation du paquet" << std::endl;
+    }
 }
 
 void EthernetDisplay::sendPacket() {
-    std::cout << "SEND PACKET" << std::endl;
     this->actualizePacket();
+    RawSocket::getInstance().sendPacket(packet);
 }

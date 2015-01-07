@@ -495,8 +495,9 @@ ApplicationWindow {
         y: 150
         width: 780
         height: 270
-        currentRow: -1
+        currentRow: 50
         model: __root__.packets
+
 
         onDoubleClicked: {
             __root__.rowDoubleClick(row)

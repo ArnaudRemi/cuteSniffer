@@ -21,6 +21,7 @@ public:
     QString getShost() const;
     QString getType() const;
     QString getData() const;
+    Ethernet *getPacket() const;
     void setDhost(QString);
     void setShost(QString);
     void setType(QString);

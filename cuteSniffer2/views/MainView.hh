@@ -23,6 +23,7 @@ class MainView : public QObject
     Q_PROPERTY(QString openFile READ getOpenFile WRITE setOpenFile NOTIFY openFileChanged)
     Q_PROPERTY(QString saveFile READ getSaveFile WRITE setSaveFile NOTIFY saveFileChanged)
     Q_PROPERTY(ClientHandler clientHandler READ getClientHandler NOTIFY clientHandlerChanged)
+    Q_PROPERTY(int currentRow READ getCurrentRow NOTIFY currentRowChanged)
 private:
     void initView();
     int initNetwork();
@@ -41,7 +42,7 @@ public:
     void setSaveFile(QString const &saveFile);
     QString getSaveFile() const;
     ClientHandler getClientHandler() const;
-    //void addFilter(Filter *filter);
+    int getCurrentRow() const;
 
 public slots:
     void runCapture();
@@ -55,7 +56,6 @@ public slots:
 
     void openFileSelect();
     void saveFileSelect();
-//    void addStringFilter();
 
 signals:
     void clientHandlerChanged();
@@ -65,7 +65,7 @@ signals:
     void promisciousError();
     void openFileChanged();
     void saveFileChanged();
-
+    void currentRowChanged();
 private:
     QTimer timerSocket;
     ClientHandler clientHandler;
@@ -76,7 +76,6 @@ private:
     QString mac;
     QString openFile;
     QString saveFile;
-//    QList<Filter *> filters;
 };
 
 #endif // MAIN_VIEW_HH__

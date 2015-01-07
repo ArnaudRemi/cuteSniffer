@@ -28,7 +28,9 @@
 
 class RawSocket {
 
-    int sock;
+    int sockRead;
+    int sockWrite;
+    std::string if_name;
     unsigned char *buffer;
     int readSize;
     struct ifreq ifr;
