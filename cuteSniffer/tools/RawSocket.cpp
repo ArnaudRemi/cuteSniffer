@@ -52,6 +52,7 @@ Ethernet *RawSocket::getPacket() {
     fd_set readfds;
     struct timeval timeout;
 
+    memset(&readfds, 0, sizeof(fd_set));
     FD_SET(this->sockRead, &readfds);
     timeout.tv_sec = 0;
     timeout.tv_usec = 0;
