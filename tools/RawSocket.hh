@@ -3,12 +3,15 @@
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <net/ethernet.h>
 #include <netinet/ip_icmp.h>   //Provides declarations for icmp header
 #include <netinet/udp.h>   //Provides declarations for udp header
 #include <netinet/tcp.h>   //Provides declarations for tcp header
 #include <netinet/ip.h>    //Provides declarations for ip header
-#include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
@@ -18,26 +21,31 @@
 #include <stdio.h> //For standard things
 #include <stdlib.h>    //malloc
 #include <string.h>    //memset
+#include <string>
 #include "Ethernet.hh"
 
 #define BUFFER_SIZE 65535
 
 class RawSocket {
 
-    int sock;
-    char *buffer;
+    int sockRead;
+    int sockWrite;
+    std::string if_name;
+    unsigned char *buffer;
     int readSize;
+    struct ifreq ifr;
+    static RawSocket instance;
+
+private:
+    RawSocket();
 
 public:
-    RawSocket();
     ~RawSocket();
-
-    bool goPromiscious(char *if_name);
+    bool runPromiscious(std::string if_name);
+    void stopPromiscious();
     Ethernet *getPacket();
-    /*int readNext();
-    L2_Packet *getPacket();*/
-
-
+    void sendPacket(Ethernet *packet);
+    static RawSocket &getInstance();
 };
 
 #endif

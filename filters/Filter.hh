@@ -1,24 +1,34 @@
-#ifndef		__FILTER
-# define	__FILTER
+#ifndef	__FILTER
+#define	__FILTER
 
 #include <QObject>
-#include "AProtocol.hh"
+#include "FilterWidget.hh"
+#include "Ethernet.hh"
 
-class Filter : public QObject{
+class FilterWidget;
+
+class Filter {
 
 protected:
-    QWidget *window;
+    FilterWidget *widget;
+    bool active;
 
 public:
-    virtual bool isValid(AProtocol *packet) = 0; //AProtocol* ou ASubProtocol*
-    virtual void showConfig() = 0;
+    virtual bool isValid(Ethernet *packet) = 0;
+    virtual void update() = 0;
 
-    QWidget *getWindow() const {
-        return window;
+    void setActive(bool b){
+        this->active = b;
     }
 
-//public slots:
-//    virtual void config() = 0;
+    bool isActive() {
+        return active;
+    }
+
+    FilterWidget *getWidget() const {
+        return widget;
+    }
+
 };
 
 #endif
