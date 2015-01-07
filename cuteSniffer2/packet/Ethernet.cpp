@@ -9,7 +9,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Ethernet.hh"
-#include "Utils.hh"
 
 Ethernet::Ethernet() :
 		AProtocol(NULL, sizeof(Ethernet::s_ethernet)) {

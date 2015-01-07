@@ -4,6 +4,8 @@
 #include <string>
 #include <netinet/in.h>
 
+class Ethernet;
+
 class Utils {
 public:
 	static unsigned char *convertMACToByte(std::string mac);
@@ -17,6 +19,7 @@ public:
     static unsigned char *memncpy(unsigned char *data, int size);
     static std::string convertBrutDataToString(unsigned char *data, int len);
     static unsigned char *convertStringToBrutData(std::string stdstr, int *len);
+	static void modifyValue(Ethernet *packet, std::string tochange, std::string value);
 };
 
 

@@ -207,3 +207,46 @@ unsigned char *Utils::convertStringToBrutData(std::string stdstr, int *len) {
     }
     return ret;
 }
+
+void Utils::modifyValue(Ethernet *packet, std::string tochange, std::string value) {
+    char* buffer = packet->getBuffer();
+    const char* toFind = tochange.c_str();
+    char* tmp;
+    const char* cvalue = value.c_str();
+    char* found = std::search(buffer, buffer + packet->getBufferSize(), toFind, toFind + strlen(toFind));
+
+    if(found < buffer + packet->getBufferSize()) {
+
+        if (tochange.size() != value.size()) {
+            int newsize = packet->getBufferSize()+(tochange.size()-value.size());
+            memcpy(tmp, buffer, packet->getBufferSize());
+            realloc(buffer, newsize);
+            if (tochange.size() < value.size()) {
+                for (int i=0; found+i<found+tochange.size() && found+i<buffer+newsize; i++) {
+                    found[i] = cvalue[i];
+                }
+                for (int i=tochange.size(); found+i<found+value.size() && found+i<buffer+newsize; i++) {
+                    found[i + (tochange.size()-value.size())] = tmp[i];
+                    found[i] = cvalue[i];
+                }
+            }
+            else {
+                for (int i=0; found+i<found+value.size() && found+i<buffer+newsize; i++) {
+                    found[i] = cvalue[i];
+                }
+                for (int i=value.size(); found+i<found+tochange.size() && found+i<buffer+newsize; i++) {
+                    found[i] = tmp[i + (value.size()-tochange.size())];
+                }
+            }
+            packet->setBufferSize(newsize);
+        }
+        else {
+            for (int i=0; found+i<found+tochange.size() && found+i<buffer+packet->getBufferSize(); i++) {
+                found[i] = cvalue[i];
+            }
+        }
+
+        packet->actualizeBuffer();
+        Utils::modifyValue(packet, tochange, value);
+    }
+}

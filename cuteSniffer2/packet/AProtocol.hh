@@ -11,7 +11,9 @@
 #include <type_traits>
 #include <cstring>
 #include <stdlib.h>
+
 #include "Utils.hh"
+class Utils;
 
 class AProtocol {
 protected:
