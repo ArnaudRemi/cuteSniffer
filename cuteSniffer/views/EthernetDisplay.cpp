@@ -9,6 +9,8 @@ EthernetDisplay::EthernetDisplay(Ethernet *packet) : packet(packet) {
     packet->actualizeBuffer();
     shost = packet->getEther_shost().c_str();
     dhost = packet->getEther_dhost().c_str();
+    src = packet->getSource().c_str();
+    dst = packet->getDestination().c_str();
     type = packet->getEther_typeString().c_str();
     dotData = Utils::convertBrutDataToDotString(packet->getBuffer(), packet->getBufferSize()).c_str();
     data = Utils::convertBrutDataToString(packet->getBuffer(), packet->getBufferSize()).c_str();
@@ -34,6 +36,12 @@ QString EthernetDisplay::getDotData() const {
     return this->dotData;
 }
 
+QString EthernetDisplay::getSrc() const {
+    return src;
+}
+QString EthernetDisplay::getDst() const {
+    return dst;
+}
 void EthernetDisplay::setDhost(QString dhost) {
     this->dhost = dhost;
 }

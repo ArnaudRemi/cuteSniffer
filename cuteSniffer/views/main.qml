@@ -525,11 +525,11 @@ ApplicationWindow {
 
         TableViewColumn {
             title: "Source"
-            role: "shost"
+            role: "src"
         }
         TableViewColumn {
             title: "Destination"
-            role: "dhost"
+            role: "dst"
         }
         TableViewColumn {
             title: "Type"

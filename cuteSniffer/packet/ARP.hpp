@@ -151,12 +151,12 @@ public:
 		free(ip);
 	}
 
-	virtual std::string getSource() {
-		return this->getSpa();
-	}
-	virtual std::string getDestination() {
-        return this->getTpa();
-	}
+    virtual std::string getSource() {
+        return T::getSource();
+    }
+    virtual std::string getDestination() {
+        return T::getDestination();
+    }
 
 };
 
